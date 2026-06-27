@@ -22,109 +22,161 @@ const CATEGORY_COLORS: Record<string, string> = {
   ai: "border-purple-700 text-purple-300 bg-purple-900/20",
 };
 
-function downloadReport() {
+async function downloadReport() {
+  const { default: jsPDF } = await import("jspdf");
   const { identity, roles, summary, expertise, skills, knowledgeAreas, impact } = profile;
   const date = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
 
-  const expertiseRows = Object.entries(expertise)
-    .map(([cat, tools]) => `<tr>
-      <td style="padding:4px 12px 4px 0;color:#555;font-weight:600;white-space:nowrap;vertical-align:top">${CATEGORY_LABELS[cat] ?? cat}</td>
-      <td style="padding:4px 0;color:#222">${(tools as string[]).join("  ·  ")}</td>
-    </tr>`)
-    .join("");
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const L = 18;   // left margin
+  const R = 192;  // right margin (210 - 18)
+  const W = R - L;
+  let y = 18;
 
-  const capabilityRows = [
+  const rule = () => {
+    doc.setDrawColor(200);
+    doc.setLineWidth(0.3);
+    doc.line(L, y, R, y);
+    y += 5;
+  };
+
+  const thinRule = () => {
+    doc.setDrawColor(230);
+    doc.setLineWidth(0.2);
+    doc.line(L, y, R, y);
+    y += 4;
+  };
+
+  const sectionLabel = (text: string) => {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7);
+    doc.setTextColor(140);
+    doc.text(text.toUpperCase(), L, y);
+    y += 5;
+  };
+
+  const bodyText = (text: string, color = 60) => {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.5);
+    doc.setTextColor(color);
+    const lines = doc.splitTextToSize(text, W) as string[];
+    doc.text(lines, L, y);
+    y += lines.length * 5 + 1;
+  };
+
+  const rowLine = (label: string, value: string) => {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(100);
+    doc.text(label, L, y);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(50);
+    const valueLines = doc.splitTextToSize(value, W - 44) as string[];
+    doc.text(valueLines, L + 44, y);
+    y += Math.max(valueLines.length * 4.5, 5) + 1;
+  };
+
+  const tagLine = (items: string[]) => {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(70);
+    const line = items.join("   ·   ");
+    const wrapped = doc.splitTextToSize(line, W) as string[];
+    doc.text(wrapped, L, y);
+    y += wrapped.length * 4.8 + 2;
+  };
+
+  // ── Header ──────────────────────────────────────────
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  doc.setTextColor(160);
+  doc.text(`TECHNICAL CAPABILITY REPORT  ·  ${date}`, L, y);
+  y += 7;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(20);
+  doc.setTextColor(10);
+  doc.text(identity.name.toUpperCase(), L, y);
+  y += 8;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(80);
+  doc.text(`${roles.slice(0, 3).join("  ·  ")}`, L, y);
+  y += 5;
+  doc.text(`${identity.location}  ·  ${identity.availability}`, L, y);
+  y += 7;
+
+  rule();
+
+  // ── Summary ─────────────────────────────────────────
+  sectionLabel("Professional Summary");
+  bodyText(summary);
+  y += 1;
+  thinRule();
+
+  // ── Roles ────────────────────────────────────────────
+  sectionLabel("Core Roles");
+  tagLine(roles);
+  y += 1;
+
+  rule();
+
+  // ── Expertise ────────────────────────────────────────
+  sectionLabel("Technical Expertise");
+  for (const [cat, tools] of Object.entries(expertise)) {
+    rowLine(CATEGORY_LABELS[cat] ?? cat, (tools as string[]).join("  ·  "));
+  }
+  y += 1;
+  thinRule();
+
+  // ── Competencies ─────────────────────────────────────
+  sectionLabel("Platform Competencies");
+  tagLine(skills);
+  y += 1;
+
+  rule();
+
+  // ── Delivery Capability ──────────────────────────────
+  sectionLabel("Delivery Capability");
+  const capabilities: [string, string][] = [
     ["CI/CD & Pipelines", knowledgeAreas.cicd],
     ["Infrastructure as Code", knowledgeAreas.terraform],
     ["DevSecOps", knowledgeAreas.devsecops],
     ["Observability & SRE", knowledgeAreas.observability],
     ["AI / GenAI Engineering", knowledgeAreas.ai],
-  ]
-    .map(([label, desc]) => `<tr>
-      <td style="padding:4px 12px 4px 0;color:#555;font-weight:600;white-space:nowrap;vertical-align:top">${label}</td>
-      <td style="padding:4px 0;color:#222;line-height:1.6">${desc}</td>
-    </tr>`)
-    .join("");
+  ];
+  for (const [label, desc] of capabilities) {
+    rowLine(label, desc);
+  }
+  y += 1;
 
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<title>Technical Capability Report — ${identity.name}</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11pt; color: #111; background: #fff; padding: 36px 48px; }
-  @page { size: A4; margin: 18mm 20mm; }
-  .header-label { font-size: 8pt; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
-  h1 { font-size: 22pt; font-weight: 800; letter-spacing: 1px; color: #000; line-height: 1.1; }
-  .subtitle { font-size: 10pt; color: #444; margin-top: 4px; }
-  .divider { border: none; border-top: 1.5px solid #ddd; margin: 14px 0; }
-  .thin-divider { border: none; border-top: 1px solid #eee; margin: 10px 0; }
-  .section-title { font-size: 8pt; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #777; margin-bottom: 8px; }
-  p { line-height: 1.65; color: #333; }
-  table { width: 100%; border-collapse: collapse; }
-  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
-  .tag { font-size: 8.5pt; padding: 2px 9px; border: 1px solid #ccc; border-radius: 50px; color: #444; }
-  .impact-grid { display: flex; gap: 0; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin-top: 4px; }
-  .impact-cell { flex: 1; text-align: center; padding: 8px 4px; border-right: 1px solid #ddd; }
-  .impact-cell:last-child { border-right: none; }
-  .impact-num { font-size: 15pt; font-weight: 800; color: #000; }
-  .impact-label { font-size: 7.5pt; color: #888; margin-top: 1px; }
-  .footer { margin-top: 18px; font-size: 8pt; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
-</style>
-</head>
-<body>
+  rule();
 
-<p class="header-label">Technical Capability Report &nbsp;·&nbsp; ${date}</p>
-<h1>${identity.name.toUpperCase()}</h1>
-<p class="subtitle">${roles.slice(0, 3).join("  ·  ")}<br/>${identity.location}  ·  ${identity.availability}</p>
+  // ── Impact ───────────────────────────────────────────
+  sectionLabel("Impact at Scale");
+  const metrics = [
+    `${impact.clusters} Kubernetes Clusters`,
+    `${impact.regions} Global Regions`,
+    `${impact.pipelines}+ Pipelines`,
+    `${impact.uptime} Uptime SLA`,
+  ];
+  tagLine(metrics);
 
-<hr class="divider"/>
+  rule();
 
-<p class="section-title">Professional Summary</p>
-<p>${summary}</p>
+  // ── Footer ───────────────────────────────────────────
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  doc.setTextColor(160);
+  doc.text(
+    `vikashjaiswal.486@gmail.com  ·  github.com/vikas0486  ·  ${identity.location}`,
+    105,
+    y,
+    { align: "center" }
+  );
 
-<hr class="thin-divider"/>
-
-<p class="section-title">Core Roles</p>
-<div class="tags">${roles.map(r => `<span class="tag">${r}</span>`).join("")}</div>
-
-<hr class="divider"/>
-
-<p class="section-title">Technical Expertise</p>
-<table>${expertiseRows}</table>
-
-<hr class="thin-divider"/>
-
-<p class="section-title">Platform Competencies</p>
-<div class="tags">${skills.map(s => `<span class="tag">${s}</span>`).join("")}</div>
-
-<hr class="divider"/>
-
-<p class="section-title">Delivery Capability</p>
-<table>${capabilityRows}</table>
-
-<hr class="divider"/>
-
-<p class="section-title">Impact at Scale</p>
-<div class="impact-grid">
-  <div class="impact-cell"><div class="impact-num">${impact.clusters}</div><div class="impact-label">Kubernetes Clusters</div></div>
-  <div class="impact-cell"><div class="impact-num">${impact.regions}</div><div class="impact-label">Global Regions</div></div>
-  <div class="impact-cell"><div class="impact-num">${impact.pipelines}+</div><div class="impact-label">Pipelines Managed</div></div>
-  <div class="impact-cell"><div class="impact-num">${impact.uptime}</div><div class="impact-label">Uptime SLA</div></div>
-</div>
-
-<div class="footer">vikashjaiswal.486@gmail.com &nbsp;·&nbsp; github.com/vikas0486 &nbsp;·&nbsp; ${identity.location}</div>
-
-<script>window.onload = function(){ window.print(); }<\/script>
-</body>
-</html>`;
-
-  const blob = new Blob([html], { type: "text/html" });
-  const url = URL.createObjectURL(blob);
-  const win = window.open(url, "_blank");
-  if (win) win.focus();
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
+  doc.save("Vikash-Jaiswal-Capability-Report.pdf");
 }
 
 export default function SkillSnapshot() {
