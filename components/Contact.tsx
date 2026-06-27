@@ -46,8 +46,8 @@ export default function Contact() {
             {
               icon: Clock,
               label: "Availability",
-              value: "15 Days Notice",
-              sub: "Currently employed at Devo",
+              value: "Immediately",
+              sub: "Previous employed at Devo",
             },
             {
               icon: Mail,
@@ -117,7 +117,7 @@ export default function Contact() {
               aria-label={label}
               className="hover:text-white transition-colors duration-150"
             >
-              <Icon size={22} />
+              <Icon size={30} />
             </a>
           ))}
         </motion.div>
