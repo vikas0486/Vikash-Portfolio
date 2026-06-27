@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import EngineeringChat from "@/components/EngineeringChat";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+// ✅ Lazy load AI Chat (IMPORTANT for performance + avoids build stress)
+const EngineeringChat = dynamic(
+  () => import("@/components/EngineeringChat"),
+  { ssr: false }
+);
 
 const sections = [
   {
@@ -32,28 +38,28 @@ export default function Engineering() {
     <section className="min-h-screen bg-black text-white px-6 py-20">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
-        <motion.h1
+        {/* HEADER */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold mb-4"
         >
-          Engineering Case Studies
-        </motion.h1>
+          <h1 className="text-5xl font-bold mb-4 text-white">
+            Engineering Case Studies
+          </h1>
 
-        <p className="text-zinc-400 mb-12 max-w-2xl">
-          A structured breakdown of real-world DevOps, Cloud, and Platform Engineering scenarios.
-        </p>
+          <p className="text-zinc-400 mb-12 max-w-2xl">
+            A structured breakdown of real-world DevOps, Cloud, and Platform Engineering scenarios.
+          </p>
+        </motion.div>
 
-        {/* Grid */}
+        {/* GRID */}
         <div className="grid md:grid-cols-2 gap-6">
-          
           {sections.map((item, index) => (
             <motion.div
               key={item.slug}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
               className="p-6 border border-zinc-800 rounded-xl hover:border-cyan-500 transition"
             >
               <h2 className="text-xl font-semibold text-cyan-400">
@@ -70,8 +76,27 @@ export default function Engineering() {
               </Link>
             </motion.div>
           ))}
-
         </div>
+
+        {/* AI ENGINEERING ASSISTANT */}
+        <div className="mt-20 border-t border-zinc-800 pt-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <h2 className="text-2xl font-semibold text-cyan-400 mb-4">
+              🧠 Ask Vikash Architecture
+            </h2>
+
+            <p className="text-zinc-500 mb-6">
+              Ask real DevOps / Cloud / System Design questions. Built on my engineering experience.
+            </p>
+
+            {/* Lazy loaded = prevents build + hydration load spike */}
+            <EngineeringChat />
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );

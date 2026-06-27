@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
+  { href: "/engineering", label: "Engineering" },
 ];
 
 export default function Navbar() {
@@ -45,7 +46,11 @@ export default function Navbar() {
             <a
               key={href}
               href={href}
-              className="text-zinc-400 hover:text-white text-sm font-medium transition-colors duration-150"
+              className={
+                label === "Engineering"
+                  ? "text-cyan-400 hover:text-cyan-300 text-sm font-semibold border border-cyan-800 px-3 py-1 rounded-lg hover:border-cyan-500 transition-all duration-150"
+                  : "text-zinc-400 hover:text-white text-sm font-medium transition-colors duration-150"
+              }
             >
               {label}
             </a>

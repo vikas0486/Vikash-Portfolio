@@ -1,93 +1,62 @@
 "use client";
 
-import { motion } from "framer-motion";
-import EngineeringChat from "@/components/EngineeringChat";
+import { useState } from "react";
 
-const sections = [
-  {
-    title: "CI/CD Architecture",
-    desc: "Jenkins vs GitHub Actions, pipelines, rollback strategies",
-    slug: "cicd",
-  },
-  {
-    title: "Terraform & State Management",
-    desc: "Remote state, locking, multi-env infrastructure design",
-    slug: "terraform-state",
-  },
-  {
-    title: "DevSecOps Implementation",
-    desc: "SAST, DAST, secrets management, IAM security patterns",
-    slug: "devsecops",
-  },
-  {
-    title: "Observability Stack",
-    desc: "Prometheus, Grafana, OpenTelemetry pipelines",
-    slug: "observability",
-  },
-  {
-    title: "Real Interview Scenarios",
-    desc: "System design + DevOps problem-solving questions",
-    slug: "interview-scenarios",
-  },
-];
+export default function EngineeringChat() {
+  const [question, setQuestion] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [answer, setAnswer] = useState("");
 
-export default function Engineering() {
+  const askQuestion = async () => {
+    if (!question.trim()) return;
+
+    setLoading(true);
+    setAnswer("");
+
+    try {
+      const res = await fetch("/api/ask-engineer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question }),
+      });
+
+      const data = await res.json();
+      setAnswer(data.answer);
+    } catch {
+      setAnswer("❌ Error fetching response");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <section className="min-h-screen bg-black text-white px-6 py-20">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold mb-4"
+    <div className="mt-6 space-y-4">
+      {/* INPUT BOX (THIS WAS MISSING) */}
+      <div className="flex gap-3">
+        <input
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Ask CI/CD, Terraform, Kubernetes, AWS..."
+          className="flex-1 px-4 py-3 rounded-lg bg-zinc-900 border border-zinc-700 text-white focus:outline-none focus:border-cyan-500"
+        />
+
+        <button
+          onClick={askQuestion}
+          disabled={loading}
+          className="px-5 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition"
         >
-          Engineering Case Studies
-        </motion.h1>
-
-        <p className="text-zinc-400 mb-12 max-w-3xl">
-          Real-world DevOps, Cloud, Platform Engineering, Terraform, Kubernetes,
-          and CI/CD scenarios based on production experience, architecture
-          decisions, and modern engineering practices.
-        </p>
-
-        {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {sections.map((item, index) => (
-            <motion.a
-              key={item.title}
-              href={`/engineering/${item.slug}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="
-                block
-                p-6
-                border
-                border-zinc-800
-                rounded-xl
-                bg-zinc-950
-                hover:border-cyan-500
-                hover:-translate-y-1
-                transition-all
-                duration-300
-              "
-            >
-              <h2 className="text-xl font-semibold text-cyan-400">
-                {item.title}
-              </h2>
-
-              <p className="text-zinc-400 mt-2">{item.desc}</p>
-
-              <div className="mt-4 text-sm text-white">
-                Open Case Study →
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* AI Engineering Assistant */}
-        <EngineeringChat />
+          {loading ? "Thinking..." : "Ask"}
+        </button>
       </div>
-    </section>
+
+      {/* ANSWER BOX */}
+      {answer && (
+        <div className="mt-6 p-5 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-200 whitespace-pre-wrap">
+          {answer}
+        </div>
+      )}
+    </div>
   );
 }

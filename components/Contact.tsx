@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaMedium } from "react-icons/fa";
 import { Mail, MapPin, Clock } from "lucide-react";
+import SkillSnapshot from "@/components/SkillSnapshot";
 
 export default function Contact() {
   return (
@@ -85,15 +86,7 @@ export default function Contact() {
             <Mail size={16} />
             vikashjaiswal.486@gmail.com
           </a>
-          <a
-            href="https://www.linkedin.com/in/linked2vikashjaiswal/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-semibold px-8 py-4 rounded-xl transition-colors duration-150 text-sm"
-          >
-            <FaLinkedin size={16} />
-            LinkedIn Profile
-          </a>
+          <SkillSnapshot />
         </motion.div>
 
         {/* Social row */}
