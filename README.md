@@ -1,6 +1,27 @@
 # README.md
 
-# Vikash Portfolio v2 — AI, DevOps & Platform Engineering Portfolio
+# 🚀 Vikash Portfolio — AI, DevOps & Platform Engineering Portfolio
+
+Platform Engineering | DevOps | AWS | Terraform | Kubernetes | AI
+
+🌐 **Live Portfolio:**
+https://vikash-portfolio-alpha.vercel.app
+
+## Engineering Hub
+
+- CI/CD Architecture
+- Terraform State Management
+- DevSecOps Implementation
+- Observability Stack
+- AI Engineering Assistant
+
+## Featured Work
+
+👉 Live Demo:
+https://vikash-portfolio-alpha.vercel.app
+
+👉 Engineering Case Studies:
+https://vikash-portfolio-alpha.vercel.app/engineering
 
 > Enterprise-grade personal portfolio showcasing 15+ years of experience across Cloud, DevOps, Platform Engineering, GenAI, Observability, and Infrastructure Automation.
 

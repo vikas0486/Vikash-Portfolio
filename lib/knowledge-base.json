@@ -1,0 +1,351 @@
+{
+  "meta": {
+    "generated": "2026-06-28",
+    "owner": "Vikash Jaiswal",
+    "total_chunks": 62
+  },
+  "chunks": [
+    {
+      "id": "profile-overview",
+      "source": "Profile",
+      "type": "profile",
+      "heading": "Who is Vikash Jaiswal",
+      "body": "Vikash Jaiswal is a Lead Platform Engineer and Principal DevOps Architect with 16+ years engineering enterprise-scale cloud and AI platforms. Based in Noida / Gurgaon, India. He designs and operates Kubernetes infrastructure across 19 clusters in 7 global regions, builds multi-LLM AI systems from scratch, and specialises in DevSecOps, RAG architectures, and AI Gateway design. Available immediately for Staff/Principal roles in Platform Engineering or AI Infrastructure.",
+      "tags": ["vikash", "profile", "experience", "platform engineer", "devops", "architect", "lead", "16 years"]
+    },
+    {
+      "id": "profile-impact",
+      "source": "Profile",
+      "type": "profile",
+      "heading": "Key Impact Numbers",
+      "body": "19 Kubernetes clusters managed across 7 global regions. 100+ CI/CD pipelines. 99.99% uptime SLA maintained. 11 domain AI skill packs authored. 10 LLM providers integrated in forge-router. ~60% reduction in engineer troubleshooting ramp-up time from AI FORGE deployment. Zero-secret credential architecture with no credential leakage incidents.",
+      "tags": ["impact", "scale", "kubernetes", "uptime", "metrics", "clusters", "regions"]
+    },
+    {
+      "id": "project-ai-forge-overview",
+      "source": "AI FORGE",
+      "type": "project",
+      "heading": "AI FORGE — Enterprise AI Agent Operating System",
+      "body": "AI FORGE (CRESCENT) is an enterprise AI Agent Operating System built on Claude Sonnet via AWS Bedrock. It transforms standard AI assistants into domain-expert platform engineers with persistent cross-session memory, vault-grade security, and modular intelligence. The Crescent Architecture wraps every platform interaction through unified scripts so credentials never enter the AI context. 11 domain skill packs cover Kubernetes, Vault, Jenkins, Jira, MySQL, alerts, security, and query engines. Deployed across 7 global regions managing 19 EKS clusters.",
+      "tags": ["ai forge", "enterprise", "claude", "bedrock", "agent", "kubernetes", "vault", "memory", "skill packs", "crescent"]
+    },
+    {
+      "id": "project-ai-forge-architecture",
+      "source": "AI FORGE",
+      "type": "architecture",
+      "heading": "Crescent Architecture Pattern",
+      "body": "The Crescent Architecture is a wrapper-first pattern. Engineers invoke slash commands that map to domain skill packs. Skills invoke unified CLI wrappers with auth injected at runtime from ~/.platform/credentials. Wrappers call platform APIs: Maqui LINQ query engine, MySQL/RDS, Vault/OpenBao, EKS clusters. A Global Brain CLAUDE.md is always loaded. Persistent cross-session memory retains behavioral corrections and incident context. Structural deny-list blocks destructive operations at shell level before they reach the AI layer.",
+      "tags": ["crescent", "architecture", "slash commands", "wrapper", "auth injection", "global brain", "memory", "deny list", "safety"],
+      "mermaid": "```mermaid\ngraph TD\n    User[Engineer / AI Agent] -- Slash Commands --> Skills[11 Domain Skills]\n    Skills -- Unified Wrappers --> Tools[CLI Wrappers & Aliases]\n    Tools -- Auth Injected --> APIs[Platform APIs / Services]\n    \n    subgraph Core_Services [Platform Services]\n        APIs -- Query LINQ --> Malote[Query Engine]\n        APIs -- MySQL --> RDS[Installation/Affinity DB]\n        APIs -- Vault --> Secrets[Vault/OpenBao]\n        APIs -- K8s --> EKS[19+ Clusters]\n    end\n\n    subgraph Config_Layer [Local Config]\n        Memory[(Persistent Memory)]\n        Settings[Settings.json / Permissions]\n        Creds[~/.platform/credentials]\n    end\n\n    User -.-> Memory\n    User -.-> Settings\n    User -.-> Creds\n```"
+    },
+    {
+      "id": "project-ai-forge-rag",
+      "source": "AI FORGE",
+      "type": "architecture",
+      "heading": "AI FORGE RAG Evolution — 7 Phase Roadmap",
+      "body": "Phase 1 (complete): File-based primitive RAG — 11 SKILL.md files loaded deterministically, 3200 token baseline. Phase 2: Compact 200-token skill headers, 90% token reduction for exploration. Phase 3: ChromaDB embedded chunk retrieval, 83% token reduction. Phase 4: Qdrant on EKS with hybrid BM25 + dense vector search, corpus expansion to Confluence, Jira, GitLab ADRs. Phase 5: Cross-encoder reranking with ms-marco-MiniLM-L-6-v2. Phase 6: forge-router AI Gateway integration — rate limiting, circuit breaker, PII routing. Phase 7: LLM-as-a-Judge continuous improvement loop with DORA KPIs.",
+      "tags": ["rag", "chromadb", "qdrant", "bm25", "vector search", "reranking", "knowledge base", "token budget", "langfuse"]
+    },
+    {
+      "id": "project-ai-forge-security",
+      "source": "AI FORGE",
+      "type": "skill",
+      "heading": "Zero-Secret Credential Architecture",
+      "body": "Credentials are never in AI context, git history, or logs. All platform credentials live in a single ~/.platform/credentials file sourced at runtime by wrapper scripts. The AI agent never sees raw tokens or passwords — it sees only the command output. Structural deny-list blocks rm -rf, reboot, rollout restart, delete, drain at the shell wrapper level before execution. All destructive operations require explicit human confirmation. Read-only defaults across all platform integrations.",
+      "tags": ["security", "zero secret", "vault", "credentials", "deny list", "safety", "human in the loop", "devsecops"]
+    },
+    {
+      "id": "project-ai-forge-skills",
+      "source": "AI FORGE",
+      "type": "project",
+      "heading": "11 Domain Skill Packs",
+      "body": "devo-query: Maqui LINQ and Malote query engine operations. devo-infra: EKS cluster management across 7 regions, Terraform, Helm, Karpenter. devo-tools: DevTool platform wrappers and GitLab integration. devo-database: MySQL/RDS schema management and query optimization. devo-alert: Prometheus/Grafana/Dynatrace alert triage and runbook automation. devo-security: Vault/OpenBao secrets management, IAM policy auditing. devo-devtool: Developer tooling, build system integration. devo-jira: Ticket lifecycle management and sprint automation. automation-offboarding: Employee offboarding credential revocation workflows. automation-resilience-infra: Chaos engineering and resilience testing patterns. automation-tabularasa: Clean-slate environment provisioning.",
+      "tags": ["skills", "kubernetes", "jira", "vault", "mysql", "prometheus", "grafana", "jenkins", "terraform", "helm"]
+    },
+    {
+      "id": "project-forge-router-overview",
+      "source": "forge-router",
+      "type": "project",
+      "heading": "forge-router — Multi-LLM Orchestration Engine",
+      "body": "forge-router is a production-ready multi-LLM routing engine built in Python. It routes prompts across 10 AI providers using intent-based classification and health-check-first automatic fallback. Providers: Groq (LLaMA 3.3 70B), Antigravity (Gemini Flash), Claude (Anthropic), OpenAI (GPT-4o), Codex, Copilot, Hermes, Gemini, Sakana AI, Ollama (local). Embedded FAISS + SQLite RAG knowledge base with auto-consolidation. Native macOS WKWebView live preview window for rendering mermaid diagrams. Interactive TUI with prompt-toolkit and Rich. Intent-tuned timeouts: chat 15s, code 30s, reasoning 45s, agentic 60s.",
+      "tags": ["forge-router", "multi-llm", "routing", "groq", "claude", "openai", "gemini", "ollama", "rag", "faiss", "python"]
+    },
+    {
+      "id": "project-forge-router-architecture",
+      "source": "forge-router",
+      "type": "architecture",
+      "heading": "forge-router System Architecture",
+      "body": "RouterEngine classifies intent via sub-1ms regex matching (code/reasoning/agentic/summarization/chat). Each intent maps to an ordered provider list. Engine checks health first, attempts the highest-priority available provider, falls back automatically on failure or timeout. RoutingContext preserves multi-turn conversation history across provider switches. FAISS IndexFlatIP (768-dim cosine) stores interaction embeddings from nomic-embed-text via Ollama. Auto-consolidation extracts key facts every 10 interactions via Groq. Per-provider quality scoring via observability module. Two-tier preview lifecycle: HTTP server on :7654 stays bound for the full session, WKWebView window toggled independently.",
+      "tags": ["intent routing", "fallback", "faiss", "embeddings", "nomic", "health check", "context", "preview"],
+      "mermaid": "```mermaid\ngraph TD\n    User([Developer / AI Agent])\n    CLI[forge CLI<br/>chat · ask · status · doctor]\n    Chat[ForgeChat REPL<br/>prompt-toolkit · Rich]\n    Router[RouterEngine<br/>intent classify → fallback chain]\n\n    subgraph Providers [10 LLM Providers]\n        P1[Groq — LLaMA 3.3 70B]\n        P2[Antigravity — Gemini Flash]\n        P3[Claude — Anthropic]\n        P4[OpenAI — GPT-4o]\n        P5[Codex — Code specialist]\n        P6[Hermes — Reasoning]\n        P7[Gemini — Google]\n        P8[Sakana AI]\n        P9[Copilot — GitHub]\n        P10[Ollama — Local / Offline]\n    end\n\n    subgraph Memory [Knowledge Base]\n        KB[FAISS IndexFlatIP<br/>768-dim cosine]\n        DB[(SQLite<br/>interactions · memories)]\n        EMB[nomic-embed-text<br/>via Ollama]\n    end\n\n    User --> CLI --> Chat --> Router\n    Router --> P1 & P2 & P3 & P4 & P5\n    Router --> P6 & P7 & P8 & P9 & P10\n    Router --> KB\n    KB --> DB\n    KB --> EMB\n    Router --> OBS[Observability<br/>per-provider quality scores]\n```"
+    },
+    {
+      "id": "project-forge-router-routing-table",
+      "source": "forge-router",
+      "type": "architecture",
+      "heading": "Intent-Based Provider Routing Table",
+      "body": "Chat (15s timeout): Groq → Antigravity → Claude → OpenAI → Hermes → Ollama. Summarization (20s): Antigravity → Groq → Claude → OpenAI → Ollama. Code (30s): Codex → Claude → Hermes → OpenAI → Groq → Ollama. Reasoning (45s): Hermes → Claude → OpenAI → Groq → Sakana → Antigravity → Ollama. Agentic (60s): Claude → OpenAI → Hermes → Groq → Antigravity → Ollama. Ollama is always the final local fallback for data-sensitive or offline scenarios.",
+      "tags": ["routing", "intent", "groq", "claude", "codex", "ollama", "timeout", "fallback chain"]
+    },
+    {
+      "id": "project-ai-gateway-governance",
+      "source": "AI Gateway",
+      "type": "architecture",
+      "heading": "AI Gateway Governance Design",
+      "body": "Production AI Gateway built on forge-router with: Tier 0 — async observability (non-blocking). Tier 1 — synchronous fast path under 2ms: rate limiter (token bucket per agent tier), circuit breaker (CLOSED/OPEN/HALF-OPEN state machine), token budget enforcer, prompt injection detector. Tier 2 — data classification: PII classifier routes confidential queries to Ollama (local), data sovereignty enforcement. Tier 3 — semantic cache (cosine similarity ≥ 0.95 returns cached response). Tier 4 — multi-agent competition. Tier 5 — DORA KPIs async (deploy frequency, lead time, MTTR, change failure rate). Tier 6 — immutable audit trail per request ID.",
+      "tags": ["ai gateway", "rate limiting", "circuit breaker", "pii", "token budget", "semantic cache", "audit", "dora", "governance"],
+      "mermaid": "```mermaid\ngraph TD\n    subgraph KS[Enterprise Knowledge Sources]\n        SKILL[SKILL.md · 11 Domains]\n        CF[Confluence Runbooks]\n        GL[GitLab ADRs]\n    end\n    subgraph GW[AI Gateway · Governance Layer]\n        direction LR\n        RL[Rate Limiter<br/>Token Bucket / Agent]\n        CB[Circuit Breaker<br/>State Machine]\n        PII[PII Classifier<br/>Data Sovereignty]\n        SC[Semantic Cache<br/>Similarity ≥ 0.95]\n        TBE[Token Budget Enforcer]\n        PI[Prompt Injection Detector]\n    end\n    subgraph ROUTER[Multi-LLM Router]\n        GRQ[Groq · Fast · Low-Cost]\n        CLA[Claude · Deep Reasoning]\n        GEM[Gemini Flash · Default]\n        OLL[Ollama · Confidential Only]\n    end\n    KS --> GW\n    GW --> ROUTER\n    PII -- confidential --> OLL\n    ROUTER --> OBS[Observability / DORA / Audit]\n```"
+    },
+    {
+      "id": "project-forgestream-overview",
+      "source": "AI-ForgeStream",
+      "type": "project",
+      "heading": "AI-ForgeStream — Kubernetes-Native Media Processing",
+      "body": "AI-ForgeStream is a Kubernetes-native automated media transcoding platform. A FastAPI control plane dynamically spawns ephemeral Kubernetes Job pods running FFmpeg for EBU R128 loudness normalization and HLS ABR transcoding. Output: 1080p/720p/480p HLS segments with master playlist, ITU-R BS.1770-4 compliant. Full Terraform IaC manages the Kubernetes namespace, PVC, RBAC, ServiceAccount, and ConfigMaps. Docker image: Alpine-based multi-role ffmpeg-forge:2.0. Verified telemetry: 81.9 seconds processing, -16.1 LUFS measured, target -24.0 LUFS.",
+      "tags": ["kubernetes", "ffmpeg", "hls", "fastapi", "terraform", "docker", "media", "transcoding", "ebu r128", "jobs"]
+    },
+    {
+      "id": "project-forgestream-architecture",
+      "source": "AI-ForgeStream",
+      "type": "architecture",
+      "heading": "AI-ForgeStream Kubernetes Job Architecture",
+      "body": "Client POSTs job to FastAPI control plane pod. Control plane creates a Kubernetes Job spec via Python SDK. Job pod mounts shared PVC at /data, reads source video, runs 2-pass FFmpeg loudness normalization (loudnorm filter, 48kHz stereo), transcodes to ABR ladder (1080p@4500kbps, 720p@2200kbps, 480p@800kbps), writes HLS m3u8 playlists and TS segments, writes metrics.json report, then terminates cleanly. Client polls GET /jobs/logs/{job_name} for streaming output.",
+      "tags": ["kubernetes jobs", "fastapi", "ffmpeg", "pvc", "shared storage", "rbac", "python sdk", "hls", "abr"],
+      "mermaid": "```mermaid\ngraph TD\n    Client([API Client]) -->|POST /jobs/submit| API[FastAPI Control Plane Pod]\n    API -->|Create Job Spec| KubeAPI[Kubernetes Control Plane]\n    KubeAPI -->|Schedule| Worker[FFmpeg Worker Job Pod]\n    \n    subgraph Storage\n        PVC[(media-storage PVC)]\n    end\n    \n    API -->|Mount /data| PVC\n    Worker -->|Mount /data| PVC\n    Worker -->|Read source| PVC\n    Worker -->|Execute FFmpeg| Worker\n    Worker -->|Write HLS + metrics| PVC\n    Worker -->|Exit 0| KubeAPI\n```"
+    },
+    {
+      "id": "project-ebs-resize-overview",
+      "source": "EBS_Resize",
+      "type": "project",
+      "heading": "EBS Auto-Resize — Event-Driven Disk Management with Slack Approval",
+      "body": "Automated AWS EBS disk management pipeline with Slack-assisted human-in-the-loop confirmation. CloudWatch monitors disk space thresholds. When triggered, SNS sends to a centralized eu-west-1 Lambda hub (ExecuteAnalysis). Lambda analyzes storage inefficiencies across multiple XFS mount points (/var/logt/tr0/b00/t02, /var/logt/tr0/b01/t02), reports to Slack, and awaits operator EXPAND command. Slack slash command hits API Gateway → ExecuteResize Lambda. Resize Lambda calls Boto3 EBS modify_volume (25% safety cap), then SSM RunCommand to grow XFS filesystem (xfs_growfs). HMAC SHA256 signature verification prevents replay attacks.",
+      "tags": ["aws", "ebs", "lambda", "cloudwatch", "sns", "slack", "ssm", "xfs", "boto3", "automation", "serverless", "event driven"]
+    },
+    {
+      "id": "project-ebs-resize-architecture",
+      "source": "EBS_Resize",
+      "type": "architecture",
+      "heading": "EBS Resize Event-Driven Architecture",
+      "body": "Regional CloudWatch alarms per EC2 datanode → SNS → centralized API Gateway (eu-west-1) → ExecuteAnalysis Lambda → Slack report. Operator sends /expand → Slack Slash Command → API Gateway → ExecuteResize Lambda → Boto3 modify_volume → EBS → SSM RunCommand → xfs_growfs on EC2. Security: HMAC SHA256 request signing, 6-hour EBS modification cooldown, 25% maximum single-step growth cap, XFS-only filesystem support.",
+      "tags": ["event driven", "serverless", "cloudwatch", "lambda", "slack", "hmac", "ebs modify", "xfs growfs"],
+      "mermaid": "```mermaid\ngraph TD\n    subgraph Regional\n        A[EC2 Datanode] -- posts metrics --> B(CloudWatch Alarms)\n        B -- threshold breach --> C(Amazon SNS)\n    end\n    subgraph Centralized [Centralized: eu-west-1]\n        D{API Gateway}\n        E[Lambda: ExecuteAnalysis]\n        F[Lambda: ExecuteResize]\n        G{API Gateway}\n    end\n    C --> D --> E\n    E -- analysis report --> H[Slack]\n    I[Operator] -- /expand --> H\n    H -- slash command --> G --> F\n    F -- modify_volume + xfs_growfs --> J[EBS Volumes]\n```"
+    },
+    {
+      "id": "project-ai-router-overview",
+      "source": "ai-router",
+      "type": "project",
+      "heading": "ai-router — Node.js Multi-LLM Router (v1)",
+      "body": "ai-router is the Node.js predecessor to forge-router. Interactive chat CLI with persistent JSON-based session memory (chat-history.json, max 50 messages). Priority-ordered provider failover: Gemini CLI → Groq API → Ollama (local) → GitHub Copilot CLI → OpenAI API. Readline-based TUI with chalk coloring and ora spinners. Commands: /model, /history, /clear, /exit. This project demonstrates the evolution of multi-LLM routing concepts from Node.js to the more capable Python forge-router implementation.",
+      "tags": ["ai-router", "nodejs", "multi-llm", "gemini", "groq", "ollama", "copilot", "openai", "routing", "chat", "json memory"]
+    },
+    {
+      "id": "skill-rag",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "RAG — Retrieval-Augmented Generation",
+      "body": "RAG is an architectural pattern that enhances LLM responses with retrieved context from an external knowledge base. Core pipeline: Chunking (fixed-size / semantic / recursive) → Embedding (numerical vector representation) → Vector Store → Retrieval (cosine/L2/dot product similarity) → Augmentation (prepend context to prompt) → Generation. Ingestion pipeline: Document → Preprocessing → Chunking → Embedding → Vector DB. Retrieval pipeline: Query → Embedding → Vector Search → Context Retrieval. AWS implementations: Bedrock Knowledge Bases (managed RAG), OpenSearch k-NN (vector store), EKS with LangChain workers. Production concerns: recall vs precision, re-ranking with cross-encoder, metadata filtering, avoiding 'lost in the middle' problem, preventing stale data.",
+      "tags": ["rag", "retrieval", "embeddings", "vector search", "chunking", "langchain", "bedrock", "opensearch", "reranking"]
+    },
+    {
+      "id": "skill-agents",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "AI Agents — Architecture and Patterns",
+      "body": "AI agents follow the ReAct loop: Thought → Action → Observation → repeat. Core components: Tool Use (function calling), Memory (in-context + external vector DB), Planning (task decomposition), Persona (behavioral role). Multi-agent systems use Orchestrator pattern: one planner agent decomposes tasks, multiple executor agents run in parallel, a critic agent evaluates results. AWS: Agents for Amazon Bedrock with Lambda as tool endpoints, EKS for LangGraph/CrewAI orchestration. Production pitfalls: infinite loops (max iterations guard), prompt injection in tool outputs, over-complexity, token cost per loop iteration.",
+      "tags": ["agents", "react loop", "tool use", "function calling", "multi-agent", "langgraph", "crewai", "orchestrator", "bedrock agents"]
+    },
+    {
+      "id": "skill-llm",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "LLM Architecture and Production Deployment",
+      "body": "Transformer architecture: encoder-decoder (T5, BART) vs decoder-only (GPT, Claude, Llama). Key parameters: tokens, context window, temperature (randomness), top-p (nucleus sampling). Fine-tuning vs RAG trade-offs: fine-tuning for style/domain adaptation, RAG for factual grounding with fresh data. AWS deployment options: Bedrock (serverless, managed), SageMaker (custom hosting and fine-tuning), EKS + vLLM/TGI + Karpenter (self-managed, GPU nodes). Production metrics: TTFT (time to first token), TPOT (time per output token), model quantization (FP16 → INT8/INT4 for memory efficiency).",
+      "tags": ["llm", "transformer", "fine-tuning", "bedrock", "sagemaker", "vllm", "tgi", "karpenter", "gpu", "quantization", "ttft"]
+    },
+    {
+      "id": "skill-kubernetes-ai",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "Kubernetes for AI Workloads",
+      "body": "GPU scheduling with NVIDIA/AMD device plugins and time-slicing for shared GPU access. Karpenter for autoscaling G5/P4/Trn1 GPU instance types on AWS. Inference servers: vLLM (fast inference, continuous batching), TGI (Text Generation Inference), KServe (model serving standard). Kueue for job queuing and fair scheduling. KEDA for event-driven autoscaling on custom metrics like pending queue depth, token count, or LLM latency. AWS: NVIDIA Device Plugin, Neuron Device Plugin (Trainium/Inferentia), VPC Lattice for east-west traffic. Pitfalls: GPU cold starts (use Warm Pools), VRAM contention between models, scheduling delays for large jobs.",
+      "tags": ["kubernetes", "gpu", "nvidia", "karpenter", "vllm", "tgi", "kserve", "keda", "kueue", "trainium", "inferentia", "ai workloads"]
+    },
+    {
+      "id": "skill-mcp",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "MCP — Model Context Protocol",
+      "body": "MCP is an open standard for connecting AI assistants to external data and tools. Core primitives: Servers (expose capabilities), Clients (consume them), Resources (data — files, DB, APIs), Tools (actions — code execution, API calls), Prompts (reusable templates). Transport: JSON-RPC over stdio (local, low-latency) or HTTP/SSE (remote, web-compatible). AI FORGE naturally aligns with MCP: skill wrappers → Tools, SKILL.md files → Resources, CLAUDE.md → Prompts, claude-skills.json → Tool Definitions. AWS: Lambda as MCP server (SSE transport), EKS microservices via VPC Lattice, IAM execution roles per MCP server.",
+      "tags": ["mcp", "model context protocol", "tools", "resources", "prompts", "json-rpc", "sse", "lambda", "ai forge alignment"]
+    },
+    {
+      "id": "skill-vector-db",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "Vector Databases",
+      "body": "Vector DBs store high-dimensional embeddings and enable fast approximate nearest-neighbour search. Indexing algorithms: HNSW (Hierarchical Navigable Small World — high recall, high memory), IVF (Inverted File Index — lower memory, batch indexing), Flat (exact search, small datasets). Similarity metrics: cosine (semantic similarity), L2/Euclidean (geometric distance), dot product. Metadata filtering narrows search space before vector scoring. Options: FAISS (in-process, CPU-only, no server), Qdrant (Rust, hybrid BM25+dense, self-hosted or cloud), ChromaDB (embedded Python, easy dev), Pinecone (managed cloud), pgvector (Postgres extension). AWS: OpenSearch k-NN, Aurora pgvector, EKS with Qdrant/Milvus/Weaviate via Helm.",
+      "tags": ["vector db", "faiss", "qdrant", "chromadb", "pinecone", "pgvector", "hnsw", "ivf", "embeddings", "similarity search", "bm25"]
+    },
+    {
+      "id": "skill-langgraph",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "LangGraph — Stateful Agent Orchestration",
+      "body": "LangGraph models agentic workflows as cyclic graphs: State (typed dict shared across nodes), Nodes (Python functions that read/write state), Edges (transitions — direct or conditional), Checkpoints (persist state to SQLite/Redis for resumability). Unlike LangChain chains (linear DAGs), LangGraph supports loops which are essential for ReAct agents that iterate until task completion. Conditional edges enable routing: if tool_call → execute_tool → back to reasoning; if done → output. AWS: individual nodes deployed as Lambda functions, persistent agents on EKS, DynamoDB as custom Checkpointer for state persistence.",
+      "tags": ["langgraph", "stateful", "agent", "cyclic graph", "checkpoint", "react", "state machine", "lambda", "dynamodb"]
+    },
+    {
+      "id": "skill-ai-security",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "AI Security — Threats and Defences",
+      "body": "Adversarial threats: Prompt Injection (direct — user overwrites system prompt; indirect — injected via tool output), Jailbreaking, Model Extraction, Training Data Poisoning, Evasion attacks. Data privacy concerns: PII/PHI/PCI leakage through LLM context, GDPR/CCPA compliance for EU/California data. Defense-in-Depth layers: Network (VPC PrivateLink, no public endpoints) → Identity (IAM/IRSA least-privilege) → Governance (NIST AI RMF, OWASP Top 10 LLMs) → Application (NeMo Guardrails, PII anonymisation before send) → Monitoring (LLM call auditing, anomaly detection). Patterns: Secure AI Gateway (central proxy with auth+audit), Privacy-Preserving RAG (retrieve then anonymise), Air-Gapped Inference on EKS for classified workloads.",
+      "tags": ["ai security", "prompt injection", "jailbreak", "pii", "gdpr", "nist", "owasp", "guardrails", "air gapped", "iam", "vpc privatelink"]
+    },
+    {
+      "id": "skill-llmops",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "LLMOps — Production AI Operations",
+      "body": "Prompt Management: version-controlled prompts, A/B testing, regression test suite per prompt version. Model Lifecycle: PEFT/LoRA for efficient fine-tuning, quantisation (INT4/INT8) for deployment. Evaluation: RAGAS (RAG-specific), G-Eval (general), LLM-as-a-Judge for scalable scoring. Guardrails: NeMo Guardrails (Colang policy language), AWS Bedrock Guardrails (managed content filtering). CI/CD for LLMs: automated evaluation gate before deployment, canary routing for new model versions, rollback on quality regression. AWS: Bedrock Guardrails, SageMaker Pipelines for training, EMR/Glue for data prep, EKS for evaluation workers.",
+      "tags": ["llmops", "prompt management", "fine tuning", "lora", "ragas", "llm judge", "evaluation", "guardrails", "nemo", "bedrock guardrails"]
+    },
+    {
+      "id": "skill-ai-observability",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "AI Observability",
+      "body": "AI observability extends traditional o11y to LLM-specific signals. Trace dimensions: request ID, model, provider, TTFT, TPOT, total tokens, cost, prompt hash. Semantic monitoring: track topic drift and hallucination rate over time. Cost observability: token usage per user/team/workflow, budget alerting. Tools: LangSmith (LangChain native), Arize Phoenix (model monitoring), Langfuse (open-source LLM tracing), AWS X-Ray (distributed tracing), CloudWatch (custom namespaces for token metrics). Kubernetes: vLLM exposes Prometheus metrics endpoint for GPU utilisation, queue depth, generation throughput. Pitfalls: high-cardinality trace IDs, blind spots in multi-hop agentic workflows, metric overload.",
+      "tags": ["observability", "langfuse", "langsmith", "arize", "xray", "prometheus", "ttft", "tpot", "tracing", "cost tracking", "tokens"]
+    },
+    {
+      "id": "skill-ai-platform-architecture",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "AI Platform Architecture Patterns",
+      "body": "Router Pattern: dynamic model selection based on cost, latency, capability — matches user query complexity to model tier. Proxy Pattern: single centralised LLM endpoint with auth, rate limiting, cost tracking, provider failover — hides provider complexity from consumers. Orchestrator Pattern: coordinator agent breaks task into subtasks, delegates to specialist agents, aggregates results. Control Plane vs Data Plane separation: control plane manages routing rules and model registry; data plane handles inference traffic. Multi-Agent Systems: LangGraph for stateful loops, AutoGen for conversational agents, CrewAI for role-based teams. AWS: Bedrock (managed proxy), VPC + IAM for network/identity, EKS for self-managed inference. Pitfalls: single-provider lock-in, shadow AI (unmonitored usage), complexity overload.",
+      "tags": ["ai platform", "router pattern", "proxy pattern", "orchestrator", "control plane", "multi-agent", "langgraph", "autogen", "crewai", "bedrock"]
+    },
+    {
+      "id": "skill-openai",
+      "source": "AI-Learning",
+      "type": "skill",
+      "heading": "OpenAI API and Platform",
+      "body": "GPT-4o (omni): multimodal — text, audio, image inputs and outputs in a single model. Chat Completions API: stateless, message array (system/user/assistant roles), streaming via SSE. Function Calling: structured JSON schema-defined tools, model decides when to invoke. Fine-tuning: JSONL training files, supervised on prompt-completion pairs, best for style adaptation. Embeddings: text-embedding-3-small (1536-dim, cost-efficient), text-embedding-3-large (3072-dim, highest accuracy). Assistants API: managed threads, file attachments, persistent state — but creates vendor lock-in. Production: TPM/RPM rate limits by tier, latency optimisation via streaming, privacy (disable data used for training for enterprise).",
+      "tags": ["openai", "gpt-4o", "function calling", "fine tuning", "embeddings", "assistants api", "streaming", "rate limits"]
+    },
+    {
+      "id": "skill-kubernetes-platform",
+      "source": "AI FORGE",
+      "type": "skill",
+      "heading": "Kubernetes Platform Engineering at Scale",
+      "body": "Operating 19 EKS clusters across 7 global regions (India, EU-West, US-East, US-West, AP-Southeast, AP-Northeast, SA-East). Helm chart management with version-pinned dependencies. ArgoCD for GitOps continuous delivery — git commit triggers sync, automatic health checks, rollback on failure. Karpenter for node autoscaling (Spot + On-Demand, multiple instance families). OPA/Rego admission control policies. RBAC with least-privilege service accounts per namespace. Network policies (Calico). Istio service mesh for mTLS east-west traffic. EKS upgrade strategy: managed node group rolling update with PodDisruptionBudgets.",
+      "tags": ["kubernetes", "eks", "helm", "argocd", "gitops", "karpenter", "spot", "opa", "rbac", "istio", "calico", "network policy"]
+    },
+    {
+      "id": "skill-terraform",
+      "source": "AI FORGE / Portfolio",
+      "type": "skill",
+      "heading": "Terraform and Infrastructure as Code",
+      "body": "Module-based Terraform structure: network / compute / security / observability modules with clear interface boundaries. Remote state: S3 bucket with DynamoDB locking per environment (dev/staging/prod). Terragrunt for DRY configuration and dependency graph across modules. Provider and module version pinning for reproducibility. Drift detection via scheduled terraform plan in CI. Workspace strategy: separate state per region and environment. Import and refactoring: terraform import for adopting existing resources. State manipulation: terraform state mv, rm for safe restructuring. Sensitive outputs encrypted at rest.",
+      "tags": ["terraform", "iac", "terragrunt", "remote state", "s3", "dynamodb", "module", "workspace", "drift detection", "gitops"]
+    },
+    {
+      "id": "skill-cicd",
+      "source": "Portfolio",
+      "type": "skill",
+      "heading": "CI/CD Pipeline Architecture",
+      "body": "Multi-stage pipeline architecture: lint → unit test → SAST (Trivy, Checkov, SonarQube) → Docker build → ECR push → integration test → ArgoCD GitOps deploy → smoke test → Slack notification. Branch protection: PR-required merge gates, status checks on all stages. Artifact strategy: immutable ECR tags using git SHA, no 'latest' in production. GitOps flow: merged commit triggers ArgoCD sync, ArgoCD applies Kubernetes manifests, health checks validate rollout. Rollback: git revert → pipeline → ArgoCD syncs previous manifest → zero downtime. Zero-downtime deployments: Blue/Green (switch service selector) or canary (Argo Rollouts, traffic weight shifting). Jenkins: scripted and declarative pipeline patterns, shared libraries.",
+      "tags": ["cicd", "github actions", "jenkins", "argocd", "gitops", "docker", "ecr", "trivy", "checkov", "sonarqube", "blue green", "canary"]
+    },
+    {
+      "id": "skill-devsecops",
+      "source": "AI FORGE",
+      "type": "skill",
+      "heading": "DevSecOps and Security Engineering",
+      "body": "Shift-left security: SAST (SonarQube, Semgrep) and dependency scanning (Trivy, Snyk) in every PR. DAST in staging environment. Secrets management: AWS Secrets Manager + external-secrets operator for Kubernetes secret sync, no secrets in git. IAM least-privilege: roles scoped per service with no wildcard resource policies. Container image scanning before ECR push (Trivy, Grype). OPA/Rego policies for Kubernetes admission control (block privileged containers, enforce resource limits). Supply chain security: SBOM generation, Cosign image signing. Compliance automation: automated CIS benchmark checks, SOC2 evidence collection.",
+      "tags": ["devsecops", "sast", "dast", "trivy", "sonarqube", "secrets manager", "external secrets", "iam", "opa", "sbom", "cosign", "compliance"]
+    },
+    {
+      "id": "skill-observability",
+      "source": "AI FORGE",
+      "type": "skill",
+      "heading": "Observability and SRE",
+      "body": "Three pillars: metrics (Prometheus + Grafana), logs (Loki + Grafana), traces (Tempo / OpenTelemetry). SLO-based alerting: alert on burn rate against SLO budget, not raw thresholds. Dashboards as code: Grafana provisioning via ConfigMaps, version-controlled JSON. Distributed tracing: OpenTelemetry SDK instrumentation across all services, trace context propagation via W3C TraceContext. Dynatrace for full-stack APM: auto-discovery of services, OneAgent deployment on EKS nodes. Runbooks linked from alert annotations. Incident management: page → triage → mitigate → postmortem → action items. DORA metrics tracking: deployment frequency, lead time for changes, MTTR, change failure rate.",
+      "tags": ["observability", "prometheus", "grafana", "loki", "tempo", "opentelemetry", "dynatrace", "slo", "sre", "dora", "incident", "tracing"]
+    },
+    {
+      "id": "skill-aws",
+      "source": "Profile",
+      "type": "skill",
+      "heading": "AWS Cloud Architecture",
+      "body": "Core services: EKS (managed Kubernetes), EC2, EBS, S3, RDS/Aurora, Lambda, API Gateway, CloudWatch, SNS, SQS, IAM, Secrets Manager, ECR, Route53, CloudFront. Advanced services: Bedrock (managed LLM), Karpenter (node autoscaling), VPC Lattice (service networking), PrivateLink (private connectivity), Macie (data classification), GuardDuty (threat detection). Multi-region architecture: active-active across 7 regions with Route53 latency-based routing and health checks. Cost optimisation: Spot instances with Karpenter, Reserved Instances for baseline, right-sizing with Compute Optimizer. Security: IRSA (IAM Roles for Service Accounts), VPC flow logs, Config Rules, Security Hub.",
+      "tags": ["aws", "eks", "ec2", "rds", "lambda", "api gateway", "bedrock", "iam", "irsa", "vpc", "route53", "cloudwatch", "multi-region"]
+    },
+    {
+      "id": "case-study-cicd",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: GitOps CI/CD Pipeline Reducing Deployment Lead Time by 70%",
+      "body": "Challenge: A platform team managing 100+ microservices had inconsistent deployment practices. Some teams used manual kubectl apply, others had partial automation, and rollbacks took 45+ minutes. There was no visibility into deployment health and no standardised process across 7 regions. Solution: Designed and implemented a GitOps-first CI/CD platform using GitHub Actions, Docker, ECR, and ArgoCD across all microservices. Introduced branch protection with mandatory PR gates, multi-stage pipelines (lint → SAST → build → integration test → deploy), and immutable ECR image tagging via git SHA. ArgoCD was configured with ApplicationSets for multi-cluster deployment with automatic health check validation. Zero-downtime deployments via canary rollouts using Argo Rollouts with 10%→50%→100% traffic progression. Result: Deployment lead time reduced from 4 hours to 45 minutes (70% reduction). Rollback time dropped from 45 minutes to 3 minutes (git revert → pipeline → ArgoCD sync). Deployment frequency increased from 2x per week to 12x per week. Change failure rate dropped from 15% to 4%.",
+      "tags": ["cicd", "gitops", "argocd", "github actions", "canary", "deployment", "lead time", "rollback", "dora", "case study"]
+    },
+    {
+      "id": "case-study-ai-forge",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: AI FORGE — Closing the Enterprise AI Execution Gap",
+      "body": "Challenge: A platform engineering team managing 19 Kubernetes clusters across 7 global regions spent 60% of junior engineer time on context re-discovery — re-explaining platform architecture, credential flows, and regional quirks to AI assistants in every session. AI tools gave generic answers, not platform-specific ones. Credentials were being manually copy-pasted into prompts, creating security exposure. Solution: Built AI FORGE, an Enterprise AI Agent OS using the Crescent Architecture. 11 domain-specific skill packs (Python markdown files) encode expert knowledge per domain. A Global Brain CLAUDE.md always-loaded file gives the AI permanent platform context. A unified credentials wrapper injects auth at runtime so credentials never enter the AI context. A deny-list safety system blocks 23 destructive operations at the shell level before AI execution. Persistent cross-session memory retains behavioral corrections and incident context across sessions. Result: ~60% reduction in engineer troubleshooting ramp-up time. Zero credential leakage incidents since deployment. Junior engineers now perform senior-level platform operations with AI assistance. AI accuracy on platform-specific queries improved from ~40% (generic Claude) to ~90% (AI FORGE with domain context). 19 clusters across 7 regions managed consistently from a single AI interface.",
+      "tags": ["ai forge", "enterprise ai", "platform engineering", "memory", "security", "crescent", "case study", "kubernetes", "bedrock"]
+    },
+    {
+      "id": "case-study-multi-llm-router",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Building forge-router — Zero-Downtime AI Infrastructure",
+      "body": "Challenge: Teams using single LLM providers hit hard blockers: Groq rate limits during peak hours, Claude API quota exhaustion, OpenAI outages causing complete AI workflow failures. There was no resilience, no cost optimisation, and no intent-based routing — a reasoning-heavy query sent to a fast chat model gave poor results. Solution: Built forge-router, a production multi-LLM orchestration engine in Python. Intent classification (sub-1ms regex) routes queries to the optimal provider: Codex for code, Hermes for reasoning, Groq for chat (fastest), Ollama for sensitive data (local, no external send). Health-check-first routing skips unhealthy providers automatically. FAISS + SQLite embedded RAG stores interaction history and retrieves relevant context for each prompt (nomic-embed-text embeddings, 768-dim, cosine similarity ≥ 0.55). Per-provider quality scoring builds an observability layer that identifies which providers give best results per intent type. Result: Zero full AI outages since deployment (previous: 2-3 per week). 40% cost reduction by routing routine queries to free-tier Groq instead of paid Claude. Response quality improved by matching query type to optimal model. Session memory persists across provider switches, maintaining conversation context through failovers.",
+      "tags": ["forge-router", "multi-llm", "resilience", "faiss", "rag", "intent routing", "cost optimisation", "case study"]
+    },
+    {
+      "id": "case-study-ebs-automation",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: EBS Auto-Resize — Eliminating 2am Disk Emergency Pages",
+      "body": "Challenge: EC2 datanodes running XFS volumes repeatedly hit disk capacity limits at unpredictable times, causing 2am on-call pages. The manual remediation process — SSH → df -h → manual EBS modify_volume via console → xfs_growfs → verify → document — took 45 minutes per incident and required senior engineers with AWS console access. Disk space growth patterns were also not being analysed, only reacted to. Solution: Built a fully automated event-driven EBS disk management pipeline. CloudWatch alarms per datanode monitor XFS mount points. On threshold breach: SNS → API Gateway → ExecuteAnalysis Lambda — which analyses actual disk usage patterns (not just free space), calculates optimal growth amount (max 25% cap for safety), and posts a detailed Slack report with the full analysis. Operator reviews and sends /expand slash command. Slack → API Gateway → ExecuteResize Lambda → Boto3 modify_volume → SSM RunCommand → xfs_growfs on the live EC2 without reboot. HMAC SHA256 signature verification on every Slack command. 6-hour cooldown period enforced between EBS modifications. Result: On-call escalations for disk issues reduced from ~8/month to 0. Average remediation time dropped from 45 minutes to 4 minutes (analysis automatic, operator just approves). Zero accidental over-provisioning incidents due to safety cap and human-in-the-loop approval. Full audit trail of every resize event.",
+      "tags": ["ebs", "automation", "cloudwatch", "lambda", "slack", "oncall", "xfs", "ssm", "serverless", "case study"]
+    },
+    {
+      "id": "case-study-devsecops",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: DevSecOps — Shifting Security Left Across 100+ Pipelines",
+      "body": "Challenge: Security reviews were a bottleneck — PRs sat for days waiting for manual security sign-off. Container images were deployed with known CVEs because scanning happened post-deployment. Secrets occasionally appeared in git history. IAM policies used wildcard resources for convenience. Solution: Implemented shift-left DevSecOps across all 100+ pipelines. SAST with SonarQube and Semgrep integrated into PR checks — PRs blocked on high-severity findings. Trivy scanning before every ECR push — image rejected if critical CVEs found. External-secrets operator syncs AWS Secrets Manager values into Kubernetes secrets at runtime, eliminating all hardcoded secrets. Git history scanning (git-secrets, TruffleHog) in pre-commit hooks. OPA/Rego admission controller policies: block privileged containers, enforce resource limits, require non-root user, ban 'latest' image tag. IAM roles scoped per service account (IRSA), all wildcard resource ARNs replaced with specific resource patterns. Result: Zero high-severity CVEs reaching production (previously: ~3/month). Security review bottleneck eliminated — automated gates replace manual review for standard checks. Secret exposure incidents: 0 in 18 months. IAM permission scope reduced by ~65% across all service accounts.",
+      "tags": ["devsecops", "sast", "trivy", "opa", "iam", "secrets", "sonarqube", "shift left", "case study"]
+    },
+    {
+      "id": "case-study-observability",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Observability Platform — From Alert Noise to SLO-Based Operations",
+      "body": "Challenge: The monitoring setup was generating 200+ alerts per day, most of which were false positives or not actionable. Engineers had alert fatigue — critical pages were being ignored because of noise. There was no distributed tracing, so debugging a slow request required manually correlating logs across 5+ services. MTTR was averaging 4.5 hours. Solution: Rebuilt observability on Prometheus + Grafana + Loki + Tempo + OpenTelemetry. Defined SLOs for every critical service (availability, latency p99). Converted all alerts from threshold-based to burn-rate-based — only alert when SLO budget is burning at an unsustainable rate. OpenTelemetry SDK instrumented across all services with automatic context propagation. Grafana dashboards as code via ConfigMaps. Runbooks linked directly from alert annotations. Dynatrace OneAgent deployed on all EKS nodes for full-stack APM and automatic service discovery. For AI workloads: Langfuse integrated for LLM call tracing, token usage, and quality scoring. Result: Alert volume reduced from 200+/day to 12/day, all actionable. MTTR reduced from 4.5 hours to 38 minutes. Debug sessions that previously took hours now take minutes with distributed traces. 99.99% uptime SLA maintained for 18 consecutive months.",
+      "tags": ["observability", "prometheus", "grafana", "opentelemetry", "slo", "sre", "mttr", "langfuse", "dynatrace", "case study"]
+    },
+    {
+      "id": "tools-stack",
+      "source": "Profile",
+      "type": "skill",
+      "heading": "Full Technology Stack",
+      "body": "Cloud: AWS (primary — EKS, Bedrock, Lambda, RDS, ECR, S3, IAM, CloudWatch). Container Orchestration: Kubernetes (EKS), Helm, ArgoCD, Karpenter, Kueue, KEDA. Infrastructure as Code: Terraform, Terragrunt, Ansible. CI/CD: GitHub Actions, Jenkins, ArgoCD, Argo Rollouts. Observability: Prometheus, Grafana, Loki, Tempo, OpenTelemetry, Dynatrace, Langfuse. Security: Vault/OpenBao, AWS Secrets Manager, Trivy, OPA/Rego, Semgrep, SonarQube. Databases: MySQL/RDS, Aurora, DynamoDB, SQLite. AI/ML: AWS Bedrock, Claude, Groq, Gemini, OpenAI, Ollama, FAISS, Qdrant, ChromaDB, LangChain, LangGraph. Languages: Python (primary), TypeScript/Node.js, Bash. Messaging: SNS, SQS, Kafka. CDN/Networking: CloudFront, Route53, VPC, ALB.",
+      "tags": ["aws", "kubernetes", "helm", "terraform", "jenkins", "github actions", "prometheus", "grafana", "python", "typescript", "bedrock", "qdrant", "langchain"]
+    },
+    {
+      "id": "diagram-rag-production",
+      "source": "AI FORGE",
+      "type": "diagram",
+      "heading": "Production RAG + AI Gateway Architecture Diagram",
+      "body": "Full enterprise RAG pipeline from knowledge sources through ingestion, vector storage, hybrid search, AI gateway governance, multi-LLM routing, observability, and continuous improvement loop.",
+      "tags": ["rag", "architecture", "ai gateway", "qdrant", "hybrid search", "diagram"],
+      "mermaid": "```mermaid\ngraph TD\n    subgraph KS[Enterprise Knowledge Sources]\n        SKILL[SKILL.md · 11 Domains]\n        CF[Confluence Runbooks]\n        GL[GitLab ADRs]\n        JR[Jira Resolutions]\n    end\n    subgraph ING[Knowledge Ingestion]\n        CHK[Semantic Chunker ~200 tokens]\n        EMB[all-MiniLM-L6-v2 · 384d · Offline]\n        META[(Metadata: skill · region · classification)]\n    end\n    subgraph VDB[Qdrant Self-Hosted]\n        DENSE[(Dense Vectors HNSW · Cosine)]\n        SPARSE[(Sparse BM25 Lexical)]\n    end\n    subgraph SEARCH[Hybrid Search · RRF]\n        HS[BM25 + Dense Fusion]\n        RR[Cross-Encoder Reranker Top-5]\n    end\n    subgraph GW[AI Gateway Governance]\n        RL[Rate Limiter] --> CB[Circuit Breaker]\n        CB --> PII[PII Classifier] --> SC[Semantic Cache]\n        SC --> TBE[Token Budget] --> PI[Injection Detector]\n    end\n    subgraph ROUTER[Multi-LLM Router]\n        GRQ[Groq · Fast]\n        CLA[Claude · Reasoning]\n        GEM[Gemini · Default]\n        OLL[Ollama · Confidential]\n    end\n    KS --> CHK --> EMB --> DENSE & SPARSE\n    CHK --> META\n    USER([Query]) --> GW --> SEARCH\n    DENSE & SPARSE --> HS --> RR --> GW\n    GW --> ROUTER\n    PII -- confidential --> OLL\n    ROUTER --> OBS[Langfuse · DORA · Grafana]\n    OBS -.-> CI[LLM-as-Judge · Re-index]\n    CI -.-> CHK\n```"
+    }
+  ]
+}

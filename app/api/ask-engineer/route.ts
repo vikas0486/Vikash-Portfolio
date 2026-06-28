@@ -1,141 +1,119 @@
 import { NextResponse } from "next/server";
-import { profile } from "@/lib/profile";
+import { searchWithFallback, type SearchResult } from "@/lib/bm25";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const TOPICS: {
-  key: keyof typeof profile.knowledgeAreas;
-  label: string;
-  keywords: string[];
-  tools: string[];
-  principles: string[];
-}[] = [
-  {
-    key: "cicd",
-    label: "CI/CD & Pipeline Architecture",
-    keywords: ["ci", "cd", "cicd", "pipeline", "jenkins", "github actions", "deploy", "rollback", "artifact", "build", "release", "workflow"],
-    tools: ["GitHub Actions", "Jenkins", "ArgoCD", "ECR", "S3", "Docker"],
-    principles: [
-      "Branch protection with PR-based merge gates",
-      "Multi-stage pipelines: lint → test → SAST → build → deploy",
-      "Artifact versioning in ECR / S3 with immutable tags",
-      "GitOps deployment via ArgoCD with automatic sync",
-      "Rollback strategy using Helm revision history",
-    ],
-  },
-  {
-    key: "terraform",
-    label: "Terraform & Infrastructure as Code",
-    keywords: ["terraform", "iac", "infrastructure", "state", "module", "remote state", "locking", "workspace", "provider", "resource", "tfstate"],
-    tools: ["Terraform", "S3 (remote state)", "DynamoDB (locking)", "Terragrunt", "AWS Provider"],
-    principles: [
-      "Remote state in S3 with DynamoDB locking per environment",
-      "Module-based structure: network / compute / security / observability",
-      "Separate workspaces for dev / staging / prod",
-      "Pin provider and module versions for reproducibility",
-      "Drift detection via scheduled terraform plan in CI",
-    ],
-  },
-  {
-    key: "devsecops",
-    label: "DevSecOps & Security Engineering",
-    keywords: ["security", "devsecops", "sast", "dast", "secret", "iam", "compliance", "vulnerability", "scan", "policy", "rbac", "least privilege"],
-    tools: ["Trivy", "Checkov", "AWS IAM", "Secrets Manager", "OPA / Rego", "SonarQube"],
-    principles: [
-      "Shift-left: SAST and dependency scanning in every PR",
-      "Secrets never in code — use AWS Secrets Manager + external-secrets operator",
-      "IAM least-privilege: roles scoped per service, no wildcard policies",
-      "Container image scanning before ECR push",
-      "OPA / Rego policies for Kubernetes admission control",
-    ],
-  },
-  {
-    key: "observability",
-    label: "Observability & SRE",
-    keywords: ["observability", "prometheus", "grafana", "monitoring", "alert", "log", "metric", "trace", "sre", "slo", "sla", "opentelemetry", "dynatrace", "uptime", "incident"],
-    tools: ["Prometheus", "Grafana", "OpenTelemetry", "Dynatrace", "Loki", "Tempo"],
-    principles: [
-      "Three pillars: metrics (Prometheus), logs (Loki), traces (Tempo / OTEL)",
-      "SLO-based alerting — alert on burn rate, not raw thresholds",
-      "Dashboards as code: Grafana provisioning via ConfigMaps",
-      "Distributed tracing with OpenTelemetry SDK across all services",
-      "Runbooks linked directly from alert annotations",
-    ],
-  },
-  {
-    key: "ai",
-    label: "AI / GenAI Platform Engineering",
-    keywords: ["ai", "llm", "rag", "genai", "bedrock", "agent", "embedding", "vector", "prompt", "langchain", "model", "inference", "ml", "mlops"],
-    tools: ["AWS Bedrock", "LangChain", "OpenAI", "Pinecone / pgvector", "Ray Serve"],
-    principles: [
-      "RAG pipeline: chunk → embed → store in vector DB → retrieve → generate",
-      "LLM routing: fast model for triage, capable model for deep reasoning",
-      "Observability on LLM calls: latency, token usage, failure rate",
-      "Prompt versioning and A/B testing in production",
-      "AI agents with tool-use for DevOps automation (infra queries, alerts)",
-    ],
-  },
-];
+// ── LLM call (Gemini Flash free tier — optional) ──────────────────────────────
 
-function matchTopic(question: string) {
-  const q = question.toLowerCase();
-  let best: (typeof TOPICS)[0] | null = null;
-  let bestScore = 0;
+async function callGemini(systemPrompt: string, userQuestion: string): Promise<string | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
 
-  for (const topic of TOPICS) {
-    const score = topic.keywords.filter((kw) => q.includes(kw)).length;
-    if (score > bestScore) {
-      bestScore = score;
-      best = topic;
-    }
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ role: "user", parts: [{ text: userQuestion }] }],
+          generationConfig: { maxOutputTokens: 600, temperature: 0.4 },
+        }),
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  } catch {
+    return null;
   }
-  return best;
 }
 
+// ── Template answer (no LLM key required) ─────────────────────────────────────
+
+function buildTemplateAnswer(question: string, results: SearchResult[]): string {
+  if (results.length === 0) {
+    return `I can speak to: CI/CD pipelines, Terraform & IaC, DevSecOps, Kubernetes platform engineering, AI/GenAI systems (RAG, agents, LLM routing), Observability & SRE, and AWS architecture.
+
+Try: "How do you design a multi-LLM routing system?" or "Tell me about your RAG experience."`;
+  }
+
+  const top = results.slice(0, 3);
+  const lines: string[] = [];
+
+  for (const { chunk } of top) {
+    lines.push(`${chunk.heading}`);
+    lines.push("─".repeat(Math.min(chunk.heading.length, 52)));
+    lines.push(chunk.body.slice(0, 480).trimEnd() + (chunk.body.length > 480 ? "…" : ""));
+
+    if (chunk.type === "case-study") {
+      // Extract result line from case study
+      const resultMatch = chunk.body.match(/Result:(.+?)(?:\n|$)/);
+      if (resultMatch) {
+        lines.push(`\nKey outcome: ${resultMatch[1].trim()}`);
+      }
+    }
+
+    const tools = chunk.tags
+      .filter((t) => /^[A-Z]/.test(t) || ["kubernetes", "terraform", "rag", "faiss", "qdrant", "aws", "eks", "lambda", "argocd"].includes(t.toLowerCase()))
+      .slice(0, 6);
+    if (tools.length > 0) {
+      lines.push(`\nTech: ${tools.join(" · ")}`);
+    }
+
+    lines.push("");
+  }
+
+  return lines.join("\n").trim();
+}
+
+// ── System prompt for LLM mode ─────────────────────────────────────────────────
+
+function buildSystemPrompt(results: SearchResult[]): string {
+  const context = results
+    .slice(0, 5)
+    .map((r) => `## ${r.chunk.heading}\n${r.chunk.body}`)
+    .join("\n\n---\n\n");
+
+  return `You are an AI assistant answering questions about Vikash Jaiswal's engineering experience, projects, and technical skills. Answer only based on the provided context. Be concise, direct, and technically accurate. Use bullet points where it improves clarity. End with one line summarising Vikash's impact if relevant. Do not invent facts.
+
+CONTEXT FROM VIKASH'S KNOWLEDGE BASE:
+${context}
+
+VIKASH'S PROFILE:
+- Lead Platform Engineer & Principal DevOps Architect, 16+ years experience
+- 19 Kubernetes clusters, 7 global regions, 100+ CI/CD pipelines, 99.99% uptime
+- Projects: AI FORGE (enterprise AI OS), forge-router (multi-LLM engine), AI-ForgeStream (K8s media), EBS auto-resize (serverless automation), ai-router (Node.js LLM routing)`;
+}
+
+// ── Route handler ─────────────────────────────────────────────────────────────
+
 export async function POST(req: Request) {
-  const { question } = await req.json();
+  let question: string;
+  try {
+    ({ question } = await req.json());
+  } catch {
+    return NextResponse.json({ answer: "Invalid request." }, { status: 400 });
+  }
 
   if (!question?.trim()) {
     return NextResponse.json({ answer: "Please ask a question." });
   }
 
-  const topic = matchTopic(question);
+  const results = searchWithFallback(question, 5);
 
-  if (!topic) {
-    return NextResponse.json({
-      answer: `Hi, I'm ${profile.identity.name} — ${profile.identity.title}.
+  // Try LLM first — falls back to template if no API key or timeout
+  const systemPrompt = buildSystemPrompt(results);
+  const llmAnswer = await callGemini(systemPrompt, question);
 
-I can answer questions on:
-  · CI/CD & pipelines
-  · Terraform & infrastructure design
-  · DevSecOps & security engineering
-  · Observability, SRE & monitoring
-  · AI / GenAI platform engineering
-
-Try asking something like "How do you design a CI/CD pipeline?" or "Explain Terraform state management."`,
-    });
+  if (llmAnswer?.trim()) {
+    return NextResponse.json({ answer: llmAnswer.trim() });
   }
 
-  const knowledgeBase = profile.knowledgeAreas[topic.key];
-
-  const answer = `${profile.identity.name} on ${topic.label}
-${"─".repeat(48)}
-
-${knowledgeBase}
-
-TOOLS I USE
-${topic.tools.map((t) => `  · ${t}`).join("\n")}
-
-KEY PRINCIPLES
-${topic.principles.map((p) => `  ✔ ${p}`).join("\n")}
-
-IMPACT AT SCALE
-  · ${profile.impact.clusters} Kubernetes clusters across ${profile.impact.regions} regions
-  · ${profile.impact.pipelines}+ pipelines managed · ${profile.impact.uptime} uptime SLA
-
-─────────────────────────────────────────────────
-Have a deeper question? → vikashjaiswal.486@gmail.com`;
-
+  // Template fallback — always works
+  const answer = buildTemplateAnswer(question, results);
   return NextResponse.json({ answer });
 }
