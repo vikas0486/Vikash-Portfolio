@@ -40,15 +40,67 @@ const DIAGRAMS = [
   Apply --> RDS[RDS / ElastiCache]`,
   },
   {
-    label: "Observability Stack",
+    label: "SRE Observability",
     chart: `flowchart TD
-  Apps[Microservices] --> OTEL[OpenTelemetry SDK]
-  OTEL --> Metrics[Prometheus]
-  OTEL --> Logs[Loki]
-  OTEL --> Traces[Tempo]
-  Metrics & Logs & Traces --> Graf[Grafana]
-  Graf --> AM[AlertManager]
-  AM --> PD[PagerDuty / Slack]`,
+  subgraph SRC[Telemetry Sources]
+    SVC[Platform Services\nOTel SDK]
+    AI[AI Workloads\nLLM · tokens · TTFT]
+    K8S[Kubernetes\nkubelet · cAdvisor · KSM]
+  end
+  subgraph COL[OTel Collector — DaemonSet]
+    RCV[Receivers\nOTLP gRPC+HTTP · Prometheus scrape · filelog]
+    PRC[Processors\nBatch · MemLimit · ResourceDetect · TailSample]
+    EXP[Exporters\nPrometheus · Loki · Tempo]
+    RCV --> PRC --> EXP
+  end
+  subgraph STORE[Backends]
+    PROM[(Prometheus\n30d metrics)]
+    LOKI[(Loki\n31d logs · S3)]
+    TEMPO[(Tempo\n7d traces · S3)]
+  end
+  subgraph VIZ[Grafana — Single Pane]
+    SLO[SLO Burn-Rate\nDashboard]
+    DORA[DORA Metrics\nlive automated]
+    AIDB[AI Workloads\ncost · TTFT · quality]
+  end
+  subgraph ALERT[SLO Alerting]
+    RULER[Prometheus Ruler\nburn-rate rules]
+    AM[Alertmanager]
+    PD[PagerDuty\nfast-burn · critical]
+    SLK[Slack\nslow-burn · warning]
+  end
+  SRC --> COL
+  EXP --> PROM & LOKI & TEMPO
+  PROM & LOKI & TEMPO --> VIZ
+  PROM --> RULER --> AM --> PD & SLK`,
+  },
+  {
+    label: "AI · Multi-LLM Gateway",
+    chart: `flowchart TD
+  User([Engineer / Agent]) --> CLI[forge CLI]
+  CLI --> RT[RouterEngine\nintent classify · sub-1ms]
+  subgraph INTENT[Intent → Provider Chain]
+    CHAT[chat 15s\nGroq → Gemini → Claude]
+    CODE[code 30s\nCodex → Claude → OpenAI]
+    REAS[reasoning 45s\nHermes → Claude → OpenAI]
+    AGNT[agentic 60s\nClaude → OpenAI → Hermes]
+  end
+  RT --> CHAT & CODE & REAS & AGNT
+  subgraph GW[AI Gateway — Governance]
+    RL[Rate Limiter\ntoken bucket]
+    CB[Circuit Breaker\nCLOSED · OPEN · HALF]
+    PII[PII Classifier\ndata sovereignty]
+    SC[Semantic Cache\ncosine ≥ 0.95]
+    RL --> CB --> PII --> SC
+  end
+  RT --> GW
+  PII -- confidential --> OLL[Ollama\nlocal · no egress]
+  subgraph KB[RAG Knowledge Base]
+    FAISS[(FAISS 768-dim\ncosine · nomic-embed)]
+    SQL[(SQLite\ninteractions · memory)]
+  end
+  RT --> KB
+  GW --> OBS[Langfuse · DORA · Audit]`,
   },
   {
     label: "Platform Engineering",
