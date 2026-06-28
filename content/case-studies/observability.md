@@ -2,13 +2,15 @@
 
 ## Problem Statement
 
-The monitoring setup was generating 200+ alerts per day. Most were false positives or threshold-based noise that didn't correlate with user impact. Engineers had alert fatigue — critical pages were being ignored. There was no distributed tracing, so debugging a slow request meant manually correlating logs across 5+ services. MTTR averaged 4.5 hours.
+The monitoring setup was generating 200+ alerts per day. Most were false positives or threshold-based noise that didn't correlate with user impact.
+
+Engineers had alert fatigue — critical pages were being ignored because they were buried in noise. There was no distributed tracing, so debugging a slow request meant manually correlating logs across 5+ services in 3 different tools. MTTR averaged 4.5 hours.
 
 ---
 
 ## What Changed
 
-Rebuilt the entire observability stack on open standards (OpenTelemetry, Prometheus, Grafana), converted all alerting from threshold-based to SLO burn-rate-based, and added distributed tracing and LLM-specific observability for AI workloads.
+Rebuilt the entire observability stack on open standards — OpenTelemetry, Prometheus, Grafana, Loki, Tempo. Converted all alerting from threshold-based to SLO burn-rate-based. Added distributed tracing and LLM-specific observability for AI workloads.
 
 ---
 
@@ -17,19 +19,19 @@ Rebuilt the entire observability stack on open standards (OpenTelemetry, Prometh
 ```
 Services (instrumented with OpenTelemetry SDK)
     |
-    |-- Metrics -------> Prometheus --> Grafana (SLO dashboards)
+    |-- Metrics -------> OTel Collector --> Prometheus --> Grafana (SLO dashboards)
     |
-    |-- Logs ----------> Loki -------> Grafana (correlated view)
+    |-- Logs ----------> OTel Collector --> Loki -------> Grafana (correlated view)
     |
-    +-- Traces --------> Tempo ------> Grafana (trace explorer)
+    +-- Traces --------> OTel Collector --> Tempo ------> Grafana (trace explorer)
 
-                 Alerts (burn-rate based, not threshold)
+                 SLO Burn-Rate Alerts (not threshold)
                      |
                      v
-                 PagerDuty / Slack (runbook linked from annotation)
+                 Alertmanager --> PagerDuty (fast-burn) / Slack (slow-burn)
 
 LLM Workloads:
-    +-- Langfuse ------> Token usage, Latency, Quality scores
+    +-- Langfuse ------> Token usage · Latency · Quality scores
 ```
 
 ---
@@ -37,29 +39,44 @@ LLM Workloads:
 ## Key Implementations
 
 **SLO-Based Alerting**
+
 - Defined SLOs for every critical service: availability (99.9%) and latency p99 (<500ms)
-- Converted all alerts to burn-rate-based: only fire when the SLO error budget is burning at an unsustainable rate
-- Multi-window burn-rate alerts: fast-burn (1h window, 14x rate) and slow-burn (6h window, 6x rate)
-- Alert volume: 200+/day reduced to 12/day, all actionable
+
+- Converted all alerts to burn-rate-based: only fires when the SLO error budget is burning at an unsustainable rate
+
+- Multi-window rules: fast-burn (1h window, 14× rate) → PagerDuty; slow-burn (6h window, 6× rate) → Slack
+
+- Alert volume: 200+/day reduced to 12/day — all 12 actionable
 
 **Distributed Tracing**
+
 - OpenTelemetry SDK instrumented across all services with automatic W3C TraceContext propagation
-- Traces captured: request path, DB query timing, external API latency, cache hit/miss
-- Correlated logs and traces in Grafana: click a log line, see the full trace
+
+- Traces capture: request path, DB query timing, external API latency, cache hit/miss
+
+- Grafana Explore: click a log line → jump directly to the full distributed trace
 
 **Dashboards as Code**
-- All Grafana dashboards defined as JSON, stored in git, provisioned via Kubernetes ConfigMaps
-- New services get a dashboard template automatically via Helm chart
+
+- All Grafana dashboards stored as JSON in git, provisioned via Kubernetes ConfigMaps
+
+- New services get a dashboard template automatically via Helm chart — no manual Grafana UI work
 
 **Dynatrace for Full-Stack APM**
+
 - OneAgent deployed on all 19 EKS cluster nodes (DaemonSet)
-- Automatic service discovery: topology map built without manual configuration
+
+- Automatic service discovery — topology map built without manual configuration
+
 - Used for deep JVM/container-level profiling on high-latency incidents
 
 **AI Workload Observability**
+
 - Langfuse integrated for LLM call tracing: per-request latency, token count, cost, quality score
+
 - Custom Prometheus metrics: inference tokens/sec, queue depth, TTFT (time to first token)
-- Alert on token cost budget burn rate, not just per-call cost
+
+- Alerts on token cost budget burn rate — not just per-call cost
 
 ---
 
@@ -68,14 +85,17 @@ LLM Workloads:
 | Metric | Before | After |
 |---|---|---|
 | Alert volume | 200+/day | 12/day (all actionable) |
+| Alert actionability | ~7% | 92% |
 | MTTR | 4.5 hours | 38 minutes |
-| Debug time (slow request) | Hours (log correlation) | Minutes (distributed trace) |
-| Uptime SLA maintained | — | 99.99% for 18 months |
+| Debug time (slow request) | 2–4 hours (log correlation) | 5–15 minutes (trace) |
+| Uptime SLA | Occasional breaches | 99.99% for 18 months |
 
 ---
 
 ## Lessons
 
-- Threshold alerts measure system state; burn-rate alerts measure user impact — only the second matters
-- Three pillars are only useful when correlated in one view — Grafana Tempo + Loki + Prometheus together changes debugging completely
-- For AI systems, observability must extend to quality metrics (hallucination rate, relevance score) not just latency and error rate
+- Threshold alerts measure system state. Burn-rate alerts measure user impact. Only the second one wakes you up for the right reasons.
+
+- The three pillars (metrics/logs/traces) are only valuable when correlated in one view — Grafana Tempo + Loki + Prometheus in a single Explore session changes debugging completely.
+
+- For AI systems, observability must extend to quality metrics — hallucination rate, relevance score, TTFT — not just latency and error rate. Running LLMs without this is like running a database with no slow query log.

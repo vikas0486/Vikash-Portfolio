@@ -2,7 +2,7 @@
   "meta": {
     "generated": "2026-06-28",
     "owner": "Vikash Jaiswal",
-    "total_chunks": 62
+    "total_chunks": 68
   },
   "chunks": [
     {
@@ -10,7 +10,7 @@
       "source": "Profile",
       "type": "profile",
       "heading": "Who is Vikash Jaiswal",
-      "body": "Vikash Jaiswal is a Lead Platform Engineer and Principal DevOps Architect with 16+ years engineering enterprise-scale cloud and AI platforms. Based in Noida / Gurgaon, India. He designs and operates Kubernetes infrastructure across 19 clusters in 7 global regions, builds multi-LLM AI systems from scratch, and specialises in DevSecOps, RAG architectures, and AI Gateway design. Available immediately for Staff/Principal roles in Platform Engineering or AI Infrastructure.",
+      "body": "Vikash Jaiswal is a Lead Platform Engineer and Principal DevOps Architect with 16+ years engineering enterprise-scale cloud and AI platforms. Based in Noida / Gurgaon, India. He designs and operates Kubernetes infrastructure across 19 clusters in 7 global regions, builds multi-LLM AI systems from scratch, and specialises in DevSecOps, RAG architectures, and AI Gateway design. Key projects: AI FORGE (enterprise AI agent OS), forge-router (multi-LLM gateway), forge-SRE (production observability platform — OTel + SLO burn-rate alerting + DORA), AI-ForgeStream (Kubernetes-native media processing pipeline), Production RAG System, EBS Auto-Remediation. Available immediately for Staff/Principal roles in Platform Engineering or AI Infrastructure.",
       "tags": ["vikash", "profile", "experience", "platform engineer", "devops", "architect", "lead", "16 years"]
     },
     {
@@ -329,6 +329,38 @@
       "heading": "Case Study: Observability Platform — From Alert Noise to SLO-Based Operations",
       "body": "Challenge: The monitoring setup was generating 200+ alerts per day, most of which were false positives or not actionable. Engineers had alert fatigue — critical pages were being ignored because of noise. There was no distributed tracing, so debugging a slow request required manually correlating logs across 5+ services. MTTR was averaging 4.5 hours. Solution: Rebuilt observability on Prometheus + Grafana + Loki + Tempo + OpenTelemetry. Defined SLOs for every critical service (availability, latency p99). Converted all alerts from threshold-based to burn-rate-based — only alert when SLO budget is burning at an unsustainable rate. OpenTelemetry SDK instrumented across all services with automatic context propagation. Grafana dashboards as code via ConfigMaps. Runbooks linked directly from alert annotations. Dynatrace OneAgent deployed on all EKS nodes for full-stack APM and automatic service discovery. For AI workloads: Langfuse integrated for LLM call tracing, token usage, and quality scoring. Result: Alert volume reduced from 200+/day to 12/day, all actionable. MTTR reduced from 4.5 hours to 38 minutes. Debug sessions that previously took hours now take minutes with distributed traces. 99.99% uptime SLA maintained for 18 consecutive months.",
       "tags": ["observability", "prometheus", "grafana", "opentelemetry", "slo", "sre", "mttr", "langfuse", "dynatrace", "case study"]
+    },
+    {
+      "id": "project-forge-sre-overview",
+      "source": "forge-SRE",
+      "type": "project",
+      "heading": "forge-SRE — Production Observability & SRE Governance Platform",
+      "body": "forge-SRE is a full SRE governance and observability platform built across a 19-cluster Kubernetes estate in 7 AWS regions. A structured audit discovered a 21/24 deviation score across 6 governance domains: fragmented monitoring tooling, zero distributed tracing, no SLO framework, AI workloads running completely blind (0% telemetry), DORA metrics manually estimated monthly, and 200+ threshold alerts per day with 87% false-positive rate. Built a centralised observability stack: OpenTelemetry Collector as a DaemonSet on every EKS node collecting metrics (OTLP gRPC/HTTP, Prometheus scrape), logs (filelog from /var/log/pods), and traces. Processors: memory_limiter 400MB, batch, resource_detection (EKS+EC2 auto-tagging), tail_sampling (100% errors, 5% success). Exporters to Prometheus (30d), Loki on S3 (31d), Tempo on S3 (7d). Grafana as single pane with SLO burn-rate dashboards, DORA metrics (live via ArgoCD webhooks), and AI workload dashboards (TTFT, tokens, cost). SLO burn-rate alerting: fast-burn (1h, 14x rate) to PagerDuty, slow-burn (6h, 6x rate) to Slack. All Terraform + Helm IaC.",
+      "tags": ["forge-sre", "sre", "opentelemetry", "prometheus", "grafana", "loki", "tempo", "slo", "burn-rate", "dora", "daemonset", "observability", "governance", "audit"]
+    },
+    {
+      "id": "case-study-forge-sre",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: forge-SRE — SRE Governance Audit from 21/24 Deviation to Production Observability",
+      "body": "Challenge: Three P1 incidents in one quarter exposed a systemic observability failure across 19 EKS clusters. Incident A: a latency regression went undetected 6 hours because a CloudWatch alarm had been silenced 4 months prior. Incident B: a P1 outage took 4.5 hours to resolve — 2.5 hours were spent correlating logs across 6 tools rather than fixing the issue. Incident C: an LLM inference service produced degraded responses (hallucinations, slow TTFT) for 3 days before anyone noticed — there was zero AI workload instrumentation. Formal governance audit across 6 domains scored 21/24 deviation (critical or non-compliant in every dimension). 200-250 alerts/day, 87% false positives. Engineers routinely muted alert channels. Solution: 6-week phased remediation: OTel Collector DaemonSet deployed to all 19 clusters, unified metric namespace via OTel SDK push (replacing 4 fragmented tools), structured JSON logs via Loki, distributed tracing via Tempo with W3C TraceContext, SLO burn-rate rules (23 SLOs defined for all critical services), AI workload instrumentation (TTFT, tokens, cost, quality per LLM call), DORA metrics automated via ArgoCD webhooks and GitHub Actions events. Stakeholder sign-off at each phase gate. Governance framework established as permanent standard — new services must define SLOs before production, all alerts must be burn-rate based. Result: Alert volume 200+/day → 12/day, all actionable. MTTR 4.5 hours → 38 minutes. Root-cause identification for latency: 2-4 hours → 5-15 minutes. AI workload visibility: 0% → 100% per-call telemetry. DORA metrics: manual monthly → real-time. Uptime SLA: 99.99% for 18 consecutive months. ~100 engineering hours saved per month in toil reduction.",
+      "tags": ["forge-sre", "sre governance", "audit", "deviation score", "slo", "burn-rate", "otel", "dora", "observability", "mttr", "case study"]
+    },
+    {
+      "id": "project-ai-forgestream-overview",
+      "source": "AI-ForgeStream",
+      "type": "project",
+      "heading": "AI-ForgeStream — Kubernetes-Native Media Processing Pipeline",
+      "body": "AI-ForgeStream replaces long-lived, always-on EC2 media transcoding instances with ephemeral Kubernetes Jobs spawned on demand by a FastAPI control plane. Pay only for compute during actual job execution — zero idle cost. Architecture: API client POSTs to FastAPI control plane → creates K8s Job spec via Python SDK → Kubernetes schedules an ephemeral FFmpeg worker pod → pod reads source video from shared PVC (50Gi ReadWriteMany), runs 2-pass loudness normalisation + ABR ladder encoding, writes output (HLS segments + master.m3u8 + metrics.json) back to PVC, then terminates cleanly (Exit 0). 2-pass FFmpeg pipeline: Pass 1 measures integrated loudness (LUFS), true peak (dBTP), loudness range (LRA). Pass 2 applies correction targeting -24.0 LUFS (EBU R128 broadcast standard), -2.0 dBTP max, 48kHz stereo AAC. ABR ladder: 1080p@4500kbps H.264 High, 720p@2200kbps H.264 Main, 480p@800kbps H.264 Baseline. HLS master playlist referencing all three. Kubernetes RBAC scoped to Job create/get/list/delete only. All infrastructure Terraform IaC.",
+      "tags": ["ai-forgestream", "kubernetes jobs", "media processing", "ffmpeg", "hls", "abr", "loudness", "ebu r128", "fastapi", "itu-r bs.1770-4", "ephemeral workloads"]
+    },
+    {
+      "id": "case-study-ai-forgestream",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: AI-ForgeStream — Eliminating Idle Media Infrastructure with Kubernetes Jobs",
+      "body": "Challenge: Media transcoding workflows ran on long-lived EC2 instances that were idle 90% of the time but paid for 24/7. Jobs were triggered manually via SSH with no queueing, no parallelism, no standardised output formats, and no programmatic API. Audio loudness levels were inconsistent across outputs — variable LUFS levels caused quality issues downstream for broadcast distribution. There was no observability: no job metrics, no completion telemetry, no SLA on processing time. Solution: Built AI-ForgeStream, a Kubernetes-native media processing platform. FastAPI control plane exposes REST API (POST /jobs/submit). On job submission, FastAPI calls Kubernetes Python SDK to create an ephemeral Job spec pointing to ffmpeg-forge:2.0 Docker image (Alpine multi-stage, ~120MB). K8s schedules a worker pod on available node. Worker reads source from shared 50Gi ReadWriteMany PVC, runs 2-pass FFmpeg: Pass 1 measures actual loudness profile (integrated LUFS, true peak dBTP, LRA). Pass 2 applies measured corrections targeting EBU R128 broadcast standard (-24.0 LUFS, -2.0 dBTP, 48kHz AAC stereo). Then encodes 3-tier ABR ladder to HLS (1080p/720p/480p). Writes HLS segments, master.m3u8, and structured metrics.json to PVC. Pod exits 0 and terminates — no idle cost. Clients poll GET /jobs/logs/{name} for streaming pod log output. RBAC: control plane ServiceAccount scoped to Job create/get/list/delete only — no cluster-admin. Result: Idle compute cost: 100% always-on EC2 → 0% (pods terminate on completion). Loudness: variable manual → ITU-R BS.1770-4 compliant on every output. Job trigger: SSH manual → REST API. Parallel capacity: 1 EC2 → Kubernetes horizontal scheduler (unlimited parallel jobs). Processing time verified: 81.9 seconds for a sample transcode. Full telemetry per job in metrics.json.",
+      "tags": ["ai-forgestream", "kubernetes jobs", "media", "ffmpeg", "ebu r128", "hls", "abr", "fastapi", "ephemeral", "itu-r bs.1770-4", "case study"]
     },
     {
       "id": "tools-stack",

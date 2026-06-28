@@ -114,6 +114,61 @@ const PROJECTS = [
     github: "https://github.com/vikas0486",
     color: "emerald",
   },
+  {
+    tag: "SRE Platform",
+    name: "forge-SRE",
+    subtitle: "Production Observability & SRE Governance",
+    description:
+      "A full SRE governance audit discovered 21/24 deviation score across 6 domains — fragmented tooling, zero distributed tracing, no SLO framework, and AI workloads running completely blind. Built a centralised observability stack: OTel Collector DaemonSet across 19 EKS clusters, SLO burn-rate alerting replacing 200+/day threshold noise, DORA metrics automated in real-time, and full LLM instrumentation for AI workloads.",
+    impact: [
+      "Alert volume: 200+/day noise → 12/day (all actionable)",
+      "MTTR: 4.5 hours → 38 minutes",
+      "99.99% uptime SLA maintained for 18 consecutive months",
+      "DORA metrics: manual monthly estimate → real-time Grafana",
+      "AI workloads: 0% → 100% per-call telemetry (TTFT · tokens · cost)",
+    ],
+    tech: [
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana",
+      "Loki",
+      "Tempo",
+      "Alertmanager",
+      "PagerDuty",
+      "Terraform",
+      "Helm",
+      "AWS EKS",
+    ],
+    github: "https://github.com/vikas0486/forge-SRE",
+    color: "orange",
+  },
+  {
+    tag: "ML Infrastructure",
+    name: "AI-ForgeStream",
+    subtitle: "Kubernetes-Native Media Processing Pipeline",
+    description:
+      "Replaced long-lived, idle EC2 instances with ephemeral Kubernetes Jobs spawned on demand by a FastAPI control plane. Two-pass FFmpeg loudness normalisation (EBU R128 / ITU-R BS.1770-4) enforced on every output. ABR ladder encoding (1080p · 720p · 480p) to HLS with structured telemetry per job. Pay only for compute during actual job execution — zero idle cost.",
+    impact: [
+      "Idle compute: 100% always-on EC2 → 0% (pods terminate on completion)",
+      "Loudness: variable manual → ITU-R BS.1770-4 compliant every output",
+      "Job trigger: SSH manual → REST API (POST /jobs/submit)",
+      "Parallel capacity: 1 EC2 → Kubernetes horizontal scheduler",
+      "Full job telemetry: metrics.json per transcode (LUFS · peak · timing)",
+    ],
+    tech: [
+      "Kubernetes Jobs",
+      "FastAPI",
+      "FFmpeg",
+      "Python",
+      "HLS / ABR",
+      "Docker",
+      "Terraform",
+      "PVC / EFS",
+      "RBAC",
+    ],
+    github: "https://github.com/vikas0486/AI-ForgeStream",
+    color: "rose",
+  },
 ];
 
 const ACCENT: Record<string, string> = {
@@ -121,6 +176,8 @@ const ACCENT: Record<string, string> = {
   blue:   "border-blue-500/30 hover:border-blue-500/60",
   violet: "border-violet-500/30 hover:border-violet-500/60",
   emerald:"border-emerald-500/30 hover:border-emerald-500/60",
+  orange: "border-orange-500/30 hover:border-orange-500/60",
+  rose:   "border-rose-500/30 hover:border-rose-500/60",
 };
 
 const TAG_COLOR: Record<string, string> = {
@@ -128,6 +185,8 @@ const TAG_COLOR: Record<string, string> = {
   blue:   "text-blue-400 bg-blue-400/10 border-blue-400/20",
   violet: "text-violet-400 bg-violet-400/10 border-violet-400/20",
   emerald:"text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
+  orange: "text-orange-400 bg-orange-400/10 border-orange-400/20",
+  rose:   "text-rose-400 bg-rose-400/10 border-rose-400/20",
 };
 
 const DOT_COLOR: Record<string, string> = {
@@ -135,6 +194,8 @@ const DOT_COLOR: Record<string, string> = {
   blue:   "bg-blue-400",
   violet: "bg-violet-400",
   emerald:"bg-emerald-400",
+  orange: "bg-orange-400",
+  rose:   "bg-rose-400",
 };
 
 export default function Projects() {
