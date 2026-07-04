@@ -27,6 +27,7 @@ const floatingBadges = [
   { label: "AWS · EKS", color: "cyan", x: "-right-2", y: "bottom-[22%]" },
   { label: "GenAI / LLM", color: "blue", x: "-left-4", y: "top-[28%]" },
   { label: "Open to Network", color: "emerald", x: "-left-2", y: "bottom-[30%]" },
+  { label: "Terraform", color: "cyan", x: "left-1/2 -translate-x-1/2", y: "-top-3" },
 ];
 
 const colorMap: Record<string, string> = {
