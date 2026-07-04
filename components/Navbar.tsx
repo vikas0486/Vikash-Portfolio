@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
@@ -32,10 +33,9 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-white font-bold text-lg tracking-tight select-none">
-          <span className="text-cyan-400">V</span>
-          <span className="text-white">J</span>
-          <span className="ml-2 text-zinc-500 font-normal text-sm hidden sm:inline">
+        <a href="#" className="flex items-center gap-2.5 text-white font-bold text-lg tracking-tight select-none">
+          <Image src="/logo.png" alt="Vikash Jaiswal" width={32} height={32} className="rounded-lg" priority />
+          <span className="ml-1.5 text-zinc-500 font-normal text-sm hidden sm:inline">
             / Lead Platform Engineer
           </span>
         </a>
