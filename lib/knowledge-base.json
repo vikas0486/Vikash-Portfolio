@@ -10,7 +10,7 @@
       "source": "Profile",
       "type": "profile",
       "heading": "Who is Vikash Jaiswal",
-      "body": "Vikash Jaiswal is a Lead Platform Engineer and Principal DevOps Architect with 16+ years engineering enterprise-scale cloud and AI platforms. Based in Noida / Gurgaon, India. He designs and operates Kubernetes infrastructure across 19 clusters in 7 global regions, builds multi-LLM AI systems from scratch, and specialises in DevSecOps, RAG architectures, and AI Gateway design. Key projects: AI FORGE (enterprise AI agent OS), forge-router (multi-LLM gateway), forge-SRE (production observability platform — OTel + SLO burn-rate alerting + DORA), AI-ForgeStream (Kubernetes-native media processing pipeline), Production RAG System, EBS Auto-Remediation. Available immediately for Staff/Principal roles in Platform Engineering or AI Infrastructure.",
+      "body": "Vikash Jaiswal is a Lead Platform Engineer and Principal DevOps Architect with 16+ years engineering enterprise-scale cloud and AI platforms. Based in Noida / Gurgaon, India. He designs and operates Kubernetes infrastructure across 19 clusters in 7 global regions, builds multi-LLM AI systems from scratch, and specialises in DevSecOps, RAG architectures, and AI Gateway design. Key projects: AI FORGE (enterprise AI agent OS), forge-router (multi-LLM gateway), forge-SRE (production observability platform — OTel + SLO burn-rate alerting + DORA), AI-ForgeStream (Kubernetes-native media processing pipeline), Production RAG System, EBS Auto-Remediation. Currently Technical Lead at Thales Group, building custom Terraform Providers and GenAI-driven automation tooling. Open to networking with fellow engineers and leaders.",
       "tags": ["vikash", "profile", "experience", "platform engineer", "devops", "architect", "lead", "16 years"]
     },
     {
@@ -378,6 +378,14 @@
       "body": "Full enterprise RAG pipeline from knowledge sources through ingestion, vector storage, hybrid search, AI gateway governance, multi-LLM routing, observability, and continuous improvement loop.",
       "tags": ["rag", "architecture", "ai gateway", "qdrant", "hybrid search", "diagram"],
       "mermaid": "```mermaid\ngraph TD\n    subgraph KS[Enterprise Knowledge Sources]\n        SKILL[SKILL.md · 11 Domains]\n        CF[Confluence Runbooks]\n        GL[GitLab ADRs]\n        JR[Jira Resolutions]\n    end\n    subgraph ING[Knowledge Ingestion]\n        CHK[Semantic Chunker ~200 tokens]\n        EMB[all-MiniLM-L6-v2 · 384d · Offline]\n        META[(Metadata: skill · region · classification)]\n    end\n    subgraph VDB[Qdrant Self-Hosted]\n        DENSE[(Dense Vectors HNSW · Cosine)]\n        SPARSE[(Sparse BM25 Lexical)]\n    end\n    subgraph SEARCH[Hybrid Search · RRF]\n        HS[BM25 + Dense Fusion]\n        RR[Cross-Encoder Reranker Top-5]\n    end\n    subgraph GW[AI Gateway Governance]\n        RL[Rate Limiter] --> CB[Circuit Breaker]\n        CB --> PII[PII Classifier] --> SC[Semantic Cache]\n        SC --> TBE[Token Budget] --> PI[Injection Detector]\n    end\n    subgraph ROUTER[Multi-LLM Router]\n        GRQ[Groq · Fast]\n        CLA[Claude · Reasoning]\n        GEM[Gemini · Default]\n        OLL[Ollama · Confidential]\n    end\n    KS --> CHK --> EMB --> DENSE & SPARSE\n    CHK --> META\n    USER([Query]) --> GW --> SEARCH\n    DENSE & SPARSE --> HS --> RR --> GW\n    GW --> ROUTER\n    PII -- confidential --> OLL\n    ROUTER --> OBS[Langfuse · DORA · Grafana]\n    OBS -.-> CI[LLM-as-Judge · Re-index]\n    CI -.-> CHK\n```"
+    },
+    {
+      "id": "project-thales-terraform-provider",
+      "source": "Thales Group",
+      "type": "project",
+      "heading": "Custom Terraform Provider Development (Plugin Framework)",
+      "body": "As Technical Lead at Thales Group, Vikash leads development of custom Terraform Providers using the HashiCorp Terraform Plugin Framework in Go, extending infrastructure automation to proprietary internal APIs that off-the-shelf providers (AWS/Azure/GCP) don't cover. Work spans the full provider lifecycle: Metadata/Schema/Configure at the provider level, and Create/Read/Update/Delete/ImportState per resource, communicating with Terraform Core over the Terraform Provider Protocol (gRPC). Also driving integration of GenAI-powered tooling into infrastructure automation workflows to reduce manual operational effort across provisioning and remediation. Tech stack: Terraform, Go, Terraform Plugin Framework, Kubernetes.",
+      "tags": ["terraform", "golang", "plugin framework", "custom provider", "thales", "iac", "grpc", "genai", "automation", "state management"]
     }
   ]
 }

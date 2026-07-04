@@ -14,7 +14,7 @@ interface Line {
 const SCRIPT: Line[] = [
   { type: "cmd",     text: "$ whoami",                                     delay: 400 },
   { type: "output",  text: "Vikash Jaiswal",                                delay: 300 },
-  { type: "muted",   text: "Lead DevOps Engineer · Devo Technology",        delay: 200 },
+  { type: "muted",   text: "Technical Lead · Thales Group",                 delay: 200 },
   { type: "blank",   text: "",                                               delay: 300 },
   { type: "cmd",     text: "$ cat profile.json",                            delay: 500 },
   { type: "output",  text: "{",                                              delay: 100 },
@@ -36,7 +36,7 @@ const SCRIPT: Line[] = [
   { type: "success", text: "✓  Ollama       healthy   priority 7",          delay: 120 },
   { type: "blank",   text: "",                                               delay: 300 },
   { type: "cmd",     text: "$ echo $AVAILABILITY",                          delay: 500 },
-  { type: "success", text: "OPEN_TO_LEADERSHIP_ROLES=true",                 delay: 300 },
+  { type: "success", text: "OPEN_TO_NETWORK=true",                          delay: 300 },
 ];
 
 const COLOR: Record<LineType, string> = {

@@ -55,13 +55,13 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <span className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3 py-1.5 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Open to Work
+            Open to Network
           </span>
           <a
             href="#contact"
             className="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-150"
           >
-            Hire Me
+            Know Me
           </a>
         </div>
       </div>

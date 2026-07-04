@@ -26,7 +26,7 @@ const floatingBadges = [
   { label: "16+ Years", color: "cyan", x: "right-0", y: "top-[10%]" },
   { label: "AWS · EKS", color: "cyan", x: "-right-2", y: "bottom-[22%]" },
   { label: "GenAI / LLM", color: "blue", x: "-left-4", y: "top-[28%]" },
-  { label: "Open to Work", color: "emerald", x: "-left-2", y: "bottom-[30%]" },
+  { label: "Open to Network", color: "emerald", x: "-left-2", y: "bottom-[30%]" },
 ];
 
 const colorMap: Record<string, string> = {
@@ -115,10 +115,10 @@ export default function Hero() {
               {profile.summary}{" "}
               Currently{" "}
               <span className="text-white font-medium">
-                Lead DevOps Engineer at Devo Technology
+                Technical Lead at Thales Group
               </span>
-              , building AI FORGE on AWS Bedrock and driving observability +
-              automation at scale.
+              , building custom Terraform Providers and integrating GenAI-driven
+              automation tooling into enterprise infrastructure workflows.
             </motion.p>
 
             {/* Location + Availability */}

@@ -20,11 +20,11 @@ export default function Contact() {
             Let&apos;s Talk
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Open to the Right Role
+            Open to Connect
           </h2>
           <p className="text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            I&apos;m looking for a leadership platform where I can define and drive a DevOps roadmap —
-            not execute someone else&apos;s. If you&apos;re building something ambitious, let&apos;s connect.
+            Currently Technical Lead at Thales Group, always happy to connect with fellow engineers,
+            leaders, and builders. If you&apos;re working on something ambitious, let&apos;s talk.
           </p>
         </motion.div>
 
@@ -45,9 +45,9 @@ export default function Contact() {
             },
             {
               icon: Clock,
-              label: "Availability",
-              value: "Immediately",
-              sub: "Previous employed at Devo",
+              label: "Status",
+              value: "Open to Network",
+              sub: "Currently @ Thales Group",
             },
             {
               icon: Mail,

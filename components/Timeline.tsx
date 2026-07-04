@@ -4,7 +4,21 @@ import { motion } from "framer-motion";
 
 const EXPERIENCE = [
   {
-    period: "Apr 2023 – Present",
+    period: "Jul 2026 – Present",
+    role: "Technical Lead",
+    company: "Thales Group",
+    location: "Noida, India",
+    type: "Full-time",
+    bullets: [
+      "Leading design and development of custom Terraform Providers using the HashiCorp Plugin Framework (Go) to extend infrastructure automation beyond standard cloud providers",
+      "Driving integration of GenAI-powered tooling into infrastructure automation workflows to reduce manual operational effort",
+      "Providing technical leadership on Kubernetes platform engineering and Infrastructure-as-Code standardization",
+      "Architecting Go-based REST API integrations bridging Terraform Core's gRPC provider protocol with internal enterprise systems",
+    ],
+    tags: ["Terraform", "Golang", "Kubernetes", "Plugin Framework", "GenAI", "Automation"],
+  },
+  {
+    period: "Apr 2023 – Jun 2026",
     role: "Lead DevOps Engineer / SRE",
     company: "Devo Technology",
     location: "Noida, India",

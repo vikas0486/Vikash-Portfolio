@@ -3,7 +3,7 @@ export const profile = {
     name: "Vikash Jaiswal",
     title: "Lead Platform Engineer",
     location: "Noida / Gurgaon, India",
-    availability: "Available · immediately",
+    availability: "Open to Network",
   },
 
   roles: [
