@@ -386,6 +386,88 @@
       "heading": "Custom Terraform Provider Development (Plugin Framework)",
       "body": "As Technical Lead at Thales Group, Vikash builds custom Terraform Providers using the HashiCorp Terraform Plugin Framework in Go, extending infrastructure automation to proprietary internal APIs that off-the-shelf providers (AWS/Azure/GCP) don't cover. A hands-on reference project (terraform-plugin-framework-lab) demonstrates the pattern end-to-end: a thales_keystore resource backed by a REST mock API server, exercising the full provider lifecycle — Metadata/Schema/Configure at the provider level, Create/Read/Update/Delete/ImportState per resource — communicating with Terraform Core over the Terraform Provider Protocol (gRPC), with the provider installed via Terraform's local filesystem mirror during development. Create and Read are fully wired end-to-end against the mock API; Update/Delete, ImportState, plan modifiers, module design, and acceptance testing are in active development. Also driving integration of GenAI-powered tooling into infrastructure automation workflows to reduce manual operational effort. Tech stack: Terraform, Go, Terraform Plugin Framework, Kubernetes.",
       "tags": ["terraform", "golang", "plugin framework", "custom provider", "thales", "iac", "grpc", "genai", "automation", "state management", "resource lifecycle", "provider protocol"]
+    },
+    {
+      "id": "project-forge-router-preview",
+      "source": "forge-router",
+      "type": "architecture",
+      "heading": "forge-router Preview Window Lifecycle",
+      "body": "Two-tier preview lifecycle: HTTP server bound once on :7654 for the full session; WKWebView window toggled independently via Ctrl+P or /p. Preview polls GET /state every 800ms for content updates. On open, last response is immediately restored — no blank window. Auto-open fires when response contains mermaid/images. Only visual content (mermaid, images, media) clears the preview window — plain text responses leave last state visible. Key binding: Ctrl+P sets _ctrl_p_pending flag and exits prompt via KeyboardInterrupt — no I/O inside key binding to avoid corrupting prompt_toolkit display.",
+      "tags": ["preview", "wkwebview", "mermaid", "http server", "key binding", "prompt-toolkit", "ctrl+p"],
+      "mermaid": "sequenceDiagram\n    participant T as Terminal (forge chat)\n    participant S as HTTP Server :7654\n    participant W as WKWebView Window\n    T->>S: _ensure_server() — bind once per session\n    T->>W: subprocess Popen (preview_window.py)\n    W->>S: GET / (load HTML shell)\n    loop every 800ms\n        W->>S: GET /state (JSON)\n        S-->>W: content + provider + model + msg_count\n        W->>W: render markdown + mermaid + hljs\n    end\n    T->>S: preview.write(new_content)\n    T->>W: terminate() on toggle OFF\n    T->>S: server.shutdown() on forge exit"
+    },
+    {
+      "id": "project-forge-router-rag",
+      "source": "forge-router",
+      "type": "architecture",
+      "heading": "forge-router RAG Knowledge Base",
+      "body": "FAISS IndexFlatIP with 768-dimensional cosine similarity using nomic-embed-text embeddings via Ollama. SQLite stores raw interactions and consolidated memory facts. Auto-consolidation: every 10 interactions, Groq extracts key facts from the batch and stores them as high-quality memory chunks. Retrieval threshold: cosine similarity >= 0.55. Top-4 memories injected as context block into every prompt. Cold-start safe: retrieval skipped when index is empty. Graceful degradation: FAISS wrapped in try/except with _FAISS_OK flag — app starts cleanly even if faiss-cpu not installed.",
+      "tags": ["rag", "faiss", "sqlite", "nomic", "embeddings", "consolidation", "retrieval", "memory"],
+      "mermaid": "graph LR\n    Prompt --> Embed[nomic-embed-text 768-dim]\n    Embed --> FAISS[FAISS IndexFlatIP cosine]\n    FAISS --> Top4[Top-4 memories threshold 0.55]\n    Top4 --> CtxBlock[Context block injected into prompt]\n    CtxBlock --> LLM[LLM Provider]\n    LLM --> Response\n    Response --> Score[Observability quality score]\n    Score --> SQLite[(SQLite interactions)]\n    SQLite --> Consolidate[Auto-consolidate every 10]\n    Consolidate --> Facts[Extract facts via Groq]\n    Facts --> Embed"
+    },
+    {
+      "id": "case-study-terraform",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Terraform — Multi-Region IaC Across 7 Regions",
+      "body": "Challenge: Infrastructure across 7 regions was partially Terraform, partially ClickOps, partially tribal knowledge. State files local on engineers' laptops. No locking — two engineers running terraform apply simultaneously caused state corruption. Module versions not pinned. Drift invisible and growing. Solution: Full Terraform platform — remote state (S3 + DynamoDB locking), module versioning, Terragrunt DRY wrappers, drift detection CI job (daily terraform plan diffed against expected-empty). Provider pinned at ~> 5.0. All ClickOps resources imported. Result: State corruption incidents 2/quarter → 0. Drift detection automated daily. 2 of 7 regions under IaC → 7 of 7. ClickOps percentage ~40% → <5%.",
+      "tags": ["terraform", "iac", "terragrunt", "remote state", "drift", "multi-region", "s3", "dynamodb", "case study"]
+    },
+    {
+      "id": "profile-career-journey",
+      "source": "Resume",
+      "type": "profile",
+      "heading": "Career Journey — From Broadcast Engineering to Cloud/AI Platform Leadership",
+      "body": "Vikash's 16+ year career spans six employers and a distinctive pivot from broadcast/media engineering into cloud, DevOps, and AI platform leadership. TVS-E Service Tec (2009-2010): chip-level hardware diagnostics on Nokia mobile prototypes. Essel Shyam Communication (2010-2012): broadcast automation and master control room distribution for Star India, Disney, Hotstar, and Discovery TV. Tata Sky Ltd / Tata Sky Binge OTT (2012-2019): governed live ingestion and transmission for 450+ TV channels, built serverless AWS Lambda + Step Functions pipelines for stream transcoding and HLS/DASH packaging for the Tata Sky Binge streaming platform. Hughes Communications India (2019-2022): hybrid AWS Media Services + VSAT satellite architectures for government e-learning platforms, including satellite Link Budget and EIRP calculations. GlobalXperts Inc (2022-2023): owned production operations for NHL live streaming on AWS MediaLive/MediaConnect/CloudFront under strict SLAs. Devo Technology (2023-2026): Lead DevOps Engineer/SRE, 19 Kubernetes clusters across 7 regions, built AI FORGE. Thales Group (2026-present): Technical Lead, custom Terraform Providers and GenAI automation tooling. The throughline: broadcast/RF engineering discipline (strict uptime SLAs, hardware-level troubleshooting) carried directly into cloud reliability engineering and now AI platform engineering.",
+      "tags": ["career", "broadcast", "ott", "media engineering", "tata sky", "hughes communications", "globalxperts", "essel shyam", "rf engineering", "satellite", "vsat", "career journey"]
+    },
+    {
+      "id": "profile-education-certifications",
+      "source": "Resume",
+      "type": "profile",
+      "heading": "Education and Certifications",
+      "body": "Education: MBA in Information Technology & Project Management from Sikkim Manipal University (Distance Education, 2012); B.Tech in Electronics & Communication Engineering from UPTU Lucknow (2009). Certifications: AWS Certified Solutions Architect – Associate (2023-2026), AWS Certified Cloud Practitioner, ITIL Foundation Certification, ServiceNow Fundamentals, Claude 101 – AI Operational Certification (Anthropic), AWS Media Services – Elemental.",
+      "tags": ["education", "certifications", "aws certified", "mba", "b.tech", "itil", "anthropic", "claude 101"]
+    },
+    {
+      "id": "profile-current-learning-focus",
+      "source": "Resume",
+      "type": "profile",
+      "heading": "Current Learning Focus (2026)",
+      "body": "Active learning investments for 2026, prioritized by depth and impact: AI Gateway Design and RAG Architectures (deepest investment), LLMOps and Multi-Agent Systems, MCP (Model Context Protocol) and LangGraph for stateful agent orchestration, AI Governance, Langfuse for LLM observability, and Qdrant vector database. Structured as a self-directed 12-day AI Platform Engineer / GenAI Solutions Architect crash course (github.com/vikas0486/AI-Learning), accelerating the transition from a Senior DevOps/Infrastructure background into AI Platform and GenAI Architect roles. Approach is hands-on: building reference implementations — the custom Terraform Provider work at Thales, forge-router's RAG pipeline — rather than studying theory alone.",
+      "tags": ["learning", "langgraph", "mcp", "llmops", "rag", "ai governance", "qdrant", "langfuse", "multi-agent systems", "growth"]
+    },
+    {
+      "id": "methodology-90-day-plan",
+      "source": "Interview Prep",
+      "type": "skill",
+      "heading": "90-Day DevOps/Platform Leadership Plan",
+      "body": "Vikash's first-90-days approach to a new DevOps/Platform leadership role follows a Discover, Stabilize, Accelerate cadence. Days 1-30: stakeholder 1:1s across Engineering/Architecture/Security/Product, shadowing on-call rotations, auditing existing CI/CD and IaC coverage, and establishing a DORA metrics baseline (deployment frequency, lead time, change failure rate, MTTR) rather than assuming problems. Days 30-60: quick wins — fix the highest-impact observability gap, standardize one CI/CD pipeline as a reference implementation, stand up a shared engineering metrics dashboard visible to all teams (not just leadership), and resolve the single biggest deployment reliability pain point. Days 60-90: a 6-month modernization roadmap with executive alignment, a deployment governance framework, DevSecOps integration kickoff, and identification of internal DevOps champions. Ongoing: monthly DORA metric reviews and quarterly maturity re-assessment. Core philosophy: move fast, but move with data — pivot immediately if a critical production issue surfaces in week two rather than sticking to a rigid plan.",
+      "tags": ["90 day plan", "devops leadership", "dora", "onboarding", "maturity assessment", "methodology", "platform engineering"]
+    },
+    {
+      "id": "methodology-devops-maturity-assessment",
+      "source": "Interview Prep",
+      "type": "skill",
+      "heading": "DevOps Maturity Assessment Framework",
+      "body": "Vikash evaluates an organization's DevOps maturity using a DORA-aligned, five-dimension framework rather than starting with a tooling audit: (1) Deployment Pipeline Health — CI/CD automation coverage, deployment frequency, manual-vs-automated gate ratio; assessed first because deployment frequency and MTTR data never lies. (2) Observability & Incident Response — telemetry coverage, alert signal-to-noise ratio, MTTR baseline, runbook automation; assessed second. (3) Infrastructure Practice — IaC adoption rate, drift detection, environment consistency. (4) Security Integration (DevSecOps) — secrets management maturity, pipeline security controls, compliance-as-code. (5) Cultural & Governance Maturity — PR review cycle time, change failure rate, on-call fairness. A common maturity-signal check: teams with Kubernetes everywhere that still SSH into boxes to make changes reveal a governance gap that tooling alone won't fix.",
+      "tags": ["devops maturity", "dora", "assessment framework", "observability", "iac", "devsecops", "methodology"]
+    },
+    {
+      "id": "methodology-delivery-metrics",
+      "source": "Interview Prep",
+      "type": "skill",
+      "heading": "Software Delivery Performance Metrics Framework",
+      "body": "Vikash anchors delivery measurement in the DORA four key metrics — deployment frequency, lead time for changes, change failure rate, and MTTR — then layers in three additional tiers: pipeline health (build success rate, build duration trend, queue/wait time), engineering effectiveness (PR review cycle time, review coverage, test coverage trend, technical debt index), and operational health (infrastructure drift rate, alert noise ratio, on-call incident volume, cost per deployment). At Devo Technology this fed Grafana dashboards built on Prometheus with GitOps-managed alert configuration — thresholds and routing controlled entirely via YAML in Git, giving a full audit trail of who changed what. For executive reporting, raw percentages are translated into business language — not '94% pipeline success rate' but '2 of 50 deployments last week required rollback, impacting 3 customer-facing services for 18 minutes' — because that framing is what actually drives leadership action.",
+      "tags": ["dora metrics", "delivery performance", "grafana", "prometheus", "engineering metrics", "mttr", "methodology"]
+    },
+    {
+      "id": "methodology-pr-governance",
+      "source": "Interview Prep",
+      "type": "skill",
+      "heading": "PR Review and Release Governance Model",
+      "body": "Vikash's model splits release governance into three layers so human reviewers spend attention on judgment, not mechanical checks. Automated gate layer (DevOps-owned): secret scanning, linting, SAST, dependency/SCA scanning, container image scanning, Terraform plan validation, and test coverage thresholds — all block the PR automatically before a human ever opens it. Human review layer (Engineering-owned): architecture and design review, business logic correctness, performance impact, API contract review. Release governance layer (DevOps + Engineering): environment promotion policy, change-window compliance, rollback plan validation, blue-green/canary traffic-shift approval. At Devo Technology, every configuration change — alert thresholds, routing policies, deployment parameters — went through a Git PR with CI validation as the governance mechanism itself, rather than a separate approval tool, making unauthorized configuration drift operationally impossible.",
+      "tags": ["pr review", "release governance", "gitops", "sast", "secret scanning", "terraform plan", "ci gates", "methodology"]
     }
   ]
 }
