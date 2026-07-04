@@ -2,7 +2,7 @@
   "meta": {
     "generated": "2026-07-04",
     "owner": "Vikash Jaiswal",
-    "total_chunks": 58
+    "total_chunks": 59
   },
   "chunks": [
     {
@@ -418,16 +418,16 @@
       "source": "Resume",
       "type": "profile",
       "heading": "Career Journey — From Broadcast Engineering to Cloud/AI Platform Leadership",
-      "body": "Vikash's 16+ year career spans six employers and a distinctive pivot from broadcast/media engineering into cloud, DevOps, and AI platform leadership. TVS-E Service Tec (2009-2010): chip-level hardware diagnostics on Nokia mobile prototypes. Essel Shyam Communication (2010-2012): broadcast automation and master control room distribution for Star India, Disney, Hotstar, and Discovery TV. Tata Sky Ltd / Tata Sky Binge OTT (2012-2019): governed live ingestion and transmission for 450+ TV channels, built serverless AWS Lambda + Step Functions pipelines for stream transcoding and HLS/DASH packaging for the Tata Sky Binge streaming platform. Hughes Communications India (2019-2022): hybrid AWS Media Services + VSAT satellite architectures for government e-learning platforms, including satellite Link Budget and EIRP calculations. GlobalXperts Inc (2022-2023): owned production operations for NHL live streaming on AWS MediaLive/MediaConnect/CloudFront under strict SLAs. Devo Technology (2023-2026): Lead DevOps Engineer/SRE, 19 Kubernetes clusters across 7 regions, built AI FORGE. Thales Group (2026-present): Technical Lead, custom Terraform Providers and GenAI automation tooling. The throughline: broadcast/RF engineering discipline (strict uptime SLAs, hardware-level troubleshooting) carried directly into cloud reliability engineering and now AI platform engineering.",
-      "tags": ["career", "broadcast", "ott", "media engineering", "tata sky", "hughes communications", "globalxperts", "essel shyam", "rf engineering", "satellite", "vsat", "career journey"]
+      "body": "Vikash's 16+ year career spans six employers and a distinctive pivot from broadcast/media engineering into cloud, DevOps, and AI platform leadership. TVS-E Service Tec (Aug-Dec 2009): chip-level hardware diagnostics on Nokia mobile prototypes. Essel Shyam Communication (Apr 2010-2012): started as a broadcast trainee on UTV channels (Bindass, Action, World Movies), then broadcast engineer for Star India's playout/MCR — Harris automation (D-Series, 26 channels), Viz-Artist graphics engine, HD/Dolby systems, Sony VTR, Vikinx video routing. Tata Sky Ltd / Tata Sky Binge OTT (2012-2019): governed live ingestion and transmission for 450+ TV channels, later upgraded to 800+ channels via an Irdeto CAS/baseband compression upgrade; built serverless AWS Lambda + Step Functions pipelines for stream transcoding and HLS/DASH packaging; VoD content management over Dalet MAM with subtitling and metadata workflows. Hughes Communications India (2019-2022): satellite communication hub design (HPA/DTR/AUPC/ACU configuration), Link Budget and EIRP calculations, HTS/LEO satellite operations, and datacenter-to-cloud migration planning for banking, maritime, and aviation clients. GlobalXperts Inc (2022-2023): owned production operations for NHL hockey and cricket live streaming on AWS MediaLive/MediaConnect/CloudFront under strict SLAs. Devo Technology (2023-2026): started as a SaaS Production Engineer, then SaaS Production Cloud Engineer, based in Madrid, Spain (Apr 2023-Feb 2026) managing SIEM cloud infrastructure and SOAR platform integration with SSO for Devo's own security-analytics product; promoted to Lead Platform Engineer in Noida, India (Feb 2026-present) — 19 Kubernetes clusters across 7 regions, built AI FORGE. Thales Group (2026-present): Technical Lead, custom Terraform Providers and GenAI automation tooling. The throughline: broadcast/RF engineering discipline (strict uptime SLAs, hardware-level troubleshooting) carried directly into cloud reliability engineering and now AI platform engineering.",
+      "tags": ["career", "broadcast", "ott", "media engineering", "tata sky", "hughes communications", "globalxperts", "essel shyam", "rf engineering", "satellite", "vsat", "career journey", "siem", "soar", "madrid", "spain", "utv", "star india", "cricket", "nhl", "dalet", "irdeto"]
     },
     {
       "id": "profile-education-certifications",
       "source": "Resume",
       "type": "profile",
       "heading": "Education and Certifications",
-      "body": "Education: MBA in Information Technology & Project Management from Sikkim Manipal University (Distance Education, 2012); B.Tech in Electronics & Communication Engineering from UPTU Lucknow (2009). Certifications: AWS Certified Solutions Architect – Associate (2023-2026), AWS Certified Cloud Practitioner, ITIL Foundation Certification, ServiceNow Fundamentals, Claude 101 – AI Operational Certification (Anthropic), AWS Media Services – Elemental.",
-      "tags": ["education", "certifications", "aws certified", "mba", "b.tech", "itil", "anthropic", "claude 101"]
+      "body": "Education: MBA in Information Technology & Project Management from Sikkim Manipal University (Distance Education, 2012); B.Tech in Electronics & Communication Engineering from UPTU Lucknow (2009). Certifications: AWS Certified Solutions Architect – Associate (2023-2026), AWS Certified DevOps Engineer, AWS Certified Cloud Practitioner, Certified Linux Engineer (LFCE), ITIL Foundation Certification, ServiceNow Fundamentals, Java-Core, Claude 101 – AI Operational Certification (Anthropic), AWS Media Services – Elemental.",
+      "tags": ["education", "certifications", "aws certified", "aws devops engineer", "lfce", "linux", "java", "mba", "b.tech", "itil", "anthropic", "claude 101"]
     },
     {
       "id": "profile-current-learning-focus",
@@ -476,6 +476,14 @@
       "heading": "Case Study: Custom Terraform Provider for On-Premises Banking Infrastructure (CIBC)",
       "body": "Background: While at Devo Technology, Vikash worked on infrastructure for CIBC's European on-premises operations — regulatory data-residency requirements meant no AWS/Azure/GCP was usable at all. Every infrastructure change (VM provisioning, database instances, HSM/keystore management, network segmentation) was executed manually against internal systems, ticket-driven with no declarative source of truth and no drift detection. What's being built (in progress, not yet delivered to CIBC): a custom Terraform Provider in Go using the Terraform Plugin Framework, whose client talks to an internal on-prem infrastructure control plane over a purpose-built gRPC/protobuf schema instead of a public-cloud REST API — the same pattern being developed hands-on in the terraform-plugin-framework-lab reference project. Two gRPC layers are distinct: Terraform Core's standard Provider Protocol (gRPC, protocol-agnostic) versus the provider's own client-to-control-plane gRPC layer, which is the part no off-the-shelf provider can do. Example resources: onprem_database_instance, onprem_keystore. Projected impact (design target, not yet measured): infrastructure change lead time from hours to minutes, drift visibility from none to direct terraform plan output, audit trail from ticket history to full state/plan history in version control.",
       "tags": ["terraform", "grpc", "on-premises", "banking", "cibc", "custom provider", "plugin framework", "database", "keystore", "hsm", "case study", "no public cloud"]
+    },
+    {
+      "id": "profile-devo-madrid-siem-role",
+      "source": "LinkedIn",
+      "type": "profile",
+      "heading": "Devo Technology — SIEM/SOAR Production Engineering in Madrid (2023-2026)",
+      "body": "Before becoming Lead Platform Engineer, Vikash's first roughly two years and eleven months at Devo Technology (Apr 2023 - Feb 2026) were spent based in Madrid, Spain as a SaaS Production Engineer, then SaaS Production Cloud Engineer — managing SIEM cloud infrastructure on AWS and integrating a SOAR platform with SIEM via SSO for Devo's own cloud-native security-analytics product. This production-support role is the direct context for hands-on incident work on customer SIEM deployments, including resolving JVM OutOfMemoryError incidents on a mission-critical CaixaBank cluster. In February 2026 he transitioned to Lead Platform Engineer in Noida, India, taking on platform engineering, infrastructure automation, and GenAI-powered operational tooling (AI FORGE) across the full Devo estate — 19 Kubernetes clusters across 7 global regions.",
+      "tags": ["devo technology", "siem", "soar", "madrid", "spain", "caixabank", "sso", "production engineering", "career"]
     }
   ]
 }
