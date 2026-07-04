@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 
 // ✅ Lazy load AI Chat (IMPORTANT for performance + avoids build stress)
@@ -50,11 +51,28 @@ export default function Engineering() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-6 mb-4"
         >
-          <h1 className="text-5xl font-bold mb-4 text-white">
-            Engineering Case Studies
-          </h1>
+          <Image
+            src="/vikash-photo-bw.jpg"
+            alt="Vikash Jaiswal"
+            width={96}
+            height={96}
+            className="rounded-full object-cover border-2 border-cyan-500/40 shrink-0"
+            priority
+          />
 
+          <div>
+            <h1 className="text-5xl font-bold text-white">
+              Engineering Case Studies
+            </h1>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
           <p className="text-zinc-400 mb-12 max-w-2xl">
             A structured breakdown of real-world DevOps, Cloud, and Platform Engineering scenarios.
           </p>
