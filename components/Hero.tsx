@@ -271,8 +271,7 @@ export default function Hero() {
                   src="/vikash-photo.jpg"
                   alt="Vikash Jaiswal"
                   fill
-                  className="object-cover object-top"
-                  style={{ transform: "scale(1.08)", transformOrigin: "top center" }}
+                  className="object-contain object-top"
                   priority
                 />
                 {/* Cyan infusion overlay at dissolve edge */}
