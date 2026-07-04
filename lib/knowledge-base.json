@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated": "2026-06-28",
+    "generated": "2026-07-04",
     "owner": "Vikash Jaiswal",
-    "total_chunks": 68
+    "total_chunks": 58
   },
   "chunks": [
     {
@@ -468,6 +468,14 @@
       "heading": "PR Review and Release Governance Model",
       "body": "Vikash's model splits release governance into three layers so human reviewers spend attention on judgment, not mechanical checks. Automated gate layer (DevOps-owned): secret scanning, linting, SAST, dependency/SCA scanning, container image scanning, Terraform plan validation, and test coverage thresholds — all block the PR automatically before a human ever opens it. Human review layer (Engineering-owned): architecture and design review, business logic correctness, performance impact, API contract review. Release governance layer (DevOps + Engineering): environment promotion policy, change-window compliance, rollback plan validation, blue-green/canary traffic-shift approval. At Devo Technology, every configuration change — alert thresholds, routing policies, deployment parameters — went through a Git PR with CI validation as the governance mechanism itself, rather than a separate approval tool, making unauthorized configuration drift operationally impossible.",
       "tags": ["pr review", "release governance", "gitops", "sast", "secret scanning", "terraform plan", "ci gates", "methodology"]
+    },
+    {
+      "id": "case-study-terraform-plugin-framework-onprem",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Custom Terraform Provider for On-Premises Banking Infrastructure (CIBC)",
+      "body": "Background: While at Devo Technology, Vikash worked on infrastructure for CIBC's European on-premises operations — regulatory data-residency requirements meant no AWS/Azure/GCP was usable at all. Every infrastructure change (VM provisioning, database instances, HSM/keystore management, network segmentation) was executed manually against internal systems, ticket-driven with no declarative source of truth and no drift detection. What's being built (in progress, not yet delivered to CIBC): a custom Terraform Provider in Go using the Terraform Plugin Framework, whose client talks to an internal on-prem infrastructure control plane over a purpose-built gRPC/protobuf schema instead of a public-cloud REST API — the same pattern being developed hands-on in the terraform-plugin-framework-lab reference project. Two gRPC layers are distinct: Terraform Core's standard Provider Protocol (gRPC, protocol-agnostic) versus the provider's own client-to-control-plane gRPC layer, which is the part no off-the-shelf provider can do. Example resources: onprem_database_instance, onprem_keystore. Projected impact (design target, not yet measured): infrastructure change lead time from hours to minutes, drift visibility from none to direct terraform plan output, audit trail from ticket history to full state/plan history in version control.",
+      "tags": ["terraform", "grpc", "on-premises", "banking", "cibc", "custom provider", "plugin framework", "database", "keystore", "hsm", "case study", "no public cloud"]
     }
   ]
 }
