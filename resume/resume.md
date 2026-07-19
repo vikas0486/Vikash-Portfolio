@@ -16,7 +16,7 @@
 
 Lead Platform Engineer and Principal DevOps Architect with **15+ years** of progressive experience spanning **Broadcast Operations → OTT/Media Engineering → Multi-Cloud Infrastructure → Site Reliability Engineering → Platform Engineering → Enterprise GenAI Systems**. Proven track record designing, operating, and modernizing large-scale production environments — from 450+ live television channels at Tata Sky to 19 Kubernetes clusters across 7 global regions at Devo Technology.
 
-Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router**, a production-ready multi-LLM gateway routing across 8 AI providers. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
+Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router**, a production-ready multi-LLM gateway routing across 8 AI providers. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently **Consultant – AI Architect at Hitachi Group**, building custom Terraform Providers and GenAI-driven automation tooling, while pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
 
 ---
 
@@ -62,9 +62,13 @@ timeline
               : Senior Cloud Consultant
               : NHL Live Streaming · AWS MediaLive · Terraform
 
-    2023-Now  : Devo Technology
+    2023-2026 : Devo Technology
               : Lead DevOps Engineer · SRE
               : AI FORGE · 19 K8s Clusters · 7 Regions · AWS Bedrock
+
+    2026-Now  : Hitachi Group
+              : Consultant - AI Architect
+              : Custom Terraform Providers · GenAI Automation
 ```
 
 ---
@@ -247,8 +251,22 @@ mindmap
 
 ## Professional Experience
 
+### Hitachi Group — Noida, India
+**Consultant – AI Architect** &nbsp;|&nbsp; *Jul 2026 – Present*
+
+AI platform and infrastructure automation consulting for enterprise environments. Focused on custom Infrastructure-as-Code tooling and embedding GenAI into operational workflows.
+
+- Leading design and development of **Custom Terraform Providers** using the HashiCorp Plugin Framework (Go) to extend infrastructure automation beyond standard cloud providers to proprietary internal APIs
+- Driving integration of **GenAI-powered tooling** into infrastructure automation workflows to reduce manual operational effort
+- Architecting Go-based REST/gRPC integrations bridging Terraform Core's provider protocol with internal enterprise systems
+- Providing technical leadership on Kubernetes platform engineering and Infrastructure-as-Code standardization
+
+**Technology Stack:** Terraform · Go · Terraform Plugin Framework · Kubernetes · GenAI · REST/gRPC · Automation
+
+---
+
 ### Devo Technology — Noida, India
-**Lead DevOps Engineer / Site Reliability Engineer** &nbsp;|&nbsp; *Apr 2023 – Present*
+**Lead DevOps Engineer / Site Reliability Engineer** &nbsp;|&nbsp; *Apr 2023 – Jun 2026*
 
 Devo Technology is a cloud-native security analytics and SIEM platform serving global enterprise customers. Led platform engineering, infrastructure automation, observability modernization, and AI-assisted operational intelligence across 19+ Kubernetes clusters in 7 global regions.
 
@@ -708,4 +726,4 @@ quadrantChart
 
 ---
 
-*Last updated: June 2026 · ATS-optimized · FAANG-targeted*
+*Last updated: July 2026 · ATS-optimized · FAANG-targeted*

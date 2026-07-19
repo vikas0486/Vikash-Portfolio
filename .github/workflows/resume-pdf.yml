@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "resume/resume.md"
+      - "resume/resume-professional.md"
+      - "build-scripts/generate-resume-pdf.js"
 
 jobs:
   build-pdf:
@@ -23,13 +25,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate PDF
-        run: node build-scripts/generate-pdf.js
+      - name: Generate PDFs
+        run: node build-scripts/generate-resume-pdf.js
 
-      - name: Commit PDF
+      - name: Commit PDFs
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add public/resume.pdf
-          git commit -m "auto: update resume PDF" || echo "No changes"
+          git add public/resume.pdf public/resume-detailed.pdf public/resume-professional.pdf
+          git commit -m "auto: update resume PDFs" || echo "No changes"
           git push

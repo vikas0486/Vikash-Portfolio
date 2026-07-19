@@ -143,11 +143,14 @@ Showcases:
 
 ## Resume Automation System
 
-Source of truth:
+Two resumes, each authored in Markdown as the source of truth:
 
 ```text
-resume/resume.md
+resume/resume.md               → Detailed resume  → public/resume-detailed.pdf
+resume/resume-professional.md  → ATS resume (2pp) → public/resume-professional.pdf
 ```
+
+`public/resume.pdf` is kept as a legacy alias of the detailed PDF.
 
 Automatically supports:
 
@@ -339,13 +342,16 @@ Vikash-Portfolio
 │   └── EngineeringChat.tsx
 │
 ├── resume
-│   └── resume.md
+│   ├── resume.md
+│   └── resume-professional.md
 │
 ├── build-scripts
-│   └── generate-pdf.js
+│   └── generate-resume-pdf.js
 │
 ├── public
-│   └── resume.pdf
+│   ├── resume.pdf
+│   ├── resume-detailed.pdf
+│   └── resume-professional.pdf
 │
 ├── .github
 │   └── workflows
@@ -427,15 +433,17 @@ npm run build
 ## Source of Truth
 
 ```text
-resume/resume.md
+resume/resume.md               (Detailed)
+resume/resume-professional.md  (ATS Professional)
 ```
 
 Never edit PDFs manually.
 
-Only update:
+Only update the Markdown sources:
 
 ```text
-resume.md
+resume/resume.md
+resume/resume-professional.md
 ```
 
 ---
@@ -461,15 +469,17 @@ http://localhost:3000/test-resume
 Generate:
 
 ```bash
-node build-scripts/generate-pdf.js
+node build-scripts/generate-resume-pdf.js
 ```
 
 ---
 
-Generated file:
+Generated files:
 
 ```text
-public/resume.pdf
+public/resume-detailed.pdf
+public/resume-professional.pdf
+public/resume.pdf   (alias of detailed)
 ```
 
 ---
@@ -486,21 +496,12 @@ Example:
 
 ```tsx
 export default function ResumeDownload() {
-
-return (
-
-<a
-href="/resume.pdf"
-download
-target="_blank"
->
-
-Download Resume
-
-</a>
-
-)
-
+  return (
+    <>
+      <a href="/resume-professional.pdf" download>Professional Resume (ATS)</a>
+      <a href="/resume-detailed.pdf" download>Detailed Resume</a>
+    </>
+  );
 }
 ```
 
@@ -1044,16 +1045,13 @@ Engineering Pages
 
 ## V3
 
-Planned:
+Completed:
 
 ```text
-Profile Kit Generator
-
-Engineering Breakdowns
-
-Dynamic Parsing
-
-Knowledge Center
+Dual Resume System (Detailed + ATS Professional)
+Two-PDF Generation Pipeline
+Role Update — Consultant AI Architect @ Hitachi Group
+Knowledge Base Refresh
 ```
 
 ---
@@ -1170,7 +1168,7 @@ Built by:
 
 Vikash Jaiswal
 
-Lead Platform Engineer
+Consultant – AI Architect @ Hitachi Group
 
 Cloud | DevOps | GenAI | Platform Engineering
 

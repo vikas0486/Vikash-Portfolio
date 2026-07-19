@@ -116,7 +116,7 @@ export default function Hero() {
               {profile.summary}{" "}
               Currently{" "}
               <span className="text-white font-medium">
-                Technical Lead at Thales Group
+                Consultant – AI Architect at Hitachi Group
               </span>
               , building custom Terraform Providers and integrating GenAI-driven
               automation tooling into enterprise infrastructure workflows.

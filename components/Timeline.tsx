@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 const EXPERIENCE = [
   {
     period: "Jul 2026 – Present",
-    role: "Technical Lead",
-    company: "Thales Group",
+    role: "Consultant – AI Architect",
+    company: "Hitachi Group",
     location: "Noida, India",
     type: "Full-time",
     bullets: [

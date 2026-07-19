@@ -23,7 +23,7 @@ export default function Contact() {
             Open to Connect
           </h2>
           <p className="text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Currently Technical Lead at Thales Group, always happy to connect with fellow engineers,
+            Currently Consultant – AI Architect at Hitachi Group, always happy to connect with fellow engineers,
             leaders, and builders. If you&apos;re working on something ambitious, let&apos;s talk.
           </p>
         </motion.div>
@@ -47,7 +47,7 @@ export default function Contact() {
               icon: Clock,
               label: "Status",
               value: "Open to Network",
-              sub: "Currently @ Thales Group",
+              sub: "Currently @ Hitachi Group",
             },
             {
               icon: Mail,
