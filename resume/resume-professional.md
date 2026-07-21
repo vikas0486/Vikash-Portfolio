@@ -11,7 +11,7 @@ Available · 15-Day Notice · Open to Remote / PAN India / Global Roles
 
 ## Professional Summary
 
-AI Architect and Platform Engineer with 15+ years of progressive experience across Cloud, DevOps, Site Reliability Engineering, and enterprise GenAI systems. Currently Consultant – AI Architect at Hitachi Group, building custom Terraform Providers and GenAI-driven automation tooling. Proven at operating large-scale production platforms — 19 Kubernetes clusters across 7 global regions — and delivering AI systems from scratch, including AI FORGE (enterprise GenAI operations platform on AWS Bedrock) and forge-router (multi-LLM gateway). AWS Certified Solutions Architect with deep expertise in Terraform, GitOps, DevSecOps, observability, and AI platform design.
+AI Architect and Platform Engineer with 15+ years of progressive experience across Cloud, DevOps, Site Reliability Engineering, and enterprise GenAI systems. Currently Consultant – Platform Engineering at Hitachi Group, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows. Proven at operating large-scale production platforms — 19 Kubernetes clusters across 7 global regions — and delivering AI systems from scratch, including AI FORGE (enterprise GenAI operations platform on AWS Bedrock) and forge-router (multi-LLM gateway). AWS Certified Solutions Architect with deep expertise in Terraform, GitOps, DevSecOps, observability, and AI platform design.
 
 ---
 
@@ -24,17 +24,18 @@ AI Architect and Platform Engineer with 15+ years of progressive experience acro
 - **CI/CD:** Jenkins, GitLab CI, GitHub Actions, Azure DevOps
 - **Observability & SRE:** Prometheus, Grafana, OpenTelemetry, Dynatrace, Datadog, ELK, Loki, SLI/SLO, DORA Metrics
 - **Security / DevSecOps:** HashiCorp Vault, OpenBao, SAST/SCA, Zero-Trust, IAM/RBAC, Secrets Management
+- **Systems / Linux Ops:** Apache HTTP Server, Cron Scheduling, SSH Key Management, FTP/FTPS Automation, S3 Intelligent-Tiering, EBS Volume Management, PDF Automation (pypdf)
 - **Languages:** Python, Bash, Groovy, YAML/JSON, SQL, TypeScript
 
 ---
 
 ## Professional Experience
 
-### Hitachi Group — Consultant – AI Architect
+### Hitachi Group — Consultant – Platform Engineering
 *Noida, India | Jul 2026 – Present*
-- Lead development of Custom Terraform Providers using the HashiCorp Plugin Framework (Go), extending automation beyond standard cloud providers to proprietary internal APIs.
-- Drive integration of GenAI-powered tooling into infrastructure automation workflows to reduce manual operational effort.
-- Provide technical leadership on Kubernetes platform engineering and Infrastructure-as-Code standardization.
+- Establish onboarding governance frameworks that standardize how new projects, teams, and services are brought onto the platform.
+- Modernize legacy, monolithic DevOps practices by embedding AI-native processes and steps across the software delivery lifecycle.
+- Drive automation initiatives across infrastructure, operations, and delivery pipelines to reduce manual toil.
 
 ### Devo Technology — Lead DevOps Engineer / SRE
 *Noida, India | Apr 2023 – Jun 2026*
@@ -75,6 +76,7 @@ AI Architect and Platform Engineer with 15+ years of progressive experience acro
 - **forge-router — Multi-LLM AI Gateway:** Python gateway routing across 8 providers (Claude, Gemini, Groq, OpenAI, Ollama, and more) with health-check-first routing and automatic fallback.
 - **Custom Terraform Provider (Plugin Framework):** Go provider extending Terraform to proprietary internal APIs over gRPC — full resource CRUD lifecycle and provider protocol implementation.
 - **Production RAG System:** Hybrid retrieval (BM25 + semantic) with cross-encoder reranking, OpenSearch vector store, and LLM observability via Langfuse.
+- **Saturs File Portal & Archive System (Freelance):** Migrated an oversized 1000GB EC2 file server to a right-sized instance + S3 Intelligent-Tiering archive, replacing a broken third-party sync tool with custom Python automation — infrastructure cost cut ~86.5%.
 
 ---
 

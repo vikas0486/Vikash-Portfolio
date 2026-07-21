@@ -27,7 +27,7 @@ const floatingBadges = [
   { label: "AWS · EKS", color: "cyan", x: "-right-2", y: "bottom-[22%]" },
   { label: "GenAI / LLM", color: "blue", x: "-left-4", y: "top-[28%]" },
   { label: "Open to Network", color: "emerald", x: "-left-2", y: "bottom-[30%]" },
-  { label: "Terraform", color: "cyan", x: "left-1/2 -translate-x-1/2", y: "-top-3" },
+  { label: "AI-Native DevOps", color: "cyan", x: "left-1/2 -translate-x-1/2", y: "-top-3" },
 ];
 
 const colorMap: Record<string, string> = {
@@ -116,10 +116,10 @@ export default function Hero() {
               {profile.summary}{" "}
               Currently{" "}
               <span className="text-white font-medium">
-                Consultant – AI Architect at Hitachi Group
+                Consultant – Platform Engineering at Hitachi Group
               </span>
-              , building custom Terraform Providers and integrating GenAI-driven
-              automation tooling into enterprise infrastructure workflows.
+              , driving onboarding governance, modernizing legacy DevOps practices
+              with AI-native processes, and building automation across enterprise workflows.
             </motion.p>
 
             {/* Location + Availability */}

@@ -18,6 +18,7 @@ const CATEGORIES = [
       "AWS MediaPackage", "Azure Virtual Machines",
       "Azure DevOps", "Azure Monitor", "Azure Storage",
       "Azure Networking", "GCP Kubernetes", "FinOps / Cost Optimization",
+      "Amazon EBS", "AWS Cost Explorer",
     ],
   },
   {
@@ -152,6 +153,18 @@ const CATEGORIES = [
     ],
   },
   {
+    title: "Linux & Web Infrastructure Ops",
+    color: "lime",
+    skills: [
+      "Apache HTTP Server", "CGI Scripting",
+      "HTTP Basic Auth", "SSH Key Management",
+      "Cron Job Scheduling", "FTP / FTPS Automation",
+      "rsync", "S3 Intelligent-Tiering",
+      "PDF Automation (pypdf)", "Log Rotation & Retention Policies",
+      "Amazon Linux", "EBS Volume & Snapshot Management",
+    ],
+  },
+  {
     title: "Media, OTT & Broadcast",
     color: "purple",
     skills: [
@@ -202,6 +215,7 @@ const COLOR_MAP: Record<string, { badge: string; heading: string; dot: string }>
   teal:   { badge: "bg-zinc-800/80 border-zinc-700/50 text-zinc-300 hover:border-teal-500/50 hover:text-teal-300",   heading: "text-teal-400",   dot: "bg-teal-400" },
   purple: { badge: "bg-zinc-800/80 border-zinc-700/50 text-zinc-300 hover:border-purple-500/50 hover:text-purple-300", heading: "text-purple-400", dot: "bg-purple-400" },
   slate:  { badge: "bg-zinc-800/80 border-zinc-700/50 text-zinc-300 hover:border-slate-400/50 hover:text-slate-300",  heading: "text-slate-400",  dot: "bg-slate-400" },
+  lime:   { badge: "bg-zinc-800/80 border-zinc-700/50 text-zinc-300 hover:border-lime-500/50 hover:text-lime-300",   heading: "text-lime-400",   dot: "bg-lime-400" },
 };
 
 export default function Skills() {

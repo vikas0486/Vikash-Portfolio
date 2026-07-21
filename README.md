@@ -1168,7 +1168,7 @@ Built by:
 
 Vikash Jaiswal
 
-Consultant – AI Architect @ Hitachi Group
+Consultant – Platform Engineering @ Hitachi Group
 
 Cloud | DevOps | GenAI | Platform Engineering
 

@@ -88,7 +88,7 @@ vercel --prod      # production
 
 ## Conventions & guardrails
 
-- **Current role**: Vikash is **Consultant – AI Architect at Hitachi Group** (since Jul 2026); prior role was Lead DevOps/SRE at Devo Technology (Apr 2023 – Jun 2026). Keep the role consistent across `components/*`, `lib/knowledge-base.json`, `lib/profile.ts`, and both resumes.
+- **Current role**: Vikash is **Consultant – Platform Engineering at Hitachi Group** (since Jul 2026) — focused on onboarding governance, modernizing legacy DevOps practices with AI-native processes, and automation (NOT Terraform Provider development — that's a personal lab project, unrelated to the Hitachi role, see the `terraform-plugin-framework` case study); prior role was Lead DevOps/SRE at Devo Technology (Apr 2023 – Jun 2026). Keep the role consistent across `components/*`, `lib/knowledge-base.json`, `lib/profile.ts`, and both resumes.
 - **Resume**: two sources — edit `resume/resume.md` (detailed) and `resume/resume-professional.md` (ATS) only; regenerate PDFs via the build script. Never hand-edit the PDFs. Keep both in sync with each other and the site.
 - **Next.js 15**: consult `node_modules/next/dist/docs/` before routing/config changes (see `AGENTS.md`).
 - **Styling**: TailwindCSS 4 utility classes; animations via Framer Motion.

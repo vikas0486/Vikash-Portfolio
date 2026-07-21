@@ -169,6 +169,33 @@ const PROJECTS = [
     github: "https://github.com/vikas0486/AI-ForgeStream",
     color: "rose",
   },
+  {
+    tag: "Freelance Engagement",
+    name: "Saturs File Portal & Archive System",
+    subtitle: "AWS Cost & Reliability Overhaul",
+    description:
+      "Migrated a business-critical file-drop web server from an oversized 1000GB EC2 instance to a right-sized instance with a new S3 Intelligent-Tiering archive layer, so aged data offloads automatically instead of growing the local disk forever. Replaced a broken third-party FTP-sync tool with a custom Python pipeline that auto-extracts PDFs from zip-only feeds, merges multi-part zips into a single correctly-named PDF, and gates downloads on file-size stability to avoid ingesting partial writes.",
+    impact: [
+      "Infrastructure cost cut ~86.5% via right-sized EC2 + S3 Intelligent-Tiering",
+      "Replaced a buggy third-party sync tool with a custom 5-min cron pipeline",
+      "Auto-extracts and merges PDFs from zip-only source feeds (~97 feed codes)",
+      "Size-stability gate + 5-retry give-up logic eliminate corrupt/partial ingests",
+      "Transparent S3 archive access via 404-fallback CGI — zero change to URLs",
+    ],
+    tech: [
+      "AWS EC2",
+      "Amazon S3",
+      "S3 Intelligent-Tiering",
+      "IAM",
+      "Python",
+      "Apache / CGI",
+      "Cron",
+      "pypdf",
+      "Cost Explorer",
+    ],
+    github: "https://github.com/vikas0486",
+    color: "amber",
+  },
 ];
 
 const ACCENT: Record<string, string> = {
@@ -178,6 +205,7 @@ const ACCENT: Record<string, string> = {
   emerald:"border-emerald-500/30 hover:border-emerald-500/60",
   orange: "border-orange-500/30 hover:border-orange-500/60",
   rose:   "border-rose-500/30 hover:border-rose-500/60",
+  amber:  "border-amber-500/30 hover:border-amber-500/60",
 };
 
 const TAG_COLOR: Record<string, string> = {
@@ -187,6 +215,7 @@ const TAG_COLOR: Record<string, string> = {
   emerald:"text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
   orange: "text-orange-400 bg-orange-400/10 border-orange-400/20",
   rose:   "text-rose-400 bg-rose-400/10 border-rose-400/20",
+  amber:  "text-amber-400 bg-amber-400/10 border-amber-400/20",
 };
 
 const DOT_COLOR: Record<string, string> = {
@@ -196,6 +225,7 @@ const DOT_COLOR: Record<string, string> = {
   emerald:"bg-emerald-400",
   orange: "bg-orange-400",
   rose:   "bg-rose-400",
+  amber:  "bg-amber-400",
 };
 
 export default function Projects() {

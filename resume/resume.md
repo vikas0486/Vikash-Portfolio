@@ -16,7 +16,7 @@
 
 Lead Platform Engineer and Principal DevOps Architect with **15+ years** of progressive experience spanning **Broadcast Operations → OTT/Media Engineering → Multi-Cloud Infrastructure → Site Reliability Engineering → Platform Engineering → Enterprise GenAI Systems**. Proven track record designing, operating, and modernizing large-scale production environments — from 450+ live television channels at Tata Sky to 19 Kubernetes clusters across 7 global regions at Devo Technology.
 
-Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router**, a production-ready multi-LLM gateway routing across 8 AI providers. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently **Consultant – AI Architect at Hitachi Group**, building custom Terraform Providers and GenAI-driven automation tooling, while pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
+Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router**, a production-ready multi-LLM gateway routing across 8 AI providers. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently **Consultant – Platform Engineering at Hitachi Group**, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows, while pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
 
 ---
 
@@ -67,8 +67,8 @@ timeline
               : AI FORGE · 19 K8s Clusters · 7 Regions · AWS Bedrock
 
     2026-Now  : Hitachi Group
-              : Consultant - AI Architect
-              : Custom Terraform Providers · GenAI Automation
+              : Consultant - Platform Engineering
+              : Onboarding Governance · AI-Native DevOps · Automation
 ```
 
 ---
@@ -235,6 +235,17 @@ mindmap
 | **Amazon S3** | Object storage, data lake patterns, event triggers |
 | **Vector Databases** | OpenSearch, Qdrant, ChromaDB for RAG pipelines |
 
+### Linux & Web Infrastructure Operations
+
+| Category | Technologies & Experience |
+|---|---|
+| **Web Servers** | Apache HTTP Server · CGI scripting · ScriptAliasMatch · 404-fallback handlers |
+| **Access Control** | HTTP Basic Auth · SSH key-based access (per-user dedicated keys) |
+| **Scheduling & Sync** | Cron job scheduling · rsync · FTP/FTPS client automation |
+| **Storage Lifecycle** | S3 Intelligent-Tiering · EBS volume/snapshot management · retention policies |
+| **Cost & Billing** | AWS Cost Explorer · GST invoice reconciliation · FinOps reporting |
+| **Document Automation** | pypdf · PDF generation/merge from zipped source feeds |
+
 ### Media, OTT & Broadcast Domain
 
 | Category | Technologies & Experience |
@@ -252,16 +263,16 @@ mindmap
 ## Professional Experience
 
 ### Hitachi Group — Noida, India
-**Consultant – AI Architect** &nbsp;|&nbsp; *Jul 2026 – Present*
+**Consultant – Platform Engineering** &nbsp;|&nbsp; *Jul 2026 – Present*
 
-AI platform and infrastructure automation consulting for enterprise environments. Focused on custom Infrastructure-as-Code tooling and embedding GenAI into operational workflows.
+Platform engineering consulting for enterprise environments, focused on onboarding governance, DevOps modernization, and AI-native process automation.
 
-- Leading design and development of **Custom Terraform Providers** using the HashiCorp Plugin Framework (Go) to extend infrastructure automation beyond standard cloud providers to proprietary internal APIs
-- Driving integration of **GenAI-powered tooling** into infrastructure automation workflows to reduce manual operational effort
-- Architecting Go-based REST/gRPC integrations bridging Terraform Core's provider protocol with internal enterprise systems
-- Providing technical leadership on Kubernetes platform engineering and Infrastructure-as-Code standardization
+- Establishing **onboarding governance frameworks** that standardize how new projects, teams, and services are brought onto the platform
+- Modernizing legacy, monolithic **DevOps practices** by embedding AI-native processes and steps across the software delivery lifecycle
+- Driving **automation initiatives** across infrastructure, operations, and delivery pipelines to reduce manual toil
+- Providing technical leadership on platform engineering standardization across enterprise teams
 
-**Technology Stack:** Terraform · Go · Terraform Plugin Framework · Kubernetes · GenAI · REST/gRPC · Automation
+**Technology Stack:** DevOps Governance · AI-Native Process Design · Automation · Platform Engineering · Kubernetes
 
 ---
 
@@ -495,6 +506,36 @@ sequenceDiagram
 
 **Before:** 30–60 minute on-call manual response — SSH, manual EBS expand, manual XFS resize, ticket
 **After:** 3-minute fully automated resolution — engineers notified of completion, not pulled into execution
+
+---
+
+### Saturs File Portal & Archive System — Freelance AWS Cost & Reliability Overhaul
+
+```mermaid
+flowchart LR
+    subgraph SOURCE["Client FTP Source"]
+        FTP[xcpp.nl FTP Feed]
+    end
+
+    subgraph EC2["Right-Sized EC2 (t3a.micro · 100GB gp3)"]
+        SYNC[Python Sync Script\n5-min cron]
+        WEB[Apache Web Server\nBasic Auth]
+        CGI[404-Fallback CGI\nrestore.cgi]
+    end
+
+    subgraph S3["S3 Archive (Intelligent-Tiering)"]
+        ARCHIVE[(Archived Files\n15-day local retention)]
+    end
+
+    FTP --> SYNC
+    SYNC -->|size-stable, PDF-only,\nzip-merge| WEB
+    WEB -->|aged out| ARCHIVE
+    WEB -->|404 on /INPUT/...| CGI
+    CGI --> ARCHIVE
+```
+
+**Before:** 1000GB oversized EC2 instance, broken third-party `FTPchecker.exe` silently misdelivering files via a relative-path bug, no retry/escalation on failure
+**After:** Right-sized instance + S3 Intelligent-Tiering archive layer, custom Python sync with size-stability gating and zip-merge handling, automatic give-up + escalation reporting after repeated failures — infrastructure cost cut ~86.5%
 
 ---
 

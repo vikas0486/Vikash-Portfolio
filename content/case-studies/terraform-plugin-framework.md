@@ -56,7 +56,7 @@ resource "onprem_keystore" "hsm_payment_keys" {
 }
 ```
 
-Each resource follows the same CRUD lifecycle already implemented for the `hitachi_resource` proof-of-concept resource in the lab: `Create`/`Read` are fully wired end-to-end; `Update`/`Delete`/`ImportState` and plan modifiers (e.g. `RequiresReplace` on immutable field changes) are the current work in progress.
+Each resource follows the same CRUD lifecycle already implemented for the `thales_keystore` proof-of-concept resource in the lab: `Create`/`Read` are fully wired end-to-end; `Update`/`Delete`/`ImportState` and plan modifiers (e.g. `RequiresReplace` on HSM partition changes) are the current work in progress.
 
 ---
 
