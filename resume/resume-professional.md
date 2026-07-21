@@ -5,13 +5,13 @@
 Noida / Gurgaon / Delhi NCR, India | +91-8588800287 | vikashjaiswal.486@gmail.com
 LinkedIn: linkedin.com/in/linked2vikashjaiswal | GitHub: github.com/vikas0486 | Medium: medium.com/@vikash.jaiswal
 
-Available · 15-Day Notice · Open to Remote / PAN India / Global Roles
+Available · 90-Day Notice · Open to Remote / PAN India / Global Roles
 
 ---
 
 ## Professional Summary
 
-AI Architect and Platform Engineer with 15+ years of progressive experience across Cloud, DevOps, Site Reliability Engineering, and enterprise GenAI systems. Currently Consultant – Platform Engineering at Hitachi Group, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows. Proven at operating large-scale production platforms — 19 Kubernetes clusters across 7 global regions — and delivering AI systems from scratch, including AI FORGE (enterprise GenAI operations platform on AWS Bedrock) and forge-router (multi-LLM gateway). AWS Certified Solutions Architect with deep expertise in Terraform, GitOps, DevSecOps, observability, and AI platform design.
+AI Architect and Platform Engineer with 15+ years of progressive experience across Cloud, DevOps, Site Reliability Engineering, and enterprise GenAI systems. Currently Consultant – Platform Engineering at Hitachi Group, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows. Proven at operating large-scale production platforms — 19 Kubernetes clusters across 7 global regions — and delivering AI systems from scratch, including AI FORGE (enterprise GenAI operations platform on AWS Bedrock) and forge-router (flagship project — multi-LLM AI Gateway, 12 providers). AWS Certified Solutions Architect with deep expertise in Terraform, GitOps, DevSecOps, observability, and AI platform design.
 
 ---
 
@@ -73,7 +73,7 @@ AI Architect and Platform Engineer with 15+ years of progressive experience acro
 ## Key Projects
 
 - **AI FORGE — Enterprise AI Agent Operating System:** Claude Code + AWS Bedrock platform with 11 domain skill modules, persistent cross-session memory, and a zero-secret runtime credential architecture. ~60% reduction in troubleshooting ramp-up.
-- **forge-router — Multi-LLM AI Gateway:** Python gateway routing across 8 providers (Claude, Gemini, Groq, OpenAI, Ollama, and more) with health-check-first routing and automatic fallback.
+- **forge-router — Flagship Project, Multi-LLM AI Gateway:** Python gateway routing across 12 providers (Claude, Gemini, Groq, OpenAI, Ollama, and more) with health-check-first routing, automatic fallback, and an Anthropic-compatible virtual-key gateway layer.
 - **Custom Terraform Provider (Plugin Framework):** Go provider extending Terraform to proprietary internal APIs over gRPC — full resource CRUD lifecycle and provider protocol implementation.
 - **Production RAG System:** Hybrid retrieval (BM25 + semantic) with cross-encoder reranking, OpenSearch vector store, and LLM observability via Langfuse.
 - **Saturs File Portal & Archive System (Freelance):** Migrated an oversized 1000GB EC2 file server to a right-sized instance + S3 Intelligent-Tiering archive, replacing a broken third-party sync tool with custom Python automation — infrastructure cost cut ~86.5%.

@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/engineering", label: "Engineering" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -33,22 +35,22 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 text-white font-bold text-lg tracking-tight select-none">
+        <Link href="/" className="flex items-center gap-2.5 text-white font-bold text-lg tracking-tight select-none">
           <Image src="/logo.png" alt="Vikash Jaiswal" width={32} height={32} className="rounded-lg" priority />
           <span className="ml-1.5 text-zinc-500 font-normal text-sm hidden sm:inline">
             / Lead Platform Engineer
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-7">
           {NAV_LINKS.map(({ href, label }) => (
-            <a
+            <Link
               key={href}
               href={href}
               className="text-zinc-400 hover:text-white text-sm font-medium transition-colors duration-150"
             >
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -57,12 +59,12 @@ export default function Navbar() {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Open to Network
           </span>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-150"
           >
             Know Me
-          </a>
+          </Link>
         </div>
       </div>
     </motion.header>

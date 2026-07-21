@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FileText } from "lucide-react";
 import { profile } from "@/lib/profile";
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -184,13 +185,17 @@ export default function SkillSnapshot() {
 
   return (
     <>
-      <button
+      <motion.button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center gap-2 border border-zinc-700 hover:border-cyan-500 text-zinc-300 hover:text-cyan-300 font-semibold px-8 py-4 rounded-xl transition-colors duration-150 text-sm w-full sm:w-auto"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.97 }}
+        className="inline-flex items-center justify-center gap-3 border-2 border-violet-500/50 hover:border-violet-400 text-violet-300 hover:text-white font-bold px-10 py-5 rounded-2xl transition-all duration-200 text-base w-full sm:w-auto shadow-lg shadow-violet-900/30 hover:shadow-violet-500/30"
+        style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(217,70,239,0.15))" }}
       >
+        <FileText className="w-5 h-5" />
         Capability Report
-      </button>
+      </motion.button>
 
       <AnimatePresence>
         {open && (

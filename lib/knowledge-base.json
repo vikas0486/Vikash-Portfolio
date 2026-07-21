@@ -5,7 +5,7 @@
     "owner": "Vikash Jaiswal",
     "generated": "2026-07-17",
     "version": "1.1.0",
-    "total_chunks": 60,
+    "total_chunks": 67,
     "collection": "vikash-kb",
     "embedding_model": "nomic-embed-text",
     "embedding_dims": 768
@@ -140,10 +140,11 @@
       "id": "project-forge-router-overview",
       "source": "forge-router",
       "type": "project",
-      "heading": "forge-router — Multi-LLM Orchestration Engine",
-      "body": "forge-router is a production-ready multi-LLM routing engine built in Python. It routes prompts across 10 AI providers using intent-based classification and health-check-first automatic fallback. Providers: Groq (LLaMA 3.3 70B), Antigravity (Gemini Flash), Claude (Anthropic), OpenAI (GPT-4o), Codex, Copilot, Hermes, Gemini, Sakana AI, Ollama (local). Embedded FAISS + SQLite RAG knowledge base with auto-consolidation. Native macOS WKWebView live preview window for rendering mermaid diagrams. Interactive TUI with prompt-toolkit and Rich. Intent-tuned timeouts: chat 15s, code 30s, reasoning 45s, agentic 60s.",
+      "heading": "forge-router — Vikash's Flagship Project: Multi-LLM Orchestration Engine & AI Gateway",
+      "body": "forge-router is Vikash's flagship personal project — a production-ready, terminal-first multi-LLM orchestration engine built in Python, now evolving (v0.5.1) into a self-hosted enterprise AI Gateway. It routes prompts across 12 AI providers using intent-based classification and health-check-first automatic fallback: Groq, Antigravity (Gemini Flash), Claude (Anthropic), OpenAI (GPT-4o + image generation), Cerebras, Mistral, OpenRouter, Copilot, Hermes, Codex, Ollama (local), and more. Embedded FAISS + SQLite RAG knowledge base with auto-consolidation. Native macOS WKWebView live preview window that auto-opens the instant a response contains a diagram or image — no manual toggle needed — rendering Mermaid, Graphviz, PlantUML, D2, or the image directly. Interactive TUI with prompt-toolkit and Rich. Intent-tuned timeouts: chat 15s, code 30s, reasoning 45s, agentic 60s. See the separate Gateway chunk for the Phase 1 Anthropic-compatible /v1/messages layer.",
       "tags": [
         "forge-router",
+        "flagship",
         "multi-llm",
         "routing",
         "groq",
@@ -154,6 +155,24 @@
         "rag",
         "faiss",
         "python"
+      ]
+    },
+    {
+      "id": "project-forge-gateway",
+      "source": "forge-router",
+      "type": "architecture",
+      "heading": "Forge Gateway — Anthropic-Compatible AI Gateway (Phase 1 MVP)",
+      "body": "Forge Gateway is the enterprise-gateway evolution of forge-router, inspired by gateways like Bifrost. FastAPI app exposing an Anthropic-compatible POST /v1/messages endpoint (non-streaming) plus /health. Virtual keys are SHA-256-hashed with per-key model allow-lists; every request is metered for usage. Requests route through forge-router's intent classifier to the cheapest healthy provider — this is a cost-elimination path, not a Claude-passthrough proxy. Built under a hard zero-spend constraint: open-source stack only (FastAPI, SQLite, optional Postgres/Redis/pgvector via Docker), no paid cloud hosting. Live-verified: gateway-to-real-provider round trip in 0.33s; invalid keys correctly rejected with 401. CLI: forge gateway serve | keys create/list/revoke | top. Roadmap: SSE streaming, an OpenAI-compatible /v1/chat/completions endpoint, /v1/models, real token counting.",
+      "tags": [
+        "forge-gateway",
+        "ai gateway",
+        "anthropic api",
+        "virtual keys",
+        "metering",
+        "fastapi",
+        "cost optimization",
+        "zero spend",
+        "bifrost"
       ]
     },
     {
@@ -172,7 +191,7 @@
         "context",
         "preview"
       ],
-      "mermaid": "```mermaid\ngraph TD\n    User([Developer / AI Agent])\n    CLI[forge CLI<br/>chat · ask · status · doctor]\n    Chat[ForgeChat REPL<br/>prompt-toolkit · Rich]\n    Router[RouterEngine<br/>intent classify → fallback chain]\n\n    subgraph Providers [10 LLM Providers]\n        P1[Groq — LLaMA 3.3 70B]\n        P2[Antigravity — Gemini Flash]\n        P3[Claude — Anthropic]\n        P4[OpenAI — GPT-4o]\n        P5[Codex — Code specialist]\n        P6[Hermes — Reasoning]\n        P7[Gemini — Google]\n        P8[Sakana AI]\n        P9[Copilot — GitHub]\n        P10[Ollama — Local / Offline]\n    end\n\n    subgraph Memory [Knowledge Base]\n        KB[FAISS IndexFlatIP<br/>768-dim cosine]\n        DB[(SQLite<br/>interactions · memories)]\n        EMB[nomic-embed-text<br/>via Ollama]\n    end\n\n    User --> CLI --> Chat --> Router\n    Router --> P1 & P2 & P3 & P4 & P5\n    Router --> P6 & P7 & P8 & P9 & P10\n    Router --> KB\n    KB --> DB\n    KB --> EMB\n    Router --> OBS[Observability<br/>per-provider quality scores]\n```"
+      "mermaid": "```mermaid\ngraph TD\n    User([Developer / AI Agent])\n    CLI[forge CLI<br/>chat · ask · status · doctor]\n    Chat[ForgeChat REPL<br/>prompt-toolkit · Rich]\n    Router[RouterEngine<br/>intent classify → fallback chain]\n\n    subgraph Providers [12 LLM Providers]\n        P1[Groq — LLaMA 3.3 70B]\n        P2[Antigravity — Gemini Flash]\n        P3[Claude — Anthropic]\n        P4[OpenAI — GPT-4o]\n        P5[Codex — Code specialist]\n        P6[Hermes — Reasoning]\n        P7[Gemini — Google]\n        P8[Sakana AI]\n        P9[Copilot — GitHub]\n        P10[Ollama — Local / Offline]\n    end\n\n    subgraph Memory [Knowledge Base]\n        KB[FAISS IndexFlatIP<br/>768-dim cosine]\n        DB[(SQLite<br/>interactions · memories)]\n        EMB[nomic-embed-text<br/>via Ollama]\n    end\n\n    User --> CLI --> Chat --> Router\n    Router --> P1 & P2 & P3 & P4 & P5\n    Router --> P6 & P7 & P8 & P9 & P10\n    Router --> KB\n    KB --> DB\n    KB --> EMB\n    Router --> OBS[Observability<br/>per-provider quality scores]\n```"
     },
     {
       "id": "project-forge-router-routing-table",
@@ -1141,6 +1160,92 @@
       ]
     },
     {
+      "id": "case-study-kubernetes-platform-engineering",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Kubernetes Multi-Region Platform Engineering — 19 Clusters, 7 Regions",
+      "body": "At Devo Technology, 19+ EKS clusters across 7 global regions (EU, US, US3, APAC, Santander, GCP/Telefonica, NCSC Bahrain) had drifted — inconsistent Helm chart versions, mixed manual kubectl changes alongside GitOps, no standard RBAC/namespace convention. Standardized all clusters onto a single ArgoCD App-of-Apps / ApplicationSet model: one generator produces one ArgoCD Application per region against the same Helm chart with region-specific values, automated + self-heal sync so manual drift gets reverted automatically, and a consistent RBAC/namespace-per-tenant template fleet-wide. Cluster add-ons (ingress, metrics-server, cert-manager) brought under the same Helm-managed lifecycle as workloads. Result: 100% ArgoCD-managed and self-healing (was mixed manual/GitOps), new service onboarding reduced to a single values-file change instead of a bespoke manifest per region, 7 of 7 regions under a standardized RBAC/namespace model.",
+      "tags": [
+        "kubernetes",
+        "eks",
+        "argocd",
+        "gitops",
+        "helm",
+        "multi-region",
+        "rbac",
+        "application set",
+        "case study"
+      ]
+    },
+    {
+      "id": "case-study-ai-gateway-rag-architecture",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: AI Gateway & RAG Architecture — Enterprise Retrieval Without Vendor Lock-In or PII Risk",
+      "body": "Design for enterprise knowledge retrieval (Confluence/GitLab/Jira sprawl) that avoids two risks of a single hardcoded LLM integration: confidential queries leaving the building, and single-vendor cost/availability lock-in. Pipeline: S3 to Lambda semantic chunker to SQS to Glue ETL, embeddings via Amazon Titan/OpenAI/BGE, OpenSearch Vector DB (HNSW), hybrid BM25+semantic retrieval fused via RRF, cross-encoder reranking on top-5. An AI Gateway governance layer sits between retrieval and generation: rate limiter, circuit breaker, a PII classifier that hard-routes confidential-classified queries to local Ollama only (never to an external provider), semantic cache (cosine >= 0.95 skips the LLM call entirely), token budget enforcer, prompt injection detector. Generation is handled by forge-router's multi-LLM routing rather than a single vendor, with Langfuse tracing and an async LLM-as-a-Judge quality pass. This is architecture-and-prototype work: each piece works independently and is documented, but there is no claim of months of measured production recall/precision over live enterprise traffic yet.",
+      "tags": [
+        "rag",
+        "ai gateway",
+        "hybrid search",
+        "bm25",
+        "opensearch",
+        "pii",
+        "multi-llm",
+        "langfuse",
+        "case study"
+      ]
+    },
+    {
+      "id": "case-study-onboarding-governance-ai-native-devops",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: Onboarding Governance & AI-Native DevOps (In Progress, Hitachi Group)",
+      "body": "Current, active focus at Hitachi Group since July 2026 (not a completed transformation — status will update as the work matures). Problem: large DevOps organizations accumulate monolithic practices over time — a single sprawling onboarding runbook instead of a modular checklist, manual steps that were automatable years ago, process knowledge living in individual engineers' heads. Three parallel threads: (1) onboarding governance — standardizing how new projects/teams/services get brought onto the platform via checklists and explicit approval gates rather than ad-hoc conversation; (2) modernizing monolithic DevOps practices — breaking legacy all-in-one runbooks into modular, independently-improvable steps, replacing manual steps that no longer earn their cost; (3) embedding AI-native processes into that lifecycle — AI-assisted review triage, auto-generated/kept-current runbooks and documentation, incident-triage context surfacing — with humans kept in the actual decision loop. Deliberate ordering: governance before automation before AI-native, since automating an ungoverned process just makes inconsistency happen faster.",
+      "tags": [
+        "devops governance",
+        "onboarding",
+        "ai-native",
+        "process modernization",
+        "automation",
+        "hitachi",
+        "case study",
+        "in progress"
+      ]
+    },
+    {
+      "id": "case-study-finops-cloud-cost-optimization",
+      "source": "Case Study",
+      "type": "case-study",
+      "heading": "Case Study: FinOps & Cloud Cost Optimization — Cutting an EC2 Bill 86.5% (Saturs)",
+      "body": "A client's file-drop web server (Saturs) ran on a 1000GB EC2 root volume against ~70GB of actual usage, plus ~950GB of accumulated EBS snapshots, a spare unused Elastic IP, and an idle t3.nano left running in us-east-1 from an abandoned experiment. June bill (incl. GST): Rs 29,977/month. Fix: migrated to a right-sized t3a.micro + 100GB gp3 instance (fresh instance + data migration, not volume surgery — an EBS snapshot's minimum restorable size is fixed to the source volume's provisioned size, so AMI-based shrinking is a dead end) plus a permanent S3 Intelligent-Tiering archive layer (15-day local retention, nightly verified-delete after byte-size-matched S3 upload) so the disk cannot silently regrow. Every piece of confirmed waste — oversized volume, stale snapshots, spare IP, idle cross-region instance — was decommissioned. Result: infrastructure-only cost cut ~86.5% (Rs 14,689 to Rs 1,970 net/month), steady-state total bill incl. GST from Rs 29,977 to about Rs 16,400/month, roughly Rs 1.5 lakh/year net savings, remaining bill now ~86% genuinely usage-driven data-transfer-out rather than waste.",
+      "tags": [
+        "finops",
+        "cost optimization",
+        "aws",
+        "ec2",
+        "s3",
+        "ebs",
+        "right-sizing",
+        "case study",
+        "saturs"
+      ]
+    },
+    {
+      "id": "profile-ai-forge-solutions-llp",
+      "source": "Profile",
+      "type": "profile",
+      "heading": "AI Forge Solutions LLP — Vikash's Own Venture",
+      "body": "Alongside his day job, Vikash runs AI Forge Solutions LLP — his own venture for AI-driven automation, DevOps consulting, and infrastructure engagements, still early-stage. It's the entity under which freelance client work gets delivered, including the Saturs AWS EC2/S3 cost-optimization engagement (infrastructure cost cut ~86.5%) featured among his projects. Tagline: Build, Automate, Intelligently.",
+      "tags": [
+        "ai forge solutions llp",
+        "venture",
+        "freelance",
+        "consulting",
+        "automation",
+        "profile"
+      ]
+    },
+    {
       "id": "profile-devo-madrid-siem-role",
       "source": "LinkedIn",
       "type": "profile",
@@ -1157,6 +1262,27 @@
         "production engineering",
         "career"
       ]
+    },
+    {
+      "id": "project-forge-sre-architecture",
+      "source": "forge-SRE",
+      "type": "architecture",
+      "heading": "forge-SRE — OpenTelemetry Collector Pipeline",
+      "body": "The OTel Collector runs as a DaemonSet on every EKS node and is the single ingestion hub, decoupling all instrumented sources (platform services via OTel SDK, AI workloads emitting tokens/TTFT/quality, Kubernetes via kubelet/cAdvisor/kube-state-metrics, AWS services via CloudWatch, CI/CD via Jenkins/ArgoCD events) from storage backends. Receivers: OTLP gRPC 4317, OTLP HTTP 4318, Prometheus scrape, filelog, CloudWatch. Processors: batch, memory_limiter (400MB), resource_detection (EKS+EC2 auto-tagging), tail_sampling (100% of error traces, 5% of success traces — an 85% storage reduction). Exporters fan out to Prometheus (30d metrics), Loki (structured JSON logs), and Tempo (7d distributed traces), all surfaced in Grafana as a single pane of glass: SLO burn-rate dashboards, DORA metrics (live via ArgoCD webhooks, no manual calculation), AI workload dashboards (cost/TTFT/quality), and Explore for log-to-trace correlation. Alert path: Prometheus Ruler evaluates burn-rate rules, Alertmanager handles routing/dedup/silence, fast-burn alerts go to PagerDuty and slow-burn to Slack. Dynatrace OneAgent runs as a complementary DaemonSet for deep APM.",
+      "tags": [
+        "forge-sre",
+        "opentelemetry",
+        "daemonset",
+        "tail sampling",
+        "prometheus",
+        "loki",
+        "tempo",
+        "grafana",
+        "burn-rate alerting",
+        "dora",
+        "architecture"
+      ],
+      "mermaid": "```mermaid\ngraph TD\n    subgraph Services [Instrumented Services]\n        APP1[Platform Services - OTel SDK Python / Node.js]\n        APP2[AI Workloads - LLM calls, tokens, TTFT, quality]\n        APP3[Kubernetes - kubelet, cAdvisor, kube-state-metrics]\n        APP4[AWS Services - CloudWatch EBS / RDS / Lambda]\n        APP5[CI/CD - Jenkins pipelines, ArgoCD sync events]\n    end\n\n    subgraph OTelPipeline [OpenTelemetry Collector - DaemonSet per node]\n        RCV[Receivers - OTLP gRPC 4317, OTLP HTTP 4318, Prometheus scrape, filelog, CloudWatch]\n        PROC[Processors - Batch, Memory Limiter 400MB, Resource Detection, Tail Sampling 100% errors / 5% success]\n        EXP[Exporters - Prometheus Remote Write, Loki Push, Tempo OTLP]\n        RCV --> PROC --> EXP\n    end\n\n    subgraph Storage [Telemetry Backends]\n        PROM[Prometheus - metrics - 30d retention]\n        LOKI[Loki - structured JSON logs]\n        TEMPO[Tempo - distributed traces - 7d retention]\n    end\n\n    subgraph Grafana [Grafana - Single Pane of Glass]\n        SLO[SLO Burn-Rate Dashboards]\n        DORA[DORA Metrics - live automated]\n        AI[AI Workload Dashboard - cost / TTFT / quality]\n        INFRA[Infrastructure - per cluster per region]\n        EXPLORE[Explore - log to trace correlation]\n    end\n\n    subgraph Alerting [Alert Pipeline]\n        RULER[Prometheus Ruler - burn-rate alert rules]\n        AM[Alertmanager - routing + dedup + silence]\n        PD[PagerDuty - fast burn - critical]\n        SLACK[Slack - slow burn - warning]\n    end\n\n    DYNA[Dynatrace OneAgent DaemonSet - deep APM complement]\n\n    Services --> OTelPipeline\n    EXP --> PROM & LOKI & TEMPO\n    PROM & LOKI & TEMPO --> Grafana\n    Services --> DYNA\n    PROM --> RULER --> AM --> PD & SLACK\n```"
     }
   ]
 }

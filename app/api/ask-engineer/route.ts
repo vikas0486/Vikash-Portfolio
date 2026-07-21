@@ -32,7 +32,21 @@ async function callGemini(systemPrompt: string, userQuestion: string): Promise<s
   }
 }
 
-// ── Template answer (no LLM key required) ─────────────────────────────────────
+// ── Template answer (no LLM key required) ──────────────────────────────────────
+//
+// Without an LLM, this can't truly synthesize — it's still retrieval underneath.
+// But it should read like a direct answer, not a raw dump of ranked chunks:
+// one clean paragraph from the single best-matching chunk, with light intent-
+// aware sentence extraction for common "where/what/how many" style questions,
+// and at most a one-line pointer to a second chunk if it's genuinely relevant.
+
+function splitSentences(text: string): string[] {
+  return text
+    .replace(/\s+/g, " ")
+    .split(/(?<=[.!?])\s+(?=[A-Z(])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
 function buildTemplateAnswer(question: string, results: SearchResult[]): string {
   if (results.length === 0) {
@@ -41,33 +55,54 @@ function buildTemplateAnswer(question: string, results: SearchResult[]): string 
 Try: "How do you design a multi-LLM routing system?" or "Tell me about your RAG experience."`;
   }
 
-  const top = results.slice(0, 3);
-  const lines: string[] = [];
+  const q = question.toLowerCase();
+  const top = results[0].chunk;
+  const sentences = splitSentences(top.body);
 
-  for (const { chunk } of top) {
-    lines.push(`${chunk.heading}`);
-    lines.push("─".repeat(Math.min(chunk.heading.length, 52)));
-    lines.push(chunk.body.slice(0, 480).trimEnd() + (chunk.body.length > 480 ? "…" : ""));
+  // Intent-aware extraction: if the question is asking about current role/company/
+  // location, prefer whichever sentence actually contains that fact over just
+  // taking the chunk's opening sentences.
+  const intents: { pattern: RegExp; keywords: RegExp }[] = [
+    { pattern: /where.*(work|works|working|employ)|current(ly)?\s*(role|company|job|employ)/, keywords: /currently.*(consultant|hitachi)|hitachi group/i },
+    { pattern: /where.*(live|located|based)/, keywords: /based in/i },
+    { pattern: /how many years|years of experience|how long/, keywords: /\d+\+?\s*years/i },
+    { pattern: /flagship|main project|best project/, keywords: /flagship/i },
+    { pattern: /contact|email|reach (him|you)|hire/, keywords: /contact|email|linkedin/i },
+  ];
 
-    if (chunk.type === "case-study") {
-      // Extract result line from case study
-      const resultMatch = chunk.body.match(/Result:(.+?)(?:\n|$)/);
-      if (resultMatch) {
-        lines.push(`\nKey outcome: ${resultMatch[1].trim()}`);
+  for (const { pattern, keywords } of intents) {
+    if (pattern.test(q)) {
+      const hit = sentences.find((s) => keywords.test(s));
+      if (hit) {
+        return hit;
       }
     }
-
-    const tools = chunk.tags
-      .filter((t) => /^[A-Z]/.test(t) || ["kubernetes", "terraform", "rag", "faiss", "qdrant", "aws", "eks", "lambda", "argocd"].includes(t.toLowerCase()))
-      .slice(0, 6);
-    if (tools.length > 0) {
-      lines.push(`\nTech: ${tools.join(" · ")}`);
-    }
-
-    lines.push("");
   }
 
-  return lines.join("\n").trim();
+  // Default: lead with the top chunk's most relevant sentences as one coherent
+  // paragraph, not a raw dump with headings/dividers/tag lists.
+  let answer = sentences.slice(0, 3).join(" ");
+  if (answer.length > 550) {
+    answer = answer.slice(0, 550).trimEnd() + "…";
+  }
+
+  // Case studies often end with a quantified result — surface it if it wasn't
+  // already included in the first 3 sentences.
+  if (top.type === "case-study") {
+    const resultMatch = top.body.match(/Result:?\s*(.+?)(?:\n|$)/i);
+    if (resultMatch && !answer.includes(resultMatch[1].slice(0, 30))) {
+      answer += `\n\nResult: ${resultMatch[1].trim()}`;
+    }
+  }
+
+  // A second chunk is only worth mentioning if it's meaningfully close in
+  // relevance — otherwise it's noise, not signal.
+  const second = results[1];
+  if (second && second.score > results[0].score * 0.65 && second.chunk.id !== top.id) {
+    answer += `\n\nAlso relevant: ${second.chunk.heading}`;
+  }
+
+  return answer;
 }
 
 // ── System prompt for LLM mode ─────────────────────────────────────────────────

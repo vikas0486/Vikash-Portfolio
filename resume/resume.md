@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-vikas0486-181717?style=flat&logo=github)](https://github.com/vikas0486)
 [![Medium](https://img.shields.io/badge/Medium-@vikash.jaiswal-12100E?style=flat&logo=medium)](https://medium.com/@vikash.jaiswal)
 
-> **Available · 15-Day Notice · Open to Remote / PAN India / Global Roles**
+> **Available · 90-Day Notice · Open to Remote / PAN India / Global Roles**
 
 ---
 
@@ -16,7 +16,7 @@
 
 Lead Platform Engineer and Principal DevOps Architect with **15+ years** of progressive experience spanning **Broadcast Operations → OTT/Media Engineering → Multi-Cloud Infrastructure → Site Reliability Engineering → Platform Engineering → Enterprise GenAI Systems**. Proven track record designing, operating, and modernizing large-scale production environments — from 450+ live television channels at Tata Sky to 19 Kubernetes clusters across 7 global regions at Devo Technology.
 
-Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router**, a production-ready multi-LLM gateway routing across 8 AI providers. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently **Consultant – Platform Engineering at Hitachi Group**, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows, while pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
+Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock that reduced engineer troubleshooting ramp-up by ~60%. Author of **forge-router** (flagship project), a production-ready multi-LLM AI Gateway routing across 12 AI providers with an Anthropic-compatible virtual-key gateway layer. Certified AWS Solutions Architect with deep expertise in Terraform (including **Custom Provider development via Plugin SDK**), GitOps, DevSecOps, observability engineering, and AI platform design. Currently **Consultant – Platform Engineering at Hitachi Group**, driving onboarding governance, modernizing legacy DevOps practices with AI-native processes, and building automation across enterprise workflows, while pursuing LLMOps, Agentic AI, RAG architectures, and AI Gateway design as the next platform frontier.
 
 ---
 
@@ -26,7 +26,7 @@ Builder of **AI FORGE**, an enterprise AI Agent Operating System on AWS Bedrock 
 |---|---|
 | **Experience** | 15+ years across Broadcast, OTT, Cloud, SRE, Platform Engineering, GenAI |
 | **Scale** | 19+ Kubernetes clusters · 7 global regions · 450+ live TV channels |
-| **AI Innovation** | Built AI FORGE (enterprise GenAI OS) + forge-router (multi-LLM gateway, 8 providers) |
+| **AI Innovation** | Built AI FORGE (enterprise GenAI OS) + forge-router (flagship multi-LLM AI Gateway, 12 providers) |
 | **Automation** | EBS storage incidents: 45-min manual → 3-min zero-touch Lambda automation |
 | **Efficiency** | ~60% reduction in engineer troubleshooting ramp-up via AI-assisted operations |
 | **IaC Depth** | Custom Terraform Provider development using Plugin SDK (rare, senior-level skill) |
@@ -444,7 +444,7 @@ flowchart TB
 
 ---
 
-### forge-router — Multi-LLM AI Gateway
+### forge-router — Flagship Project: Multi-LLM AI Gateway
 
 ```mermaid
 flowchart LR
@@ -705,7 +705,7 @@ flowchart TB
 | Project | Description | Links |
 |---|---|---|
 | **AI FORGE** | Enterprise AI Agent Operating System — Claude Code + AWS Bedrock | [GitHub](https://github.com/vikas0486/AI-Forge) |
-| **forge-router** | Multi-LLM AI Gateway — 8 providers, priority-sorted fallback chain | [GitHub](https://github.com/vikas0486/forge-router) |
+| **forge-router** | Flagship — Multi-LLM AI Gateway, 12 providers, Anthropic-compatible virtual-key gateway | [GitHub](https://github.com/vikas0486/forge-router) |
 | **Vikash Portfolio** | Production Next.js portfolio — TypeScript + Tailwind CSS + Framer Motion | [Live](https://vikash-portfolio.vercel.app) |
 | **Medium Articles** | Technical writing on DevOps, AI, Platform Engineering | [Medium](https://medium.com/@vikash.jaiswal) |
 
@@ -763,7 +763,7 @@ quadrantChart
 | **GitHub** | [github.com/vikas0486](https://github.com/vikas0486) |
 | **Medium** | [medium.com/@vikash.jaiswal](https://medium.com/@vikash.jaiswal) |
 | **Location** | Noida / Gurgaon / Delhi NCR, India |
-| **Availability** | 15 Days Notice · Open to Remote / PAN India |
+| **Availability** | 90 Days Notice · Open to Remote / PAN India |
 
 ---
 

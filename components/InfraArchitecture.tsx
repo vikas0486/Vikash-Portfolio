@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Network } from "lucide-react";
 
 const DIAGRAMS = [
   {
@@ -113,6 +114,103 @@ const DIAGRAMS = [
   CITpl --> K8s[Kubernetes Workloads]
   AWS --> K8s`,
   },
+  {
+    label: "Kubernetes Multi-Region",
+    chart: `flowchart TD
+  GIT[(Git Repo\nsource of truth)] --> AS[ArgoCD ApplicationSet\nApp-of-Apps · self-heal sync]
+  AS --> EU[EU Cluster]
+  AS --> US[US Cluster]
+  AS --> US3[US3 Cluster]
+  AS --> APAC[APAC Cluster]
+  AS --> SANT[Santander]
+  AS --> GCPC[GCP / Telefonica]
+  AS --> NCSC[NCSC Bahrain]
+  EU & US & US3 & APAC & SANT & GCPC & NCSC --> RBAC[Standardized RBAC\n+ Namespace Template]`,
+  },
+  {
+    label: "Forge Gateway",
+    chart: `flowchart LR
+  Req([Client Request\nPOST /v1/messages]) --> AUTH[Virtual Key\nSHA-256 hashed]
+  AUTH -->|invalid| REJECT[401 Rejected]
+  AUTH -->|valid| ALLOW[Model Allow-List\nCheck]
+  ALLOW --> METER[Usage Metering\nper-request]
+  METER --> ROUTER[forge-router\nIntent Classifier]
+  ROUTER --> PROVIDER[Cheapest Healthy\nProvider]
+  PROVIDER --> RESP[Response]`,
+  },
+  {
+    label: "forge-SRE · OTel Pipeline",
+    chart: `flowchart TD
+  subgraph SRC[Instrumented Services]
+    APP1[Platform Services\nOTel SDK]
+    APP2[AI Workloads\ntokens · TTFT · quality]
+    APP3[Kubernetes\nkubelet · cAdvisor · KSM]
+  end
+  subgraph COL[OTel Collector — DaemonSet]
+    RCV[Receivers\nOTLP gRPC/HTTP · scrape · filelog]
+    PRC[Processors\nBatch · MemLimit · TailSample]
+    EXP[Exporters\nPrometheus · Loki · Tempo]
+    RCV --> PRC --> EXP
+  end
+  subgraph STORE[Backends]
+    PROM[(Prometheus 30d)]
+    LOKI[(Loki logs)]
+    TEMPO[(Tempo 7d traces)]
+  end
+  subgraph ALERT[Burn-Rate Alerting]
+    RULER[Prometheus Ruler] --> AM[Alertmanager]
+    AM --> PD[PagerDuty\nfast-burn]
+    AM --> SLK[Slack\nslow-burn]
+  end
+  SRC --> COL
+  EXP --> PROM & LOKI & TEMPO
+  PROM --> RULER`,
+  },
+  {
+    label: "Production RAG System",
+    chart: `flowchart TD
+  KS[Confluence · GitLab ADRs\nJira Resolutions] --> CHK[Semantic Chunker\n~200 tokens]
+  CHK --> EMB[Embeddings\nTitan · OpenAI · BGE]
+  EMB --> DENSE[(OpenSearch\nHNSW Dense Vectors)]
+  EMB --> SPARSE[(BM25\nSparse Lexical)]
+  Q([Engineer Query]) --> GW[AI Gateway\nRate Limit · PII · Cache]
+  GW --> HS[Hybrid Search\nRRF Fusion]
+  DENSE & SPARSE --> HS --> RR[Cross-Encoder\nReranker Top-5]
+  RR --> GW --> ROUTER[Multi-LLM Router\nforge-router]
+  ROUTER --> OBS[Langfuse · LLM-as-Judge]`,
+  },
+  {
+    label: "EBS Auto-Remediation",
+    chart: `flowchart LR
+  CW[CloudWatch\nthreshold breach] --> SNS[SNS Topic]
+  SNS --> APIGW[API Gateway]
+  APIGW --> L[Lambda\nvalidate + identify volume]
+  L --> EBS[(EBS Volume\nModifyVolume)]
+  EBS --> XFS[XFS Resize\nxfs_growfs]
+  XFS --> SLACK[Slack\nconfirmation — after the fact]`,
+  },
+  {
+    label: "AI-ForgeStream",
+    chart: `flowchart TD
+  Client([API Client]) -->|POST /jobs/submit| API[FastAPI\nControl Plane Pod]
+  API -->|Create Job Spec| KubeAPI[Kubernetes\nControl Plane]
+  KubeAPI -->|Schedule| Worker[FFmpeg Worker\nJob Pod]
+  subgraph Storage
+    PVC[(media-storage PVC)]
+  end
+  API -->|Mount /data| PVC
+  Worker -->|Read source · Write HLS + metrics| PVC
+  Worker -->|Exit 0| KubeAPI`,
+  },
+  {
+    label: "Saturs · File Portal & Archive",
+    chart: `flowchart LR
+  FTP([Client FTP Source]) --> SYNC[Python Sync\n5-min cron]
+  SYNC -->|size-stable · PDF-only\nzip-merge| WEB[Apache Web Server\nBasic Auth]
+  WEB -->|15-day retention| ARCH[(S3 Intelligent-Tiering\nArchive)]
+  WEB -->|404 on /INPUT/...| CGI[restore.cgi\nfallback]
+  CGI --> ARCH`,
+  },
 ];
 
 function MermaidChart({ chart, id }: { chart: string; id: string }) {
@@ -161,13 +259,17 @@ export default function InfraArchitecture() {
 
   return (
     <>
-      <button
+      <motion.button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center gap-2 border border-zinc-700 hover:border-cyan-500 text-zinc-300 hover:text-cyan-300 font-semibold px-8 py-4 rounded-xl transition-colors duration-150 text-sm w-full sm:w-auto"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.97 }}
+        className="inline-flex items-center justify-center gap-3 border-2 border-cyan-500/50 hover:border-cyan-400 text-cyan-300 hover:text-white font-bold px-10 py-5 rounded-2xl transition-all duration-200 text-base w-full sm:w-auto shadow-lg shadow-cyan-900/30 hover:shadow-cyan-500/30"
+        style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.15), rgba(37,99,235,0.15))" }}
       >
+        <Network className="w-5 h-5" />
         Infra Architecture
-      </button>
+      </motion.button>
 
       <AnimatePresence>
         {open && (

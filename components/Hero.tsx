@@ -4,7 +4,9 @@ import { Variants } from "framer-motion";
 import { profile } from "@/lib/profile";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import ResumeDownload from "./ResumeDownload";
+import SkillSnapshot from "./SkillSnapshot";
 import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin, FaMedium } from "react-icons/fa";
 import { ArrowDownRight } from "lucide-react";
@@ -106,21 +108,23 @@ export default function Hero() {
             </motion.div>
 
             {/* Bio */}
-            <motion.p
+            <motion.div
               custom={3}
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              className="mt-8 max-w-2xl text-base md:text-lg text-zinc-400 leading-relaxed"
+              className="mt-8 max-w-2xl space-y-4 text-base md:text-lg text-zinc-400 leading-relaxed"
             >
-              {profile.summary}{" "}
-              Currently{" "}
-              <span className="text-white font-medium">
-                Consultant – Platform Engineering at Hitachi Group
-              </span>
-              , driving onboarding governance, modernizing legacy DevOps practices
-              with AI-native processes, and building automation across enterprise workflows.
-            </motion.p>
+              <p>{profile.summary}</p>
+              <p>
+                Currently{" "}
+                <span className="text-white font-medium">
+                  Consultant – Platform Engineering at Hitachi Group
+                </span>
+                , driving onboarding governance, modernizing legacy DevOps practices
+                with AI-native processes, and building automation across enterprise workflows.
+              </p>
+            </motion.div>
 
             {/* Location + Availability */}
             <motion.div
@@ -147,14 +151,24 @@ export default function Hero() {
               animate="show"
               className="flex flex-wrap gap-4 mt-10 items-center"
             >
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors duration-150"
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 border-2 border-violet-500/50 hover:border-violet-400 text-violet-300 hover:text-white font-bold px-6 py-3.5 rounded-2xl transition-all duration-200 shadow-lg shadow-violet-900/30 hover:shadow-violet-500/30"
+                style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(217,70,239,0.15))" }}
               >
                 View Projects
                 <ArrowDownRight className="w-4 h-4" />
-              </a>
+              </Link>
+              <Link
+                href="/engineering"
+                className="inline-flex items-center gap-2 border-2 border-violet-500/50 hover:border-violet-400 text-violet-300 hover:text-white font-bold px-6 py-3.5 rounded-2xl transition-all duration-200 shadow-lg shadow-violet-900/30 hover:shadow-violet-500/30"
+                style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(217,70,239,0.15))" }}
+              >
+                Engineering
+                <ArrowDownRight className="w-4 h-4" />
+              </Link>
               <ResumeDownload />
+              <SkillSnapshot />
             </motion.div>
 
             {/* Social Links */}
@@ -269,10 +283,11 @@ export default function Hero() {
                 }}
               >
                 <Image
-                  src="/vikash-photo.jpg"
+                  src="/vikash-portfolio-photo.jpg"
                   alt="Vikash Jaiswal"
                   fill
-                  className="object-contain object-top"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 12%" }}
                   priority
                 />
                 {/* Cyan infusion overlay at dissolve edge */}
