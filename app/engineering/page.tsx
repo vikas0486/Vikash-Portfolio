@@ -90,14 +90,13 @@ export default function Engineering() {
             </div>
           </motion.div>
 
-          {/* Right: logo only, bigger, height-matched to the left column */}
+          {/* Right: logo only, bigger, height-matched to the left column on desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="hidden lg:block"
           >
-            <div className="relative w-full h-full min-h-[280px] rounded-3xl overflow-hidden border border-cyan-500/20 shadow-xl shadow-cyan-900/10 bg-black">
+            <div className="relative w-full h-64 lg:h-full lg:min-h-[280px] rounded-3xl overflow-hidden border border-cyan-500/20 shadow-xl shadow-cyan-900/10 bg-black">
               <Image
                 src="/engineering-portfolio-logo.jpg"
                 alt="Engineering Portfolio Logo"

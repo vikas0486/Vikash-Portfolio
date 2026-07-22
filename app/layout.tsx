@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import FloatingChat from "@/components/FloatingChat";
 import "./globals.css";
@@ -34,6 +34,11 @@ export const metadata: Metadata = {
       "16+ years engineering enterprise-scale cloud platforms, Kubernetes infrastructure, and AI agent operating systems.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

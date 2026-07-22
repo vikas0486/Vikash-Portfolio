@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/#about", label: "About" },
@@ -16,6 +17,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,13 +25,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile menu on route/hash navigation
+  const closeMobile = () => setMobileOpen(false);
+
   return (
     <motion.header
       initial={{ y: -72, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || mobileOpen
           ? "bg-black/80 backdrop-blur-xl border-b border-zinc-800/50"
           : "bg-transparent"
       }`}
@@ -61,12 +66,55 @@ export default function Navbar() {
           </span>
           <Link
             href="/#contact"
-            className="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-150"
+            className="hidden md:inline-block bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-150"
           >
             Know Me
           </Link>
+
+          {/* Mobile hamburger toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className="md:hidden text-zinc-300 hover:text-white transition-colors"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu panel */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden overflow-hidden bg-black/95 backdrop-blur-xl border-b border-zinc-800/50"
+          >
+            <nav className="flex flex-col px-6 py-4 gap-1">
+              {NAV_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={closeMobile}
+                  className="text-zinc-300 hover:text-white text-base font-medium py-3 border-b border-zinc-800/60 last:border-b-0 transition-colors duration-150"
+                >
+                  {label}
+                </Link>
+              ))}
+              <Link
+                href="/#contact"
+                onClick={closeMobile}
+                className="mt-4 text-center bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-4 py-3 rounded-lg transition-colors duration-150"
+              >
+                Know Me
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

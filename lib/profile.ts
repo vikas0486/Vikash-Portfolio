@@ -7,6 +7,7 @@ export const profile = {
   },
 
   roles: [
+    "Consultant – Platform Engineering",
     "Lead Platform Engineer",
     "Principal DevOps Engineer",
     "AWS Cloud Architect",

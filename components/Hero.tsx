@@ -199,6 +199,25 @@ export default function Hero() {
                 {profile.identity.location}
               </span>
             </motion.div>
+
+            {/* ── Mobile photo — simple version; the full decorative composition (rings/badges) is lg-only ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="lg:hidden flex justify-center mt-10"
+            >
+              <div className="relative w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden border-2 border-cyan-500/30 shadow-xl shadow-cyan-900/20">
+                <Image
+                  src="/vikash-portfolio-photo.jpg"
+                  alt="Vikash Jaiswal"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "50% 12%" }}
+                  priority
+                />
+              </div>
+            </motion.div>
           </div>
 
           {/* ── Right: Photo ── */}
