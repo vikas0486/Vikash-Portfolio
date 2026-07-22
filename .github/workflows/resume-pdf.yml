@@ -8,6 +8,7 @@ on:
       - "resume/resume.md"
       - "resume/resume-professional.md"
       - "build-scripts/generate-resume-pdf.js"
+  workflow_dispatch: {}
 
 permissions:
   contents: write
