@@ -66,28 +66,38 @@ export default function Engineering() {
           ← Back to Home
         </Link>
 
-        {/* HEADER + LOGO */}
-        <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-center mb-10">
+        {/* HEADER + LOGO — left half: heading/desc/Dive Deeper stacked; right half: logo, height-matched */}
+        <div className="grid lg:grid-cols-2 gap-10 items-stretch mb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col justify-center gap-6"
           >
-            <h1 className="text-5xl font-bold text-white mb-4">
-              Engineering Case Studies
-            </h1>
-            <p className="text-zinc-400 max-w-2xl">
-              A structured breakdown of real-world DevOps, Cloud, and Platform Engineering scenarios.
-            </p>
+            <div>
+              <h1 className="text-5xl font-bold text-white mb-4">
+                Engineering Case Studies
+              </h1>
+              <p className="text-zinc-400 max-w-2xl">
+                A structured breakdown of real-world DevOps, Cloud, and Platform Engineering scenarios.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-start gap-3 pt-4 border-t border-zinc-800/60">
+              <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest">
+                Dive Deeper
+              </p>
+              <InfraArchitecture />
+            </div>
           </motion.div>
 
-          {/* Right: logo only */}
+          {/* Right: logo only, bigger, height-matched to the left column */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="hidden lg:block lg:justify-self-end"
+            className="hidden lg:block"
           >
-            <div className="relative w-40 h-40 rounded-2xl overflow-hidden border border-cyan-500/20 shadow-xl shadow-cyan-900/10 bg-black">
+            <div className="relative w-full h-full min-h-[280px] rounded-3xl overflow-hidden border border-cyan-500/20 shadow-xl shadow-cyan-900/10 bg-black">
               <Image
                 src="/engineering-portfolio-logo.jpg"
                 alt="Engineering Portfolio Logo"
@@ -97,14 +107,6 @@ export default function Engineering() {
               />
             </div>
           </motion.div>
-        </div>
-
-        {/* DIVE DEEPER — squeezed, its own compact section */}
-        <div className="flex flex-col items-center gap-3 py-4 mb-10 border-y border-zinc-800/60">
-          <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest">
-            Dive Deeper
-          </p>
-          <InfraArchitecture />
         </div>
 
         {/* GRID — full width */}

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const EXPERIENCE = [
   {
@@ -104,6 +105,8 @@ const EXPERIENCE = [
 ];
 
 export default function Timeline() {
+  const [expanded, setExpanded] = useState<number | null>(0);
+
   return (
     <section id="experience" className="bg-zinc-950 py-28 px-6">
       <div className="max-w-5xl mx-auto">
@@ -132,58 +135,89 @@ export default function Timeline() {
           {/* Vertical line */}
           <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-800" />
 
-          <div className="space-y-12">
-            {EXPERIENCE.map((job, i) => (
-              <motion.div
-                key={`${job.company}-${i}`}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="relative pl-10"
-              >
-                {/* Dot */}
-                <div className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-cyan-400 -translate-x-0.5" />
+          <div className="space-y-6">
+            {EXPERIENCE.map((job, i) => {
+              const isOpen = expanded === i;
 
-                {/* Period */}
-                <div className="text-xs font-mono text-zinc-500 mb-2">{job.period}</div>
+              return (
+                <motion.div
+                  key={`${job.company}-${i}`}
+                  initial={{ opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="relative pl-10"
+                >
+                  {/* Dot */}
+                  <div className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-cyan-400 -translate-x-0.5" />
 
-                {/* Role + company */}
-                <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-white">{job.role}</h3>
-                  <span className="text-zinc-600">·</span>
-                  <span className="text-cyan-400 font-semibold text-sm">{job.company}</span>
-                </div>
-                <div className="text-xs text-zinc-600 mb-4">
-                  {job.location} · {job.type}
-                </div>
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(isOpen ? null : i)}
+                    className="w-full text-left group"
+                  >
+                    {/* Period */}
+                    <div className="text-xs font-mono text-zinc-500 mb-2">{job.period}</div>
 
-                {/* Bullets */}
-                <ul className="space-y-2 mb-5">
-                  {job.bullets.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-start gap-2 text-sm text-zinc-400 leading-relaxed"
-                    >
-                      <span className="mt-2 w-1 h-1 rounded-full bg-zinc-600 flex-shrink-0" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                    {/* Role + company */}
+                    <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+                      <div className="flex flex-wrap items-baseline gap-2">
+                        <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
+                          {job.role}
+                        </h3>
+                        <span className="text-zinc-600">·</span>
+                        <span className="text-cyan-400 font-semibold text-sm">{job.company}</span>
+                      </div>
+                      <span className="text-zinc-600 text-lg leading-none">
+                        {isOpen ? "−" : "+"}
+                      </span>
+                    </div>
+                    <div className="text-xs text-zinc-600">
+                      {job.location} · {job.type}
+                    </div>
+                  </button>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {job.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs font-mono text-zinc-500 bg-zinc-800/70 border border-zinc-700/60 px-2.5 py-1 rounded-md"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4">
+                          {/* Bullets */}
+                          <ul className="space-y-2 mb-5">
+                            {job.bullets.map((b) => (
+                              <li
+                                key={b}
+                                className="flex items-start gap-2 text-sm text-zinc-400 leading-relaxed"
+                              >
+                                <span className="mt-2 w-1 h-1 rounded-full bg-zinc-600 flex-shrink-0" />
+                                {b}
+                              </li>
+                            ))}
+                          </ul>
+
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2">
+                            {job.tags.map((t) => (
+                              <span
+                                key={t}
+                                className="text-xs font-mono text-zinc-500 bg-zinc-800/70 border border-zinc-700/60 px-2.5 py-1 rounded-md"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

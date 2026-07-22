@@ -7,20 +7,20 @@ export default function ResumeDownload() {
         href="/resume-professional.pdf"
         target="_blank"
         download
-        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:scale-105 transition"
+        className="inline-flex items-center gap-2 border-2 border-violet-500/50 hover:border-violet-400 text-violet-300 hover:text-white font-bold px-6 py-3.5 rounded-2xl transition-all duration-200 shadow-lg shadow-violet-900/30 hover:shadow-violet-500/30"
+        style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(217,70,239,0.15))" }}
       >
         📄 Professional Resume
-        <span className="text-xs font-normal opacity-80">ATS · 3–4 pages</span>
       </a>
 
       <a
         href="/resume-detailed.pdf"
         target="_blank"
         download
-        className="inline-flex items-center gap-2 px-6 py-3 border border-cyan-500/60 text-cyan-300 rounded-xl hover:bg-cyan-500/10 hover:scale-105 transition"
+        className="inline-flex items-center gap-2 border-2 border-violet-500/50 hover:border-violet-400 text-violet-300 hover:text-white font-bold px-6 py-3.5 rounded-2xl transition-all duration-200 shadow-lg shadow-violet-900/30 hover:shadow-violet-500/30"
+        style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(217,70,239,0.15))" }}
       >
         📑 Detailed Resume
-        <span className="text-xs font-normal opacity-70">Full · 8–10 pages</span>
       </a>
     </div>
   );

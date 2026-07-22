@@ -1058,18 +1058,23 @@ Knowledge Base Refresh
 
 ## V4
 
-Planned:
+Completed:
 
 ```text
-Build-Time RAG
-
-AI Search
-
-MiniSearch
-
-Embeddings
-
-Static Retrieval
+Role Update — Consultant Platform Engineering @ Hitachi Group
+Saturs Project Added
+forge-router Flagship + Forge Gateway Highlight
+Dedicated Projects Page
+ArchForge Popup Chat (Site-Wide, Replaces Engineering-Only Chat)
+Smarter Chat Answers (Static Retrieval, No LLM Key Required)
+4 New Engineering Case Studies
+13 Architecture Diagrams
+Live Terminal Project List + Provider Status
+forge-kb Knowledge Base Reconciliation
+AI Forge Solutions LLP Section
+Engineering Page Redesign
+Hero CTA Cleanup
+Resume Notice Period Fix
 ```
 
 ---
@@ -1079,13 +1084,11 @@ Static Retrieval
 Planned:
 
 ```text
-Ask Vikash AI
-
 Interview Assistant
 
-Architecture Discussions
+Real LLM Synthesis (GEMINI_API_KEY)
 
-Enterprise Knowledge Base
+Mobile Responsiveness Pass (Dive Deeper / Logo Layout)
 ```
 
 ---
