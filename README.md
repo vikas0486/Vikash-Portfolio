@@ -1072,7 +1072,7 @@ Smarter Chat Answers (Static Retrieval, No LLM Key Required)
 Live Terminal Project List + Provider Status
 forge-kb Knowledge Base Reconciliation
 AI Forge Solutions LLP Section
-Engineering Page Redesign
+Engineering Page Redesign (Chat Removed, Logo Added)
 Hero CTA Cleanup
 Resume Notice Period Fix
 ```
@@ -1081,14 +1081,27 @@ Resume Notice Period Fix
 
 ## V5
 
+Completed:
+
+```text
+Generate Resume PDF CI/CD Fix (Workflow Permissions)
+Compact Accordions — Experience & Projects (Click to Expand)
+Engineering Page Layout Refinement (Dive Deeper + Logo Height-Matched)
+Resume Button Restyle (Matches Capability Report)
+Mobile Responsiveness Overhaul (Viewport, Nav Menu, Hero Photo, Engineering Logo)
+Rotating Role Title Added (Consultant – Platform Engineering)
+```
+
+---
+
+## V6
+
 Planned:
 
 ```text
 Interview Assistant
 
 Real LLM Synthesis (GEMINI_API_KEY)
-
-Mobile Responsiveness Pass (Dive Deeper / Logo Layout)
 ```
 
 ---
